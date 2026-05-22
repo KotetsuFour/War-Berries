@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &260869737257899405
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5168208486784224078}
+  - component: {fileID: 8563862409155560535}
+  m_Layer: 0
+  m_Name: WorldMapDisplay
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5168208486784224078
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 260869737257899405}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8563862409155560535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 260869737257899405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0cf6e109924b2346a000932e75e77e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldMapDisplay
+  tile: {fileID: 9121803754255488000, guid: 9505822b79c672e4a9996a33b6ca6676, type: 3}
+  plain: {fileID: 2100000, guid: 36c1e74c3d7426e42b453f8126ae7109, type: 2}
+  desert: {fileID: 2100000, guid: d21355dfade87f74e91e15744cd1150d, type: 2}
+  forest: {fileID: 2100000, guid: 9650fc547520fcd4ba9038789d2542a2, type: 2}
+  dense_forest: {fileID: 2100000, guid: b9494593bd524c243af91515c354fd59, type: 2}
+  mountain: {fileID: 2100000, guid: c2bb67e783c634848bd428c94d48dc80, type: 2}
+  shallow_water: {fileID: 2100000, guid: 71e07a9aa5f851845b347776d7002396, type: 2}
+  deep_water: {fileID: 2100000, guid: dfbb07855f9f84845bf03d860c256e15, type: 2}
+  snowy_plain: {fileID: 2100000, guid: b75a30def48dafb4094de5f9b7584627, type: 2}
+  snowy_mountain: {fileID: 2100000, guid: 81c68c6a96e5d7b4b84318f508f945ec, type: 2}
+  swamp: {fileID: 2100000, guid: 24cbe976ff707f247be64d09dab4509a, type: 2}
+  wasteland: {fileID: 2100000, guid: 2ece465f04dde2847a13e7215ce4be66, type: 2}
+  glacier: {fileID: 2100000, guid: f5a889bd141ac7b4d954e2988e02fbc0, type: 2}
+  movableHighlight: {fileID: 2100000, guid: cb0ad1e8bd0b31a44b0ba161d0875292, type: 2}
+  attackableHighlight: {fileID: 2100000, guid: 4aeed6b245d41fd4fb6bd986009a33e9, type: 2}
+  interactableHighlight: {fileID: 2100000, guid: 6acaa4293d454a84eb86dfda51c51729, type: 2}

@@ -1,0 +1,499 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5331729052734182877
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4465077292769766516}
+  - component: {fileID: 6620379077924544373}
+  - component: {fileID: -1114037436798521011}
+  m_Layer: 0
+  m_Name: GenericPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4465077292769766516
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5331729052734182877}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6620379077924544373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5331729052734182877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a4b62c974e682d4c951229c48223955, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player
+--- !u!114 &-1114037436798521011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5331729052734182877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
+  m_Actions: {fileID: -944628639613478452, guid: af02de9eaa3ae944096c28d539fa9cd9, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6620379077924544373}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: lostConnection
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6620379077924544373}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: regainedConnection
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6620379077924544373}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: changedConnection
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6620379077924544373}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: aButton
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 60bd1347-2839-4607-8abd-f590ea67c238
+    m_ActionName: 'Player/AButton[/Nintendo Wireless Gamepad/button2,/SwitchProControllerHID/buttonEast]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6620379077924544373}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: bButton
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 76289972-e1eb-4ac2-8be5-3a94a236bc39
+    m_ActionName: 'Player/BButton[/Nintendo Wireless Gamepad/trigger,/SwitchProControllerHID/buttonSouth]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6620379077924544373}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: xButton
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7eac08b4-1d35-4135-85b6-aad4569648c5
+    m_ActionName: 'Player/XButton[/Nintendo Wireless Gamepad/button4,/SwitchProControllerHID/buttonNorth]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6620379077924544373}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: yButton
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 76ada851-b027-4726-aaa7-cdf2c87234cf
+    m_ActionName: 'Player/YButton[/Nintendo Wireless Gamepad/button3,/SwitchProControllerHID/buttonWest]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6620379077924544373}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: upButton
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7968fde4-1f6b-4b9a-acc5-88dc9181a695
+    m_ActionName: 'Player/UPButton[/Nintendo Wireless Gamepad/hat/up,/SwitchProControllerHID/dpad/up]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6620379077924544373}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: downButton
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2300e057-b489-4205-a737-34971a8bcca3
+    m_ActionName: 'Player/DOWNButton[/Nintendo Wireless Gamepad/hat/down,/SwitchProControllerHID/dpad/down]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6620379077924544373}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: rightButton
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 0491591d-543f-4f64-9ec3-09fa0c7795e0
+    m_ActionName: 'Player/RIGHTButton[/Nintendo Wireless Gamepad/hat/right,/SwitchProControllerHID/dpad/right]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6620379077924544373}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: leftButton
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 355dbd83-6bfa-4e26-9bba-3b5dbff20715
+    m_ActionName: 'Player/LEFTButton[/Nintendo Wireless Gamepad/hat/left,/SwitchProControllerHID/dpad/left]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6620379077924544373}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: r1
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ffabf71d-20ae-450c-98bc-df3995b7b467
+    m_ActionName: 'Player/R1Button[/Nintendo Wireless Gamepad/button6,/SwitchProControllerHID/rightShoulder]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6620379077924544373}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: r2
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 0979f40a-184d-4542-b2ca-265c4a907d37
+    m_ActionName: 'Player/R2Button[/Nintendo Wireless Gamepad/button8,/SwitchProControllerHID/rightTrigger]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6620379077924544373}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: l1
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c4b1ccb9-d0fc-47e8-92f5-c79a25c95294
+    m_ActionName: 'Player/L1Button[/Nintendo Wireless Gamepad/button5,/SwitchProControllerHID/leftShoulder]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6620379077924544373}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: l2
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c09c2089-a2ee-4f86-b8c5-9e0e60f2356d
+    m_ActionName: 'Player/L2Button[/Nintendo Wireless Gamepad/button7,/SwitchProControllerHID/leftTrigger]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6620379077924544373}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: home
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8f8d574a-9893-499e-9805-f06d101c1b6a
+    m_ActionName: 'Player/HOME[/Nintendo Wireless Gamepad/button13,/SwitchProControllerHID/home]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6620379077924544373}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: plus
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5e3d6f95-6795-487c-9742-7b1f5987848a
+    m_ActionName: 'Player/PLUS[/Nintendo Wireless Gamepad/button10,/SwitchProControllerHID/start,/Keyboard/equals]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6620379077924544373}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: minus
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 56a83cf8-6b4c-4773-bbc1-a86a3299f139
+    m_ActionName: 'Player/MINUS[/Nintendo Wireless Gamepad/button9,/SwitchProControllerHID/select,/Keyboard/backspace]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6620379077924544373}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: extra
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 06567987-5846-4c2a-9567-6dde975932a5
+    m_ActionName: 'Player/CAPTURE[/Nintendo Wireless Gamepad/button14,/SwitchProControllerHID/capture]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6620379077924544373}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: rPress
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7f0a795e-1be3-4ef7-9c97-604ff09b1810
+    m_ActionName: 'Player/RStickPress[/Nintendo Wireless Gamepad/button12,/SwitchProControllerHID/rightStickPress]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6620379077924544373}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: rightMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: baab91a8-b656-4a7c-9143-37c8a2670721
+    m_ActionName: 'Player/RStick[/SwitchProControllerHID/rightStick/y,/SwitchProControllerHID/rightStick/x,/Nintendo
+      Wireless Gamepad/ry,/Nintendo Wireless Gamepad/rx,/Mouse/delta/y,/Mouse/delta/x]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6620379077924544373}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: leftMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 05bb273b-8a32-42c3-bbfa-1d632d36be3b
+    m_ActionName: 'Player/LStick[/SwitchProControllerHID/leftStick/y,/SwitchProControllerHID/leftStick/x,/Nintendo
+      Wireless Gamepad/stick/y,/Nintendo Wireless Gamepad/stick/x,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6620379077924544373}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: lPress
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 35f55dc1-d37e-4a3e-96f0-1778b379f078
+    m_ActionName: 'Player/LStickPress[/Nintendo Wireless Gamepad/trigger,/SwitchProControllerHID/leftStickPress]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6620379077924544373}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: mouseLeft
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 279b6dd5-8749-41c7-a85d-4599aab1ecec
+    m_ActionName: 'Player/MouseLeft[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6620379077924544373}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: mouseRight
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 88577934-7f96-404c-bce3-4e16b66d2c2b
+    m_ActionName: 'Player/MouseRight[/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6620379077924544373}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: mouseMiddle
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2b273141-ac09-4a0b-95d4-7e2b690c560e
+    m_ActionName: 'Player/MouseWheelPress[/Mouse/middleButton]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6620379077924544373}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: mouseScroll
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2596636e-5fc4-45ec-8853-a4b529b38b2d
+    m_ActionName: 'Player/MouseScroll[/Mouse/scroll/down,/Mouse/scroll/up]'
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: NSW
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}

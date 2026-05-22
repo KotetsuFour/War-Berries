@@ -1,0 +1,1731 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Syllabore</name>
+    </assembly>
+    <members>
+        <member name="T:Syllabore.DefaultSyllableGenerator">
+            <summary>
+            The default syllable provider used by a vanilla instance
+            of <see cref="T:Syllabore.NameGenerator"/>.
+            </summary>
+        </member>
+        <member name="M:Syllabore.DefaultSyllableGenerator.#ctor">
+            <summary>
+            Instantiates a new <see cref="T:Syllabore.DefaultSyllableGenerator"/>
+            containing a subset of consonants and vowels from the English
+            language. See further details in the wiki at
+            <a href="https://github.com/kesac/Syllabore/wiki/DefaultSyllableGenerator">
+            https://github.com/kesac/Syllabore/wiki/DefaultSyllableGenerator</a>.
+            </summary>
+        </member>
+        <member name="T:Syllabore.DefaultNameTransformer">
+            <summary>
+            <b>Deprecated</b>. This transformer was originally used to 
+            create variations of names by replacing one syllable
+            with another syllable. Syllables were derived from 
+            <see cref="T:Syllabore.DefaultSyllableGenerator"/>.
+            </summary>
+        </member>
+        <member name="M:Syllabore.DefaultNameTransformer.#ctor">
+            <summary>
+            Deprecated. No longer used.
+            </summary>
+        </member>
+        <member name="T:Syllabore.ISyllableProvider">
+            <summary>
+            Deprecated. Use <see cref="T:Syllabore.ISyllableGenerator"/> instead.
+            </summary>
+        </member>
+        <member name="T:Syllabore.NameTransformer">
+            <summary>
+            Deprecated. Use <see cref="T:Syllabore.TransformSet"/> instead.
+            </summary>
+        </member>
+        <member name="T:Syllabore.SyllableProvider">
+            <summary>
+            Deprecated. Use <see cref="T:Syllabore.SyllableGenerator"/> instead.
+            </summary>
+        </member>
+        <member name="T:Syllabore.GeneratorProbability">
+            <summary>
+            Contains the probability settings of a <see cref="T:Syllabore.SyllableGenerator"/>.
+            </summary>
+        </member>
+        <member name="P:Syllabore.GeneratorProbability.ChanceStartingSyllableLeadingVowelExists">
+            <summary>
+            The probability that a leading vowel exists in the starting syllable. In other
+            words, this is the probability that a name starts with a vowel rather than a consonant.
+            </summary>
+        </member>
+        <member name="P:Syllabore.GeneratorProbability.ChanceStartingSyllableLeadingVowelIsSequence">
+            <summary>
+            The probability that a leading vowel in the starting syllable is a sequence. In other
+            words, this is the probability that a name starts with a vowel sequence rather than a consonant.
+            </summary>
+        </member>
+        <member name="P:Syllabore.GeneratorProbability.ChanceLeadingConsonantExists">
+            <summary>
+            The probability that a leading consonant exists in a syllable. A leading
+            consonant is a consonant that appears before a vowel in a syllable.
+            </summary>
+        </member>
+        <member name="P:Syllabore.GeneratorProbability.ChanceLeadingConsonantIsSequence">
+            <summary>
+            The probability that a leading consonant in a syllable is a sequence. A leading
+            consonant sequence is a consonant sequence that appears before a vowel in a syllable.
+            </summary>
+        </member>
+        <member name="P:Syllabore.GeneratorProbability.ChanceVowelExists">
+            <summary>
+            The probability that a vowel exists in a syllable.
+            </summary>
+        </member>
+        <member name="P:Syllabore.GeneratorProbability.ChanceVowelIsSequence">
+            <summary>
+            The probability that a vowel in a syllable is a sequence.
+            </summary>
+        </member>
+        <member name="P:Syllabore.GeneratorProbability.ChanceTrailingConsonantExists">
+            <summary>
+            The probability that a trailing consonant exists in a syllable. A trailing
+            consonant is a consonant that appears after a vowel in a syllable.
+            </summary>
+        </member>
+        <member name="P:Syllabore.GeneratorProbability.ChanceTrailingConsonantIsSequence">
+            <summary>
+            The probability that a trailing consonant in a syllable is a sequence. A trailing
+            consonant is a consonant that appears after a vowel in a syllable.
+            </summary>
+        </member>
+        <member name="P:Syllabore.GeneratorProbability.ChanceFinalConsonantExists">
+            <summary>
+            The probability that a final consonant exists in a syllable. Final consonants
+            are the same as trailing consonants excecpt they only appear in the final
+            syllable of a name.
+            </summary>
+        </member>
+        <member name="P:Syllabore.GeneratorProbability.ChanceFinalConsonantIsSequence">
+            <summary>
+            The probability that a final consonant in a syllable is a sequence. Final consonants
+            are the same as trailing consonants excecpt they only appear in the final
+            syllable of a name.
+            </summary>
+        </member>
+        <member name="T:Syllabore.GeneratorProbabilityBuilder">
+            <summary>
+            An intermediate class used to build a <see cref="T:Syllabore.GeneratorProbability"/>.
+            </summary>
+        </member>
+        <member name="M:Syllabore.GeneratorProbabilityBuilder.#ctor">
+            <summary>
+            Creates a new instance of <see cref="T:Syllabore.GeneratorProbabilityBuilder"/>.
+            </summary>
+        </member>
+        <member name="M:Syllabore.GeneratorProbabilityBuilder.#ctor(Syllabore.GeneratorProbability)">
+            <summary>
+            Creates a new instance of <see cref="T:Syllabore.GeneratorProbabilityBuilder"/> with the
+            specified <see cref="T:Syllabore.GeneratorProbability"/> as a starting point.
+            </summary>
+        </member>
+        <member name="M:Syllabore.GeneratorProbabilityBuilder.OfLeadingVowelsInStartingSyllable(System.Double)">
+            <summary>
+            Sets the probability that a leading vowel exists in the starting syllable.
+            </summary>
+        </member>
+        <member name="M:Syllabore.GeneratorProbabilityBuilder.OfLeadingVowelsInStartingSyllable(System.Double,System.Double)">
+            <summary>
+            Sets the probability that a leading vowel exists in the starting syllable
+            and the probability that the vowel is a sequence.
+            </summary>
+        </member>
+        <member name="M:Syllabore.GeneratorProbabilityBuilder.OfLeadingConsonants(System.Double)">
+            <summary>
+            Sets the probability that a leading consonant exists within any syllable.
+            </summary>
+        </member>
+        <member name="M:Syllabore.GeneratorProbabilityBuilder.OfLeadingConsonants(System.Double,System.Double)">
+            <summary>
+            Sets the probability that a leading consonant exists within any syllable
+            and the probability the consonant is a sequence.
+            </summary>
+        </member>
+        <member name="M:Syllabore.GeneratorProbabilityBuilder.OfVowels(System.Double)">
+            <summary>
+            Sets the probability that a vowel exists within any syllable.
+            </summary>
+        </member>
+        <member name="M:Syllabore.GeneratorProbabilityBuilder.OfVowels(System.Double,System.Double)">
+            <summary>
+            Sets the probability that a vowel exists within any syllable
+            and the probability that the vowel is a sequence.
+            </summary>
+        </member>
+        <member name="M:Syllabore.GeneratorProbabilityBuilder.OfTrailingConsonants(System.Double)">
+            <summary>
+            Sets the probability that a trailing consonant exists within any syllable.
+            </summary>
+        </member>
+        <member name="M:Syllabore.GeneratorProbabilityBuilder.OfTrailingConsonants(System.Double,System.Double)">
+            <summary>
+            Sets the probability that a trailing consonant exists within any syllable
+            and the probability that the consonant is a sequence.
+            </summary>
+        </member>
+        <member name="M:Syllabore.GeneratorProbabilityBuilder.OfFinalConsonants(System.Double)">
+            <summary>
+            Sets the probability that a final consonant exists within an ending syllable.
+            </summary>
+        </member>
+        <member name="M:Syllabore.GeneratorProbabilityBuilder.OfFinalConsonants(System.Double,System.Double)">
+            <summary>
+            Sets the probability that a final consonant exists within an ending syllable
+            and the probability that the final consonant is a sequence.
+            </summary>
+        </member>
+        <member name="M:Syllabore.GeneratorProbabilityBuilder.OfLeadingVowelIsSequenceInStartingSyllable(System.Double)">
+            <summary>
+            Sets the probability that a leading vowel is a sequence in the starting syllable.
+            </summary>
+        </member>
+        <member name="M:Syllabore.GeneratorProbabilityBuilder.OfLeadingConsonantIsSequence(System.Double)">
+            <summary>
+            Sets the probability that a leading consonant in any syllable is a consonant sequence.
+            </summary>
+        </member>
+        <member name="M:Syllabore.GeneratorProbabilityBuilder.OfVowelIsSequence(System.Double)">
+            <summary>
+            Sets the probability that a vowel in any syllable is a vowel sequence.
+            </summary>
+        </member>
+        <member name="M:Syllabore.GeneratorProbabilityBuilder.OfTrailingConsonantIsSequence(System.Double)">
+            <summary>
+            Sets the probability that a trailing consonant in any syllable is a consonant sequence.
+            </summary>
+        </member>
+        <member name="M:Syllabore.GeneratorProbabilityBuilder.OfFinalConsonantIsSequence(System.Double)">
+            <summary>
+            Sets the probability that a trailing consonant in any syllable is a consonant sequence.
+            </summary>
+        </member>
+        <member name="M:Syllabore.GeneratorProbabilityBuilder.ToProbability">
+            <summary>
+            Returns a new instance of <see cref="T:Syllabore.GeneratorProbability"/> with the values built
+            through this <see cref="T:Syllabore.GeneratorProbabilityBuilder"/>.
+            </summary>
+        </member>
+        <member name="T:Syllabore.Grapheme">
+            <summary>
+            <para>
+            A <see cref="T:Syllabore.Grapheme"/> is an indivisible unit of a 
+            writing system. In Syllabore, <see cref="T:Syllabore.Grapheme">Graphemes</see> 
+            are used to represent vowels, consonants, or sequences.
+            <see cref="T:Syllabore.Grapheme">Graphemes</see> are used directly by 
+            <see cref="T:Syllabore.SyllableGenerator">SyllableGenerators</see>
+            when constructing syllables.
+            </para>
+            </summary>
+        </member>
+        <member name="P:Syllabore.Grapheme.Value">
+            <summary>
+            The vowel, consonant, or sequence that 
+            this <see cref="T:Syllabore.Grapheme"/> represents.
+            </summary>
+        </member>
+        <member name="P:Syllabore.Grapheme.Weight">
+            <summary>
+            The weight of occurrence for this
+            <see cref="T:Syllabore.Grapheme"/>. By default the
+            value is 1.
+            </summary>
+        </member>
+        <member name="M:Syllabore.Grapheme.#ctor(System.String)">
+            <summary>
+            Instantiates a new <see cref="T:Syllabore.Grapheme"/> with the specified value.
+            </summary>
+        </member>
+        <member name="M:Syllabore.Grapheme.ToString">
+            <summary>
+            Returns a string representation of this <see cref="T:Syllabore.Grapheme"/>.
+            </summary>
+        </member>
+        <member name="T:Syllabore.INameFilter">
+            <summary>
+            Validates names generated by an <see cref="T:Syllabore.INameGenerator"/>.
+            </summary>
+        </member>
+        <member name="M:Syllabore.INameFilter.IsValidName(Syllabore.Name)">
+            <summary>
+            Returns true if the specified name is a valid. Otherwise, it returns false.
+            </summary>
+        </member>
+        <member name="T:Syllabore.INameGenerator">
+            <summary>
+            Generates names as strings or <see cref="T:Syllabore.Name"/> objects.
+            </summary>
+        </member>
+        <member name="M:Syllabore.INameGenerator.Next(System.Int32)">
+            <summary>
+            Returns a string representing a name of the specified syllable length.
+            Note that syllable length is not the same as string length.
+            </summary>
+        </member>
+        <member name="M:Syllabore.INameGenerator.NextName">
+            <summary>
+            Returns a new <see cref="T:Syllabore.Name"/>.
+            </summary>
+        </member>
+        <member name="M:Syllabore.INameGenerator.NextName(System.Int32)">
+            <summary>
+            Returns a new <see cref="T:Syllabore.Name"/> of the specified syllable length.
+            Note that syllable length is not the same as string length.
+            </summary>
+        </member>
+        <member name="T:Syllabore.INameTransformer">
+            <summary>
+            Transforms names generated by an <see cref="T:Syllabore.INameGenerator"/>.
+            </summary>
+        </member>
+        <member name="M:Syllabore.INameTransformer.Apply(Syllabore.Name)">
+            <summary>
+            Applies changes to the specified <see cref="T:Syllabore.Name"/>
+            and returns a new <see cref="T:Syllabore.Name"/> as the result.
+            </summary>
+        </member>
+        <member name="T:Syllabore.ISyllableGenerator">
+            <summary>
+            Generates syllables that can be sequenced into names.
+            </summary>
+        </member>
+        <member name="M:Syllabore.ISyllableGenerator.NextStartingSyllable">
+            <summary>
+            Generates a random syllable suitable for starting name.
+            </summary>
+        </member>
+        <member name="M:Syllabore.ISyllableGenerator.NextSyllable">
+            <summary>
+            Generates a random syllable suitable for any part of a name.
+            </summary>
+        </member>
+        <member name="M:Syllabore.ISyllableGenerator.NextEndingSyllable">
+            <summary>
+            Generates a random syllable suitable for ending a name.
+            </summary>
+        </member>
+        <member name="T:Syllabore.IWeighted">
+            <summary>
+            <para>
+            Represents a choice or entity that can
+            be randomly selected from a list, and has 
+            a weight value that affects how frequently it
+            is selected compared to others.
+            </para>
+            <para>
+            For example, if a list contains two elements x and y, 
+            both of type <see cref="T:Syllabore.IWeighted"/>, with respective
+            weights of 1 and 4, then
+            y will be selected four times as likely as x.
+            </para>
+            </summary>
+        </member>
+        <member name="P:Syllabore.IWeighted.Weight">
+            <summary>
+            <para>
+            A value indicating how more frequently this instance of 
+            <see cref="T:Syllabore.IWeighted"/> should be selected over other instances.
+            </para>
+            <para>
+            For example, if a list contains two elements x and y, 
+            both of type <see cref="T:Syllabore.IWeighted"/>, with respective
+            weights of 1 and 4, then
+            y will be selected four times as likely as x.
+            </para>
+            </summary>
+        </member>
+        <member name="T:Syllabore.Json.JsonPropertyCast`1">
+            <summary>
+            A special kind of <see cref="T:System.Text.Json.Serialization.JsonConverter`1"/> 
+            that's only role is to cast the value of a property to a different <see cref="T:System.Type"/>.
+            </summary>
+        </member>
+        <member name="M:Syllabore.Json.JsonPropertyCast`1.#ctor(System.Type)">
+            <summary>
+            Instantiates a new <see cref="T:Syllabore.Json.JsonPropertyCast`1"/> that will
+            cast properties to the specified <see cref="T:System.Type"/>.
+            </summary>
+        </member>
+        <member name="M:Syllabore.Json.JsonPropertyCast`1.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            Override. Reads the value of a property and casts it to the specified <see cref="T:System.Type"/>.
+            </summary>
+        </member>
+        <member name="M:Syllabore.Json.JsonPropertyCast`1.Write(System.Text.Json.Utf8JsonWriter,`0,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            Override. Writes the value of a property and casts it to the specified <see cref="T:System.Type"/>.
+            </summary>
+        </member>
+        <member name="T:Syllabore.Json.NameGeneratorSerializer">
+            <summary>
+            A convenience class for reading and writing 
+            a <see cref="T:Syllabore.NameGenerator"/> to disk and back.
+            </summary>
+        </member>
+        <member name="F:Syllabore.Json.NameGeneratorSerializer.AllowedCharacters">
+            <summary>
+            A list of characters that will not be escaped in Json output.
+            (Carriage return, newline, and quotation mark.)
+            </summary>
+        </member>
+        <member name="P:Syllabore.Json.NameGeneratorSerializer.ProviderType">
+            <summary>
+            The class <see cref="T:System.Type"/> of a <see cref="T:Syllabore.NameGenerator"/>'s
+            <see cref="P:Syllabore.NameGenerator.Provider"/> property.
+            </summary>
+        </member>
+        <member name="P:Syllabore.Json.NameGeneratorSerializer.TransformerType">
+            <summary>
+            The class <see cref="T:System.Type"/> of a <see cref="T:Syllabore.NameGenerator"/>'s
+            <see cref="P:Syllabore.NameGenerator.Transformer"/> property.
+            </summary>
+        </member>
+        <member name="P:Syllabore.Json.NameGeneratorSerializer.FilterType">
+            <summary>
+            The class <see cref="T:System.Type"/> of a <see cref="T:Syllabore.NameGenerator"/>'s
+            <see cref="P:Syllabore.NameGenerator.Filter"/> property.
+            </summary>
+        </member>
+        <member name="M:Syllabore.Json.NameGeneratorSerializer.#ctor">
+            <summary>
+            Creates a new instance of <see cref="T:Syllabore.Json.NameGeneratorSerializer"/>.
+            </summary>
+        </member>
+        <member name="M:Syllabore.Json.NameGeneratorSerializer.UsingProviderType(System.Type)">
+            <summary>
+            Uses the specified type when serializing or deserializing 
+            <see cref="T:Syllabore.ISyllableGenerator"/> property <c>Provider</c> of
+            <see cref="T:Syllabore.NameGenerator"/>. By default, the type 
+            used is <see cref="T:Syllabore.SyllableGenerator"/>.
+            </summary>
+        </member>
+        <member name="M:Syllabore.Json.NameGeneratorSerializer.UsingTransformerType(System.Type)">
+            <summary>
+            Uses the specified type when serializing or deserializing 
+            <see cref="T:Syllabore.INameTransformer"/> property <c>Transformer</c> of
+            <see cref="T:Syllabore.NameGenerator"/>. By default, the type 
+            used is <see cref="T:Syllabore.TransformSet"/>.
+            </summary>
+        </member>
+        <member name="M:Syllabore.Json.NameGeneratorSerializer.UsingFilterType(System.Type)">
+            <summary>
+            Uses the specified type when serializing or deserializing 
+            <see cref="T:Syllabore.INameFilter"/> property <c>Filter</c> of
+            <see cref="T:Syllabore.NameGenerator"/>. By default, the type 
+            used is <see cref="T:Syllabore.NameFilter"/>.
+            </summary>
+        </member>
+        <member name="M:Syllabore.Json.NameGeneratorSerializer.Serialize(Syllabore.NameGenerator,System.String)">
+            <summary>
+            Writes the specified NameGenerator to disk as a JSON file to the specified file path.
+            </summary>
+        </member>
+        <member name="M:Syllabore.Json.NameGeneratorSerializer.Save(Syllabore.NameGenerator,System.String,System.Type,System.Type,System.Type)">
+            <summary>
+            Writes the specified NameGenerator to disk as a JSON file to the specified file path.
+            The NameGenerator's provider, transformer, and filter will be saved as the specified types.
+            </summary>
+        </member>
+        <member name="M:Syllabore.Json.NameGeneratorSerializer.Deserialize(System.String)">
+            <summary>
+            Reads a JSON file at the specified path and returns a <see cref="T:Syllabore.NameGenerator"/> based on that file.
+            </summary>
+        </member>
+        <member name="M:Syllabore.Json.NameGeneratorSerializer.Load(System.String,System.Type,System.Type,System.Type)">
+            <summary>
+            Reads a JSON file at the specified path and returns a <see cref="T:Syllabore.NameGenerator"/> based on that file.
+            The NameGenerator's provider, transformer, and filter will be instantiated as the specified types.
+            </summary>
+        </member>
+        <member name="T:Syllabore.ListExtensions">
+            <summary>
+            Convenience methods for manipulating or drawing elements
+            from <see cref="T:System.Collections.Generic.IList`1"/>.
+            </summary>
+        </member>
+        <member name="M:Syllabore.ListExtensions.ReplaceWith``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IList{``0})">
+            <summary>
+            Clears the contents of the current list and replaces it
+            with all elements of the new list.
+            </summary>
+        </member>
+        <member name="M:Syllabore.ListExtensions.TotalWeight``1(System.Collections.Generic.IList{``0})">
+            <summary>
+            Given a list of <see cref="T:Syllabore.IWeighted"/>, this method returns the sum of
+            all elements' <c>Weight</c> property.
+            </summary>
+        </member>
+        <member name="M:Syllabore.ListExtensions.RandomItem``1(System.Collections.Generic.IList{``0})">
+            <summary>
+            Returns a random item from an <see cref="T:System.Collections.Generic.IList`1"/>.
+            </summary>
+        </member>
+        <member name="M:Syllabore.ListExtensions.RandomItem``1(System.Collections.Generic.ISet{``0})">
+            <summary>
+            Returns a random item from an <see cref="T:System.Collections.Generic.ISet`1"/>.
+            </summary>
+        </member>
+        <member name="M:Syllabore.ListExtensions.RandomWeightedItem``1(System.Collections.Generic.IList{``0})">
+            <summary>
+            Returns a weighted-random item from an <see cref="T:System.Collections.Generic.IList`1"/>, 
+            where <c>T</c> implements <see cref="T:Syllabore.IWeighted"/>.
+            Elements with a higher <c>Weight</c> value will have a higher probability
+            of being selected over elements with lower <c>Weight</c> values.
+            </summary>
+        </member>
+        <member name="T:Syllabore.Name">
+            <summary>
+            Represents a name. Can be returned by a <see cref="T:Syllabore.INameGenerator"/> for callers
+            to access individual syllables of a name.
+            </summary>
+        </member>
+        <member name="P:Syllabore.Name.Syllables">
+            <summary>
+            The ordered syllables that make up this name.
+            </summary>
+        </member>
+        <member name="M:Syllabore.Name.#ctor">
+            <summary>
+            Instantiates an empty name.
+            </summary>
+        </member>
+        <member name="M:Syllabore.Name.#ctor(System.String[])">
+            <summary>
+            Instantiates a new name with the desired starting syllables.
+            </summary>
+            <param name="syllable"></param>
+        </member>
+        <member name="M:Syllabore.Name.#ctor(Syllabore.Name)">
+            <summary>
+            Instantiates a new name that is a copy of the specified name. (This constructor
+            is useful for a <see cref="T:Syllabore.INameTransformer"/>.)
+            </summary>
+            <param name="copy"></param>
+        </member>
+        <member name="M:Syllabore.Name.ToString">
+            <summary>
+            Sequences the syllables of this Name into a single
+            string and then capitalizes it.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syllabore.Name.Equals(System.Object)">
+            <summary>
+            A <see cref="T:Syllabore.Name"/> is equal to another
+            <see cref="T:Syllabore.Name"/> if and only if their
+            string representations are also equal.
+            </summary>
+        </member>
+        <member name="M:Syllabore.Name.GetHashCode">
+            <summary>
+            Returns a hash code for this <see cref="T:Syllabore.Name"/>.
+            </summary>
+        </member>
+        <member name="T:Syllabore.FilterCondition">
+            <summary>
+            The type of condition that a 
+            <see cref="T:Syllabore.FilterConstraint"/> uses.
+            </summary>
+        </member>
+        <member name="F:Syllabore.FilterCondition.Contains">
+            <summary>
+            Condition is met if the name contains a specific substring.
+            </summary>
+        </member>
+        <member name="F:Syllabore.FilterCondition.StartsWith">
+            <summary>
+            Condition is met if the name starts with a specific substring.
+            </summary>
+        </member>
+        <member name="F:Syllabore.FilterCondition.EndsWith">
+            <summary>
+            Condition is met if the name ends with a specific substring.
+            </summary>
+        </member>
+        <member name="F:Syllabore.FilterCondition.MatchesPattern">
+            <summary>
+            Condition is met if the name matches a specific regular expression.
+            </summary>
+        </member>
+        <member name="T:Syllabore.FilterConstraint">
+            <summary>
+            A constraint used by a <see cref="T:Syllabore.NameFilter"/> when
+            testing names for validity.
+            </summary>
+        </member>
+        <member name="P:Syllabore.FilterConstraint.Type">
+            <summary>
+            The type of condition names will be tested against.
+            (eg. Contains, StartsWith, EndsWith, MatchesPattern)
+            </summary>
+        </member>
+        <member name="P:Syllabore.FilterConstraint.Value">
+            <summary>
+            The value that names will be tested against (in conjunction
+            with <see cref="P:Syllabore.FilterConstraint.Type"/>).
+            </summary>
+        </member>
+        <member name="M:Syllabore.FilterConstraint.#ctor(Syllabore.FilterCondition,System.String)">
+            <summary>
+            Creates a new <see cref="T:Syllabore.FilterConstraint"/> with the specified condition and value.
+            </summary>
+        </member>
+        <member name="T:Syllabore.NameFilter">
+            <summary>
+            Validates names produced by a <see cref="T:Syllabore.INameGenerator"/> against a set of configurable constraints.
+            </summary>
+        </member>
+        <member name="P:Syllabore.NameFilter.Constraints">
+            <summary>
+            The list of constraints that names must pass to be considered valid.
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameFilter.#ctor">
+            <summary>
+            Instantiates a new <see cref="T:Syllabore.NameFilter"/> with no constraints.
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameFilter.DoNotAllowSubstring(System.String[])">
+            <summary>
+            Makes a name invalid if it contains any of the specified substrings.
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameFilter.DoNotAllow(System.String[])">
+            <summary>
+            Makes a name invalid if it matches any of the specified regular expressions.
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameFilter.DoNotAllowPattern(System.String[])">
+            <summary>
+            Deprecated. Replaced with DoNotAllow().
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameFilter.DoNotAllowStart(System.String[])">
+            <summary>
+            Makes a name invalid if it starts with any of the specified substrings.
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameFilter.DoNotAllowEnding(System.String[])">
+            <summary>
+            Makes a name invalid if it ends with any of the specified substrings.
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameFilter.IsValidName(Syllabore.Name)">
+            <summary>
+            Returns true if the specified name does not match any of this filter's contraints, else returns false.
+            </summary>
+        </member>
+        <member name="T:Syllabore.NameFormatter">
+            <summary>
+            A convenience class used for modeling names that have multiple parts
+            and need multiple generators to create them.
+            </summary>
+        </member>
+        <member name="P:Syllabore.NameFormatter.Format">
+            <summary>
+            <para>
+            The desired format for names. Surround substrings that need to be replaced with 
+            a generated name with curly brackets.
+            </para>
+            <para>
+            For example, the format <i>"John {middle-name} Smith"</i> tells a <see cref="T:Syllabore.NameFormatter"/> that the
+            name between the first and last needs to be generated.
+            </para>
+            </summary>
+        </member>
+        <member name="P:Syllabore.NameFormatter.BoundNameGenerators">
+            <summary>
+            The <see cref="T:Syllabore.INameGenerator">NameGenerators</see>
+            used by this <see cref="T:Syllabore.NameFormatter"/>.
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameFormatter.#ctor(System.String)">
+            <summary>
+            <para>
+            Instantiates a new <see cref="T:Syllabore.NameFormatter"/> with the specified format. Substrings 
+            that need to be replaced with a generated name should be surrounded with curly brackets.
+            </para>
+            <para>
+            For example, the format <i>"John {middle-name} Smith"</i> tells a <see cref="T:Syllabore.NameFormatter"/> that the
+            name between the first and last needs to be generated.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameFormatter.UsingGenerator(System.String,Syllabore.INameGenerator)">
+            <summary>
+            Specifies a <see cref="T:Syllabore.INameGenerator"/> for the specified property.
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameFormatter.Next">
+            <summary>
+            Returns a new generated name based on the previously specified format.
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameFormatter.GetProperties(System.String)">
+            <summary>
+            Grabs substrings that were surrounded by curly brackets
+            and returns them in an array.
+            </summary>
+        </member>
+        <member name="T:Syllabore.NameGenerator">
+            <summary>
+            <para>
+            Generates names by constructing syllables and joining them together.
+            It can also filter its output through an <see cref="T:Syllabore.INameFilter"/> if one is specified.
+            </para>
+            <para>
+            Call <see cref="M:Syllabore.NameGenerator.Next"/> to return names as strings and <see cref="M:Syllabore.NameGenerator.NextName"/>
+            to return names as <see cref="T:Syllabore.Name"/> objects. The latter method gives access to the 
+            individual syllables of the name.
+            </para>
+            </summary>
+        </member>
+        <member name="F:Syllabore.NameGenerator.DefaultMaximumRetries">
+            <summary>
+            <para>
+            The default maximum number of attempts a <see cref="T:Syllabore.NameGenerator"/> 
+            will make to satisfy its own <see cref="T:Syllabore.NameFilter"/>. If the maximum
+            number of attempts is exceeded, an <see cref="T:System.InvalidOperationException"/> will be thrown.
+            </para>
+            <para>
+            Hitting the limit is indicative of a <see cref="T:Syllabore.NameGenerator"/> that 
+            can never satisfy its own <see cref="T:Syllabore.NameFilter"/>.
+            </para>
+            </summary>
+        </member>
+        <member name="P:Syllabore.NameGenerator.Provider">
+            <summary>
+            <para>
+            The syllable provider used by this <see cref="T:Syllabore.NameGenerator"/>
+            to construct syllables.
+            </para>
+            <para>
+            A vanilla <see cref="T:Syllabore.NameGenerator"/> will use a 
+            <see cref="T:Syllabore.DefaultSyllableGenerator"/> by default.
+            </para>
+            </summary>
+        </member>
+        <member name="P:Syllabore.NameGenerator.Transformer">
+            <summary>
+            The name transformer used during name generation.
+            A vanilla <see cref="T:Syllabore.NameGenerator"/> will not use a 
+            transformer by default.
+            </summary>
+        </member>
+        <member name="P:Syllabore.NameGenerator.TransformerChance">
+            <summary>
+            The probability that a name will be transformed 
+            during the generation process.
+            </summary>
+        </member>
+        <member name="P:Syllabore.NameGenerator.Filter">
+            <summary>
+            The filter used to validate a <see cref="T:Syllabore.NameGenerator"/>'s output.
+            A vanilla <see cref="T:Syllabore.NameGenerator"/> will not use a 
+            filter by default.
+            </summary>
+        </member>
+        <member name="P:Syllabore.NameGenerator.MinimumSyllables">
+            <summary>
+            The minimum number of syllables a generated name can have.
+            </summary>
+        </member>
+        <member name="P:Syllabore.NameGenerator.MaximumSyllables">
+            <summary>
+            The maximum number of syllables a generated name can have.
+            </summary>
+        </member>
+        <member name="P:Syllabore.NameGenerator.MaximumRetries">
+            <summary>
+            Maximum attempts this generator will attempt to satisfy the
+            NameFilter before it throws an Exception. This is used to protect
+            against scenarios where a <see cref="T:Syllabore.NameGenerator"/> has been configured in such
+            a way that it can't generate any name that would satisfy its own filter.
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameGenerator.#ctor">
+            <summary>
+            When there are no constructor arguments, the name generator is configured to
+            use a <see cref="T:Syllabore.DefaultSyllableGenerator"/>, no <see cref="T:Syllabore.INameTransformer"/>, and no <see cref="T:Syllabore.INameFilter"/>.
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameGenerator.#ctor(System.String,System.String)">
+            <summary>
+            Instantiates a new <see cref="T:Syllabore.NameGenerator"/> with a new <see cref="T:Syllabore.SyllableGenerator"/> that generates 
+            syllables using the specified vowels and consonants. No <see cref="T:Syllabore.INameTransformer"/> or <see cref="T:Syllabore.INameFilter"/> will be used.
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameGenerator.#ctor(Syllabore.ISyllableGenerator)">
+            <summary>
+            Instantiates a new <see cref="T:Syllabore.NameGenerator"/> with the specified <see cref="T:Syllabore.ISyllableGenerator"/>.
+            No <see cref="T:Syllabore.INameTransformer"/> or <see cref="T:Syllabore.INameFilter"/> will be used.
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameGenerator.#ctor(Syllabore.ISyllableGenerator,Syllabore.INameTransformer)">
+            <summary>
+            Instantiates a new <see cref="T:Syllabore.NameGenerator"/> with the specified <see cref="T:Syllabore.ISyllableGenerator"/> and
+            <see cref="T:Syllabore.INameTransformer"/>. No <see cref="T:Syllabore.INameFilter"/> will be used.
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameGenerator.#ctor(Syllabore.ISyllableGenerator,Syllabore.INameFilter)">
+            <summary>
+            Instantiates a new <see cref="T:Syllabore.NameGenerator"/> with the specified <see cref="T:Syllabore.ISyllableGenerator"/> and
+            <see cref="T:Syllabore.INameFilter"/>. No <see cref="T:Syllabore.INameTransformer"/> will be used.
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameGenerator.#ctor(Syllabore.ISyllableGenerator,Syllabore.INameTransformer,Syllabore.INameFilter)">
+            <summary>
+            Instantiates a new <see cref="T:Syllabore.NameGenerator"/> with the specified <see cref="T:Syllabore.ISyllableGenerator"/>, 
+            <see cref="T:Syllabore.INameFilter"/>, and <see cref="T:Syllabore.INameTransformer"/>.
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameGenerator.UsingProvider(System.Func{Syllabore.SyllableGenerator,Syllabore.SyllableGenerator})">
+            <summary>
+            Deprecated. Use <see cref="M:Syllabore.NameGenerator.UsingSyllables(System.Func{Syllabore.SyllableGenerator,Syllabore.SyllableGenerator})"/>
+            or <see cref="M:Syllabore.NameGenerator.UsingSyllables(Syllabore.ISyllableGenerator)"/> instead.
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameGenerator.UsingProvider(Syllabore.ISyllableGenerator)">
+            <summary>
+            Deprecated. Use <see cref="M:Syllabore.NameGenerator.UsingSyllables(System.Func{Syllabore.SyllableGenerator,Syllabore.SyllableGenerator})"/>
+            or <see cref="M:Syllabore.NameGenerator.UsingSyllables(Syllabore.ISyllableGenerator)"/> instead.
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameGenerator.UsingSyllables(System.Func{Syllabore.SyllableGenerator,Syllabore.SyllableGenerator})">
+            <summary>
+            <para>
+            Sets the syllable generator of this <see cref="T:Syllabore.NameGenerator"/> to the specified <see cref="T:Syllabore.SyllableGenerator"/>.
+            </para>
+            <para>
+            Calling this method overwrites any existing syllable generator.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameGenerator.UsingSyllables(Syllabore.ISyllableGenerator)">
+            <summary>
+            <para>
+            Sets the syllable generator of this <see cref="T:Syllabore.NameGenerator"/> to the specified <see cref="T:Syllabore.ISyllableGenerator"/>.
+            </para>
+            <para>
+            Calling this method overwrites any existing syllable generator.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameGenerator.UsingFilter(System.Func{Syllabore.NameFilter,Syllabore.NameFilter})">
+            <summary>
+            Sets the name filter of this <see cref="T:Syllabore.NameGenerator"/> to the specified <see cref="T:Syllabore.NameFilter"/>.
+            A vanilla <see cref="T:Syllabore.NameGenerator"/> does not use filters by default.
+            <para>
+            Calling this method overwrites any existing name filter.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameGenerator.UsingFilter(Syllabore.INameFilter)">
+            <summary>
+            Sets the name filter of this <see cref="T:Syllabore.NameGenerator"/> to the specified <see cref="T:Syllabore.INameFilter"/>.
+            A vanilla <see cref="T:Syllabore.NameGenerator"/> does not use filters by default.
+            <para>
+            Calling this method overwrites any existing name filter.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameGenerator.DoNotAllow(System.String[])">
+            <summary>
+            <para>
+            Prevents the specified regular expression(s) from appearing in generated names.
+            This method is an alternative to <see cref="M:Syllabore.NameGenerator.UsingFilter(Syllabore.INameFilter)"/>.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameGenerator.UsingTransform(Syllabore.INameTransformer)">
+            <summary>
+            Sets the name transformer of this <see cref="T:Syllabore.NameGenerator"/> to the specified <see cref="T:Syllabore.INameTransformer"/>.
+            A vanilla <see cref="T:Syllabore.NameGenerator"/> does not use transformers by default.
+            <para>
+            The name transformer will be applied to every generated name.
+            </para>
+            <para>
+            Calling this method overwrites any existing name transform.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameGenerator.UsingTransform(System.Func{Syllabore.Transform,Syllabore.Transform})">
+            <summary>
+            Sets the name transformer of this <see cref="T:Syllabore.NameGenerator"/> to a new <see cref="T:Syllabore.TransformSet"/>
+            containing the specified <see cref="T:Syllabore.Transform"/> as the only transform.
+            <para>
+            Calling this method overwrites any existing name transform.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameGenerator.UsingTransform(System.Double,Syllabore.INameTransformer)">
+            <summary>
+            Sets the name transformer of this <see cref="T:Syllabore.NameGenerator"/> to the specified <see cref="T:Syllabore.INameTransformer"/>.
+            A vanilla <see cref="T:Syllabore.NameGenerator"/> does not use transformers by default.
+            <para>
+            The value of <paramref name="chance"/> must be between 0.0 and 1.0, inclusive.
+            The value determines the probability that a name will be transformed.
+            </para>
+            <para>
+            Calling this method overwrites any existing name transform.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameGenerator.UsingTransform(System.Double,System.Func{Syllabore.Transform,Syllabore.Transform})">
+            <summary>
+            Sets the name transformer of this <see cref="T:Syllabore.NameGenerator"/> to a new <see cref="T:Syllabore.TransformSet"/>
+            containing the specified <see cref="T:Syllabore.Transform"/> as the only transform.
+            <para>
+            The value of <paramref name="chance"/> must be between 0.0 and 1.0, inclusive.
+            The value determines the probability that a name will be transformed.
+            </para>
+            <para>
+            Calling this method overwrites any existing name transform.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameGenerator.UsingSyllableCount(System.Int32)">
+            <summary>
+            Sets the minimum and maximum syllable count of generated names to the specified value.
+            (Both minimum and maximum will be set to the same value.)
+            See <see cref="M:Syllabore.NameGenerator.UsingSyllableCount(System.Int32,System.Int32)"/> if the minimum and maximum syllable count 
+            should be different.
+            <para>
+            Calling this method overwrites previous calls.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameGenerator.UsingSyllableCount(System.Int32,System.Int32)">
+            <summary>
+            Sets the minimum and maximum syllable length of generated names.
+            <para>
+            Calling this method overwrites previous calls.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameGenerator.UsingProbability(System.Func{Syllabore.GeneratorProbabilityBuilder,Syllabore.GeneratorProbabilityBuilder})">
+            <summary>
+            <para>
+            Updates the <see cref="T:Syllabore.GeneratorProbability"/> used by the <see cref="T:Syllabore.SyllableGenerator"/> inside this
+            <see cref="T:Syllabore.NameGenerator"/>.
+            </para>
+            <para>
+            Calling this method overwrites any existing probabilities.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameGenerator.LimitRetries(System.Int32)">
+            <summary>
+            <para>
+            Sets the maximum number of generation retries before an exception is thrown.
+            Retry limits are useful in detecting <see cref="T:Syllabore.NameGenerator"/>s that
+            cannot satisfy their own <see cref="T:Syllabore.NameFilter"/>.
+            </para>
+            <para>
+            The default retry limit is 1000.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameGenerator.Next">
+            <summary>
+            <para>
+            Generates and returns a random name. The name will be consistent with this <see cref="T:Syllabore.NameGenerator"/>'s 
+            syllable provider, name transformer (if it is used), and name filter (if it is used).
+            </para>
+            <para>
+            If you need to access to individual syllables of a name, use <see cref="M:Syllabore.NameGenerator.NextName"/> instead.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameGenerator.Next(System.Int32)">
+            <summary>
+            <para>
+            Generates and returns a random name with the specified syllable length. The specified syllable length 
+            will override the <see cref="T:Syllabore.NameGenerator"/>'s <see cref="P:Syllabore.NameGenerator.MinimumSyllables"/> and <see cref="P:Syllabore.NameGenerator.MaximumSyllables"/> 
+            set by <see cref="M:Syllabore.NameGenerator.UsingSyllableCount(System.Int32,System.Int32)"/>. The name will be consistent with this <see cref="T:Syllabore.NameGenerator"/>'s 
+            syllable provider, name transformer (if it is used), and name filter (if it is used).
+            </para>
+            <para>
+            If you need to access to individual syllables of a name, use <see cref="M:Syllabore.NameGenerator.NextName"/> instead.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameGenerator.NextName">
+            <summary>
+            Identical to <see cref="M:Syllabore.NameGenerator.Next"/> except a <see cref="T:Syllabore.Name"/> object is returned instead of a string. 
+            The object is useful in obtaining the syllables that make up the name.
+            </summary>
+        </member>
+        <member name="M:Syllabore.NameGenerator.NextName(System.Int32)">
+            <summary>
+            Identical to <see cref="M:Syllabore.NameGenerator.Next(System.Int32)"/> except a <see cref="T:Syllabore.Name"/> object is returned instead of a string. 
+            The object is useful in obtaining the syllables that make up the name.
+            </summary>
+        </member>
+        <member name="T:Syllabore.StringExtensions">
+            <summary>
+            Convenience methods for dealing with strings.
+            </summary>
+        </member>
+        <member name="M:Syllabore.StringExtensions.Atomize(System.String)">
+            <summary>
+            Splits the specified string into an array of strings. Each
+            string in the array represents one character of the original string.
+            </summary>
+        </member>
+        <member name="T:Syllabore.Context">
+            <summary>
+            Used by <see cref="T:Syllabore.SyllableGenerator"/> to support context-aware
+            method chaining.
+            </summary>
+        </member>
+        <member name="F:Syllabore.Context.None">
+            <summary>
+            Default generator context.
+            </summary>
+        </member>
+        <member name="F:Syllabore.Context.LeadingConsonant">
+            <summary>
+            The last added <see cref="T:Syllabore.Grapheme">grapheme(s)</see> are leading consonants.
+            </summary>
+        </member>
+        <member name="F:Syllabore.Context.LeadingConsonantSequence">
+            <summary>
+            The last added <see cref="T:Syllabore.Grapheme">grapheme(s)</see> are leading consonant sequences.
+            </summary>
+        </member>
+        <member name="F:Syllabore.Context.Vowel">
+            <summary>
+            The last added <see cref="T:Syllabore.Grapheme">grapheme(s)</see> are vowels.
+            </summary>
+        </member>
+        <member name="F:Syllabore.Context.VowelSequence">
+            <summary>
+            The last added <see cref="T:Syllabore.Grapheme">grapheme(s)</see> are vowel sequences.
+            </summary>
+        </member>
+        <member name="F:Syllabore.Context.TrailingConsonant">
+            <summary>
+            The last added <see cref="T:Syllabore.Grapheme">grapheme(s)</see> are trailing consonants.
+            </summary>
+        </member>
+        <member name="F:Syllabore.Context.TrailingConsonantSequence">
+            <summary>
+            The last added <see cref="T:Syllabore.Grapheme">grapheme(s)</see> are trailing consonant sequences.
+            </summary>
+        </member>
+        <member name="F:Syllabore.Context.LeadingVowelInStartingSyllable">
+            <summary>
+            The last added <see cref="T:Syllabore.Grapheme">grapheme(s)</see> are final consonants.
+            </summary>
+        </member>
+        <member name="F:Syllabore.Context.LeadingVowelSequenceInStartingSyllable">
+            <summary>
+            The last added <see cref="T:Syllabore.Grapheme">grapheme(s)</see> are final consonant sequences.
+            </summary>
+        </member>
+        <member name="F:Syllabore.Context.FinalConsonant">
+            <summary>
+            The last added <see cref="T:Syllabore.Grapheme">grapheme(s)</see> are final consonants.
+            </summary>
+        </member>
+        <member name="F:Syllabore.Context.FinalConsonantSequence">
+            <summary>
+            The last added <see cref="T:Syllabore.Grapheme">grapheme(s)</see> are final consonant sequences.
+            </summary>
+        </member>
+        <member name="T:Syllabore.SyllablePosition">
+            <summary>
+            Descriptors for the position of a syllable within a name.
+            </summary>
+        </member>
+        <member name="F:Syllabore.SyllablePosition.Unknown">
+            <summary>
+            An indeterminate position.
+            </summary>
+        </member>
+        <member name="F:Syllabore.SyllablePosition.Starting">
+            <summary>
+            The first syllable of a name.
+            </summary>
+        </member>
+        <member name="F:Syllabore.SyllablePosition.Middle">
+            <summary>
+            Any position that is not the 
+            first or last syllable of a name.
+            </summary>
+        </member>
+        <member name="F:Syllabore.SyllablePosition.Ending">
+            <summary>
+            The last syllable of a name.
+            </summary>
+        </member>
+        <member name="T:Syllabore.SyllableGenerator">
+            <summary>
+            Generates syllables based on a set of configurable vowels and consonants. A instance
+            of this class should have its consonant and vowel pools defined before being added to
+            a <see cref="T:Syllabore.NameGenerator"/>.
+            </summary>
+        </member>
+        <member name="P:Syllabore.SyllableGenerator.LeadingConsonants">
+            <summary>
+            Leading consonants are consonants that appear before 
+            the vowel within a syllable.
+            </summary>
+        </member>
+        <member name="P:Syllabore.SyllableGenerator.LeadingConsonantSequences">
+            <summary>
+            Leading consonants sequences are sequences that appear 
+            before the vowel within a syllable. Consonant sequences are made
+            up of more than one <see cref="T:Syllabore.Grapheme"/>, but are treated
+            like a single consonant during syllable generation.
+            </summary>
+        </member>
+        <member name="P:Syllabore.SyllableGenerator.Vowels">
+            <summary>
+            The vowels that can appear within a syllable.
+            </summary>
+        </member>
+        <member name="P:Syllabore.SyllableGenerator.VowelSequences">
+            <summary>
+            The vowel sequences that can appear within a syllable.
+            Sequences are made up of more than one 
+            <see cref="T:Syllabore.Grapheme"/>, but treated as a single vowel.
+            </summary>
+        </member>
+        <member name="P:Syllabore.SyllableGenerator.TrailingConsonants">
+            <summary>
+            Trailing consonants are consonants that appear after
+            the vowel within a syllable.
+            </summary>
+        </member>
+        <member name="P:Syllabore.SyllableGenerator.TrailingConsonantSequences">
+            <summary>
+            Trailing consonant sequences are sequences that appear
+            after the vowel within a syllable. Consonant sequences are made
+            up of more than one <see cref="T:Syllabore.Grapheme"/>, but are treated
+            like a single consonant during syllable generation.
+            </summary>
+        </member>
+        <member name="P:Syllabore.SyllableGenerator.FinalConsonants">
+            <summary>
+            Final consonants are identical to trailing consonants, except
+            they only appear in the final syllable of a name.
+            </summary>
+        </member>
+        <member name="P:Syllabore.SyllableGenerator.FinalConsonantSequences">
+            <summary>
+            Final consonant sequences are identical to trailing consonant sequences, 
+            except they only appear in the final syllable of a name.
+            </summary>
+        </member>
+        <member name="P:Syllabore.SyllableGenerator.Probability">
+            <summary>
+            The probability settings for this <see cref="T:Syllabore.SyllableGenerator"/>.
+            </summary>
+        </member>
+        <member name="P:Syllabore.SyllableGenerator.AllowEmptyStringGeneration">
+            <summary>
+            When true, <see cref="T:Syllabore.SyllableGenerator"/> will not throw an exception
+            when it generates an empty string. By default, this is false.
+            </summary>
+        </member>
+        <member name="P:Syllabore.SyllableGenerator.LeadingConsonantsAllowed">
+            <summary>
+            Returns true if the probability of a leading consonant being generated is greater than zero.
+            </summary>
+        </member>
+        <member name="P:Syllabore.SyllableGenerator.LeadingConsonantSequencesAllowed">
+            <summary>
+            Returns true if the probability of a leading consonant sequence being generated is greater than zero.
+            </summary>
+        </member>
+        <member name="P:Syllabore.SyllableGenerator.VowelsAllowed">
+            <summary>
+            Returns true if the probability of a vowel being generated is greater than zero.
+            </summary>
+        </member>
+        <member name="P:Syllabore.SyllableGenerator.VowelSequencesAllowed">
+            <summary>
+            Returns true if the probability of a vowel sequence being generated is greater than zero.
+            </summary>
+        </member>
+        <member name="P:Syllabore.SyllableGenerator.TrailingConsonantsAllowed">
+            <summary>
+            Returns true if the probability of a trailing consonant being generated is greater than zero.
+            </summary>
+        </member>
+        <member name="P:Syllabore.SyllableGenerator.TrailingConsonantSequencesAllowed">
+            <summary>
+            Returns true if the probability of a trailing consonant sequence being generated is greater than zero.
+            </summary>
+        </member>
+        <member name="P:Syllabore.SyllableGenerator.FinalConsonantsAllowed">
+            <summary>
+            Returns true if the probability of a final consonant being generated is greater than zero.
+            </summary>
+        </member>
+        <member name="P:Syllabore.SyllableGenerator.FinalConsonantSequencesAllowed">
+            <summary>
+            Returns true if the probability of a final consonant sequence being generated is greater than zero.
+            </summary>
+        </member>
+        <member name="P:Syllabore.SyllableGenerator.LeadingVowelForStartingSyllableAllowed">
+            <summary>
+            Returns true if the probability of a leading vowel being generated within the starting syllable is greater than zero.
+            </summary>
+        </member>
+        <member name="P:Syllabore.SyllableGenerator.LeadingVowelSequenceForStartingSyllableAllowed">
+            <summary>
+            Returns true if the probability of a leading vowel sequence being generated within the starting syllable is greater than zero.
+            </summary>
+        </member>
+        <member name="M:Syllabore.SyllableGenerator.#ctor">
+            <summary>
+            Instantiates a new <see cref="T:Syllabore.SyllableGenerator"/> with
+            an empty pool of vowels and consonants.
+            </summary>
+        </member>
+        <member name="M:Syllabore.SyllableGenerator.WithConsonants(System.String[])">
+            <summary>
+            Adds the specified consonants into the pool of leading and trailing
+            consonants.  Within a syllable, leading consonants are consonants 
+            that appear before a vowel and trailing consonants are consonants 
+            that appear after a vowel.
+            </summary>
+        </member>
+        <member name="M:Syllabore.SyllableGenerator.WithLeadingConsonants(System.String[])">
+            <summary>
+            Adds the specified consonants to the pool of leading consonants.
+            Within a syllable, leading consonants are consonants that appear before a vowel.
+            </summary>
+        </member>
+        <member name="M:Syllabore.SyllableGenerator.WithLeadingConsonantSequences(System.String[])">
+            <summary>
+            Adds the specified consonant sequences into the pool of leading consonant sequences.
+            </summary>
+        </member>
+        <member name="M:Syllabore.SyllableGenerator.WithVowels(System.String[])">
+            <summary>
+            Adds the specified vowels to the pool of possible vowels this
+            <see cref="T:Syllabore.SyllableGenerator"/> can generate.
+            </summary>
+        </member>
+        <member name="M:Syllabore.SyllableGenerator.WithVowelSequences(System.String[])">
+            <summary>
+            Adds the specified vowel sequences to the pool of possible vowel sequences this
+            <see cref="T:Syllabore.SyllableGenerator"/> can generate.
+            </summary>
+        </member>
+        <member name="M:Syllabore.SyllableGenerator.WithTrailingConsonants(System.String[])">
+            <summary>
+            Adds the specified consonants to the pool of trailing consonants.
+            Within a syllable, trailing consonants are consonants that appear 
+            after a vowel.
+            </summary>
+        </member>
+        <member name="M:Syllabore.SyllableGenerator.WithTrailingConsonantSequences(System.String[])">
+            <summary>
+            Adds the specified consonant sequences as sequences that can appear after a vowel.
+            </summary>
+        </member>
+        <member name="M:Syllabore.SyllableGenerator.WithFinalConsonants(System.String[])">
+            <summary>
+            Adds the specified consonants to the pool of consonants that must only appear 
+            as the trailing consonant of an ending syllable.
+            </summary>
+        </member>
+        <member name="M:Syllabore.SyllableGenerator.WithFinalConsonantSequences(System.String[])">
+            <summary>
+            Adds the specified consonant sequences to the pool of sequences that must only appear 
+            as the trailing consonant sequence of an ending syllable.
+            </summary>
+        </member>
+        <member name="M:Syllabore.SyllableGenerator.Sequences(System.String[])">
+            <summary>
+            <em>Contextual on the last call.</em> Adds the specified sequences as
+            leading consonants, trailing consonants, or vowels depending on the context.
+            </summary>
+        </member>
+        <member name="M:Syllabore.SyllableGenerator.Weight(System.Int32)">
+            <summary>
+            <em>Contextual on the last call.</em> Sets the weight of the last 
+            added <see cref="T:Syllabore.Grapheme">graphemes</see>.
+            </summary>
+        </member>
+        <member name="M:Syllabore.SyllableGenerator.WithProbability(System.Func{Syllabore.GeneratorProbabilityBuilder,Syllabore.GeneratorProbabilityBuilder})">
+            <summary>
+            Sets the probability of vowels/consonants turning into sequences, of leading
+            consonants starting a syllable, of trailing consonants ending a syllable, etc.
+            </summary>
+        </member>
+        <member name="M:Syllabore.SyllableGenerator.AllowEmptyStrings(System.Boolean)">
+            <summary>
+            Specifying a value of <c>true</c> will permit generation of empty strings
+            as syllables. This is a scenario if there are no vowels/consonants to choose from or if the probability
+            table does not guarantee that syllable output is never a zero-length string. By default, this is <c>false</c>
+            and <see cref="T:Syllabore.SyllableGenerator"/> throws an Exception whenever an empty string is generated.
+            </summary>
+        </member>
+        <member name="M:Syllabore.SyllableGenerator.NextStartingSyllable">
+            <summary>
+            Returns a random syllable suitable for starting a name.
+            </summary>
+        </member>
+        <member name="M:Syllabore.SyllableGenerator.NextSyllable">
+            <summary>
+            Returns a random syllable suitable for any position.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Syllabore.SyllableGenerator.NextEndingSyllable">
+            <summary>
+            Returns a random suitable suitable for ending a name.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Syllabore.SyllableSet">
+            <summary>
+            <para>
+            A special kind of syllable generator that constructs a finite
+            set of syllables and only returns syllables from that set.
+            A <see cref="T:Syllabore.SyllableSet"/> can be used as the syllable generator for
+            a <see cref="T:Syllabore.NameGenerator"/>.
+            </para>
+            <para>
+            Names constructed from a <see cref="T:Syllabore.SyllableSet"/> can give the appearance
+            of cohesion as if they originated from a similar geographic region,
+            culture, historical period, etc.
+            </para>
+            </summary>
+        </member>
+        <member name="P:Syllabore.SyllableSet.StartingSyllableMax">
+            <summary>
+            The syllable set size for starting syllables.
+            </summary>
+        </member>
+        <member name="P:Syllabore.SyllableSet.MiddleSyllableMax">
+            <summary>
+            The syllable set size for syllables occurring
+            between the starting and ending syllable.
+            </summary>
+        </member>
+        <member name="P:Syllabore.SyllableSet.EndingSyllableMax">
+            <summary>
+            The syllable set size for ending syllables.
+            </summary>
+        </member>
+        <member name="P:Syllabore.SyllableSet.StartingSyllables">
+            <summary>
+            The finite set of syllables to be used in the starting position of a name.
+            </summary>
+        </member>
+        <member name="P:Syllabore.SyllableSet.MiddleSyllables">
+            <summary>
+            The finite set of syllables to be used between the starting and ending
+            positions of a name.
+            </summary>
+        </member>
+        <member name="P:Syllabore.SyllableSet.EndingSyllables">
+            <summary>
+            The finite set of syllables to be used in the ending position of a name.
+            </summary>
+        </member>
+        <member name="M:Syllabore.SyllableSet.#ctor">
+            <summary>
+            Instantiates a new syllable set with a default size of
+            8 starting syllables, 8 middle syllables, and 8 ending syllables.
+            The <see cref="T:Syllabore.DefaultSyllableGenerator"/> is used to construct the
+            syllables.
+            </summary>
+        </member>
+        <member name="M:Syllabore.SyllableSet.#ctor(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Instantiates a new syllable set with the specified sizes.
+            A <see cref="T:Syllabore.DefaultSyllableGenerator"/> is used to construct the
+            syllables unless replaced with a call to <see cref="M:Syllabore.SyllableSet.WithGenerator(Syllabore.ISyllableGenerator)"/>.
+            </summary>
+        </member>
+        <member name="M:Syllabore.SyllableSet.WithGenerator(System.Func{Syllabore.SyllableGenerator,Syllabore.SyllableGenerator})">
+            <summary>
+            Uses the specified <see cref="T:Syllabore.SyllableGenerator"/> to create this
+            syllable set's finite pool of syllables.
+            </summary>
+        </member>
+        <member name="M:Syllabore.SyllableSet.WithGenerator(Syllabore.ISyllableGenerator)">
+            <summary>
+            Uses the specified <see cref="T:Syllabore.ISyllableGenerator"/> to create this
+            syllable set's finite pool of syllables.
+            </summary>
+        </member>
+        <member name="M:Syllabore.SyllableSet.WithStartingSyllable(System.String[])">
+            <summary>
+            Adds a syllable to this <see cref="T:Syllabore.SyllableSet"/>'s pool of starting syllables.
+            </summary>
+            <param name="syllables">One or more starting syllables to add this syllable set</param>
+            <exception cref="T:System.InvalidOperationException">
+                Thrown if adding the specified starting syllables exceeds the maximum size of this
+                syllable set.
+            </exception>
+        </member>
+        <member name="M:Syllabore.SyllableSet.WithMiddleSyllable(System.String[])">
+            <summary>
+            Adds a syllable to this <see cref="T:Syllabore.SyllableSet"/>'s pool of "middle" (neither
+            starting nor ending) syllables.
+            </summary>
+            <param name="syllables">One or more middle syllables to add this syllable set</param>
+            <exception cref="T:System.InvalidOperationException">
+                Thrown if adding the specified middle syllables exceeds the maximum size of this
+                syllable set.
+            </exception>
+        </member>
+        <member name="M:Syllabore.SyllableSet.WithEndingSyllable(System.String[])">
+            <summary>
+            Adds a syllable to this <see cref="T:Syllabore.SyllableSet"/>'s pool of ending syllables.
+            </summary>
+            <param name="syllables">One or more ending syllables to add this syllable set</param>
+            <exception cref="T:System.InvalidOperationException">
+                Thrown if adding the specified ending syllables exceeds the maximum size of this
+                syllable set.
+            </exception>
+        </member>
+        <member name="M:Syllabore.SyllableSet.NextStartingSyllable">
+            <summary>
+            Returns a random syllable suitable for use in the starting position
+            of a name.
+            </summary>
+        </member>
+        <member name="M:Syllabore.SyllableSet.NextSyllable">
+            <summary>
+            Returns a random syllable suitable for use between the starting and ending
+            positions of a name.
+            </summary>
+        </member>
+        <member name="M:Syllabore.SyllableSet.NextEndingSyllable">
+            <summary>
+            Returns a random syllable suitable for use in the ending position of a name.
+            </summary>
+        </member>
+        <member name="T:Syllabore.Transform">
+            <summary>
+            <para>
+            A <see cref="T:Syllabore.Transform"/> is a mechanism for changing a source name into 
+            a new, modified name. Transforming names is useful for adding some 
+            determinism in name generation or for creating iterations on an established name.
+            </para>
+            <para>
+            <see cref="T:Syllabore.Transform">Transforms</see> can have an optional condition that 
+            must be fulfilled for a transformation to occur.
+            </para>
+            </summary>
+        </member>
+        <member name="P:Syllabore.Transform.Steps">
+            <summary>
+            The <see cref="T:Syllabore.TransformStep">steps</see> that this transform will execute.
+            </summary>
+        </member>
+        <member name="P:Syllabore.Transform.Weight">
+            <summary>
+            A positive integer that influences the probability of this transform being 
+            used over others. Given two transforms X and Y with a weight of 3 and 1 
+            respectively, transform X will be applied 75% of the time. All transforms 
+            default to a weight of 1.
+            </summary>
+        </member>
+        <member name="P:Syllabore.Transform.ConditionalIndex">
+            <summary>
+            The index of the syllable that the condition operates on. A negative index 
+            can be provided to traverse right-to-left from the end of the name instead.
+            </summary>
+        </member>
+        <member name="P:Syllabore.Transform.ConditionalRegex">
+            <summary>
+            A regular expression that must be satisfied for the transform to be applied.
+            </summary>
+        </member>
+        <member name="M:Syllabore.Transform.#ctor">
+            <summary>
+            <para>
+            Instantiates a new <see cref="T:Syllabore.Transform"/>.
+            </para>
+            <para>
+            By default, a <see cref="T:Syllabore.Transform"/> has no optional condition and a weight of 1.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Syllabore.Transform.Modify(Syllabore.Name)">
+            <summary>
+            <para>
+            Applies this <see cref="T:Syllabore.Transform"/> on the specified <see cref="T:Syllabore.Name"/> in
+            a destructive manner.
+            </para>
+            <para>
+            For a non-destructive alternative, use <see cref="M:Syllabore.Transform.Apply(Syllabore.Name)"/> instead.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Syllabore.Transform.Apply(Syllabore.Name)">
+            <summary>
+            <para>
+            Applies this <see cref="T:Syllabore.Transform"/> on the specified <see cref="T:Syllabore.Name"/>
+            and returns a new <see cref="T:Syllabore.Name"/> as a result.
+            </para>
+            <para>
+            This method leaves the source <see cref="T:Syllabore.Name"/> unchanged.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Syllabore.Transform.When(System.Int32,System.String)">
+            <summary>
+            <para>
+            Adds a condition to this <see cref="T:Syllabore.Transform"/>. The condition is a regular expression applied
+            to a syllable at the specified <paramref name="index"/>. It must be satisfied for the <see cref="T:Syllabore.Transform"/>
+            to be applied successfully.
+            </para>
+            <para>The specified <paramref name="index"/> determines the location of the syllable 
+            that the condition operates on. A negative <paramref name="index"/> can be provided to traverse from the end of the name
+            instead. (For example, an index -1 will be interpreted as the last syllable of a name.)
+            </para>
+            </summary>
+        </member>
+        <member name="M:Syllabore.Transform.ReplaceSyllable(System.Int32,System.String)">
+            <summary>
+            Adds a step that replaces a syllable at the specified index with
+            a desired string.
+            </summary>
+            <param name="index">The index can be a negative integer to traverse from the
+            end of the name instead. (For example, an index -1 will be interpreted as the
+            last syllable of a name.</param>
+            <param name="replacement">The string to substitute in.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syllabore.Transform.ReplaceAll(System.String,System.String)">
+            <summary>
+            Adds a step that replaces all instances of the specified substring in each syllable with
+            a desired string. Note that the substring must be completely contained in a syllable to be replaced.
+            </summary>
+        </member>
+        <member name="M:Syllabore.Transform.InsertSyllable(System.Int32,System.String)">
+            <summary>
+            Adds a transform step that inserts a new syllable at the specified index. The
+            syllable at that index and the others after it will be pushed one index to the right.
+            </summary>
+            <param name="index">The index can be a negative integer to traverse from the
+            end of the name instead. (For example, an index -1 will be interpreted as the
+            last syllable of a name.</param>
+            <param name="syllable">The string to insert.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syllabore.Transform.AppendSyllable(System.String)">
+            <summary>
+            Adds a transform step that appends a new syllable to the end of a name.
+            </summary>
+        </member>
+        <member name="M:Syllabore.Transform.RemoveSyllable(System.Int32)">
+            <summary>
+            Adds a step that removes the syllable at the specified index.
+            </summary>
+            <param name="index">The index can be a negative integer to traverse from the
+            end of the name instead. (For example, an index -1 will be interpreted as the
+            last syllable of a name.</param>
+        </member>
+        <member name="M:Syllabore.Transform.ExecuteUnserializableAction(System.Action{Syllabore.Name})">
+            <summary>
+            Executes the specified action on a name. Note that this transform step cannot
+            be serialized.
+            </summary>
+        </member>
+        <member name="T:Syllabore.TransformSet">
+            <summary>
+            <para>
+            A <see cref="T:Syllabore.TransformSet"/> takes a source name, 
+            applies one or more <see cref="T:Syllabore.Transform">Transforms</see>, 
+            then creates a new name. By default, all 
+            <see cref="T:Syllabore.Transform">Transforms</see> of the same set are 
+            applied to the source name and in the order they were added.
+            </para>
+            <para>
+            To randomize what transforms are applied, make sure to call 
+            <see cref="M:Syllabore.TransformSet.RandomlySelect(System.Int32)"/> when configuring a 
+            <see cref="T:Syllabore.TransformSet"/>.
+            </para>
+            </summary>
+        </member>
+        <member name="P:Syllabore.TransformSet.Transforms">
+            <summary>
+            The <see cref="T:Syllabore.Transform">Transforms</see> that make up this
+            <see cref="T:Syllabore.TransformSet"/>.
+            </summary>
+        </member>
+        <member name="P:Syllabore.TransformSet.UseRandomSelection">
+            <summary>
+            When true, <see cref="T:Syllabore.Transform">Transforms</see> are not
+            applied in the order they were added. Instead, a random
+            number of <see cref="T:Syllabore.Transform">Transforms</see> are selected
+            and applied. Property <see cref="P:Syllabore.TransformSet.RandomSelectionCount"/> is
+            used to determine how many random selections are made.
+            </summary>
+        </member>
+        <member name="P:Syllabore.TransformSet.RandomSelectionCount">
+            <summary>
+            When <see cref="P:Syllabore.TransformSet.UseRandomSelection"/> is true, this property
+            is used to determine how many random <see cref="T:Syllabore.Transform">Transforms</see>
+            are selected and applied.
+            </summary>
+        </member>
+        <member name="M:Syllabore.TransformSet.#ctor">
+            <summary>
+            Instantiates a new <see cref="T:Syllabore.TransformSet"/>.
+            By default, all future <see cref="T:Syllabore.Transform"/>s that are added
+            to this set will be used in the order they were added
+            unless there is a call to <see cref="M:Syllabore.TransformSet.RandomlySelect(System.Int32)"/>.
+            </summary>
+        </member>
+        <member name="M:Syllabore.TransformSet.Apply(Syllabore.Name)">
+            <summary>
+            Returns a new <see cref="T:Syllabore.Name"/> that
+            is the result of one or more <see cref="T:Syllabore.Transform"/>s
+            applied to the specified source <see cref="T:Syllabore.Name"/>.
+            <para>
+            This method leaves the source <see cref="T:Syllabore.Name"/> untouched.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Syllabore.TransformSet.WithTransform(Syllabore.Transform)">
+            <summary>
+            Adds a new <see cref="T:Syllabore.Transform"/> to this <see cref="T:Syllabore.TransformSet"/>.
+            </summary>
+        </member>
+        <member name="M:Syllabore.TransformSet.WithTransform(System.Func{Syllabore.Transform,Syllabore.Transform})">
+            <summary>
+            Adds a new <see cref="T:Syllabore.Transform"/> to this <see cref="T:Syllabore.TransformSet"/>.
+            </summary>
+        </member>
+        <member name="M:Syllabore.TransformSet.Weight(System.Int32)">
+            <summary>
+            <para>
+            Applies a weight to the last added transform that influences the probability of being used over others. 
+            </para>
+            <para>
+            For example, given two transform X and Y with a weight of 3 and 1 respectively, transform X will be applied 75% of the time.
+            All transforms have default weight of 1.
+            </para>
+            <para>
+            Weights are only used if this <see cref="T:Syllabore.TransformSet"/> has been configured to use random selection 
+            through a call to <see cref="M:Syllabore.TransformSet.RandomlySelect(System.Int32)"/>.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Syllabore.TransformSet.Join(Syllabore.TransformSet)">
+            <summary>
+            Combines this <see cref="T:Syllabore.TransformSet"/> with the specified <see cref="T:Syllabore.TransformSet"/>.
+            A new <see cref="T:Syllabore.TransformSet"/> that is the combination of the two is returned.
+            </summary>
+        </member>
+        <member name="M:Syllabore.TransformSet.RandomlySelect(System.Int32)">
+            <summary>
+            <para>
+            Sets this <see cref="T:Syllabore.TransformSet"/> to randomly select transforms to apply to the source name.
+            </para>
+            <para>
+            The <paramref name="limit"/> parameter specifies the maximum number of unique transforms that will be applied.
+            </para>
+            </summary>
+        </member>
+        <member name="T:Syllabore.TransformStepType">
+            <summary>
+            The type of action that a <see cref="T:Syllabore.TransformStep"/> 
+            will apply to a <see cref="T:Syllabore.Name"/>.
+            </summary>
+        </member>
+        <member name="F:Syllabore.TransformStepType.InsertSyllable">
+            <summary>
+            Adds a syllable to a <see cref="T:Syllabore.Name"/>, displacing other
+            syllables as needed.
+            </summary>
+        </member>
+        <member name="F:Syllabore.TransformStepType.AppendSyllable">
+            <summary>
+            Adds a syllable to the end of a <see cref="T:Syllabore.Name"/>.
+            </summary>
+        </member>
+        <member name="F:Syllabore.TransformStepType.ReplaceSyllable">
+            <summary>
+            Replaces a single syllable with a another syllable.
+            </summary>
+        </member>
+        <member name="F:Syllabore.TransformStepType.RemoveSyllable">
+            <summary>
+            Deletes a syllable from a <see cref="T:Syllabore.Name"/>, displacing
+            other syllables as needed.
+            </summary>
+        </member>
+        <member name="F:Syllabore.TransformStepType.Lambda">
+            <summary>
+            An action that is not serializable and expressed in a lambda.
+            </summary>
+        </member>
+        <member name="F:Syllabore.TransformStepType.ReplaceAllSubstring">
+            <summary>
+            Replaces all instances of a substring with another substring.
+            </summary>
+        </member>
+        <member name="T:Syllabore.TransformStep">
+            <summary>
+            Represents one action or step in a <see cref="T:Syllabore.Transform"/>.
+            </summary>
+        </member>
+        <member name="P:Syllabore.TransformStep.Type">
+            <summary>
+            The type of action this <see cref="T:Syllabore.TransformSet"/> represents.
+            </summary>
+        </member>
+        <member name="P:Syllabore.TransformStep.Arguments">
+            <summary>
+            The arguments that are passed to the action.
+            </summary>
+        </member>
+        <member name="P:Syllabore.TransformStep._unserializableAction">
+            <summary>
+            If this <see cref="T:Syllabore.TransformStep"/> is of type <see cref="F:Syllabore.TransformStepType.Lambda"/>,
+            this property will contain the action to be applied.
+            </summary>
+        </member>
+        <member name="M:Syllabore.TransformStep.#ctor">
+            <summary>
+            Instantiates a new <see cref="T:Syllabore.TransformStep"/> with
+            no type or arguments.
+            </summary>
+        </member>
+        <member name="M:Syllabore.TransformStep.#ctor(Syllabore.TransformStepType,System.String[])">
+            <summary>
+            Instantiates a new <see cref="T:Syllabore.TransformStep"/> with
+            the specified type and arguments.
+            </summary>
+        </member>
+        <member name="M:Syllabore.TransformStep.#ctor(System.Action{Syllabore.Name})">
+            <summary>
+            Instantiates a new <see cref="T:Syllabore.TransformStep"/> with
+            type <see cref="F:Syllabore.TransformStepType.Lambda"/> and the
+            specified <see cref="T:System.Action"/> to execute.
+            Note that this type of <see cref="T:Syllabore.TransformSet"/> is 
+            not serializable.
+            </summary>
+            <param name="unserializableAction"></param>
+        </member>
+        <member name="M:Syllabore.TransformStep.Modify(Syllabore.Name)">
+            <summary>
+            Applies this transform step to the specified <see cref="T:Syllabore.Name"/>.
+            This method is destructive.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,1287 @@
+{
+    "version": 1,
+    "name": "KotetsuInputs",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "664ac99f-8f55-4de7-80cf-5ad418c722b6",
+            "actions": [
+                {
+                    "name": "AButton",
+                    "type": "Button",
+                    "id": "60bd1347-2839-4607-8abd-f590ea67c238",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "BButton",
+                    "type": "Button",
+                    "id": "76289972-e1eb-4ac2-8be5-3a94a236bc39",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "XButton",
+                    "type": "Button",
+                    "id": "7eac08b4-1d35-4135-85b6-aad4569648c5",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "YButton",
+                    "type": "Button",
+                    "id": "76ada851-b027-4726-aaa7-cdf2c87234cf",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "UPButton",
+                    "type": "Button",
+                    "id": "7968fde4-1f6b-4b9a-acc5-88dc9181a695",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DOWNButton",
+                    "type": "Button",
+                    "id": "2300e057-b489-4205-a737-34971a8bcca3",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RIGHTButton",
+                    "type": "Button",
+                    "id": "0491591d-543f-4f64-9ec3-09fa0c7795e0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LEFTButton",
+                    "type": "Button",
+                    "id": "355dbd83-6bfa-4e26-9bba-3b5dbff20715",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "R1Button",
+                    "type": "Button",
+                    "id": "ffabf71d-20ae-450c-98bc-df3995b7b467",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "R2Button",
+                    "type": "Button",
+                    "id": "0979f40a-184d-4542-b2ca-265c4a907d37",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "L1Button",
+                    "type": "Button",
+                    "id": "c4b1ccb9-d0fc-47e8-92f5-c79a25c95294",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "L2Button",
+                    "type": "Button",
+                    "id": "c09c2089-a2ee-4f86-b8c5-9e0e60f2356d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "HOME",
+                    "type": "Button",
+                    "id": "8f8d574a-9893-499e-9805-f06d101c1b6a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PLUS",
+                    "type": "Button",
+                    "id": "5e3d6f95-6795-487c-9742-7b1f5987848a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MINUS",
+                    "type": "Button",
+                    "id": "56a83cf8-6b4c-4773-bbc1-a86a3299f139",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CAPTURE",
+                    "type": "Button",
+                    "id": "06567987-5846-4c2a-9567-6dde975932a5",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RStickPress",
+                    "type": "Button",
+                    "id": "7f0a795e-1be3-4ef7-9c97-604ff09b1810",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RStick",
+                    "type": "Value",
+                    "id": "baab91a8-b656-4a7c-9143-37c8a2670721",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "LStick",
+                    "type": "Value",
+                    "id": "05bb273b-8a32-42c3-bbfa-1d632d36be3b",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "LStickPress",
+                    "type": "Button",
+                    "id": "35f55dc1-d37e-4a3e-96f0-1778b379f078",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MouseLeft",
+                    "type": "Button",
+                    "id": "279b6dd5-8749-41c7-a85d-4599aab1ecec",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MouseRight",
+                    "type": "Button",
+                    "id": "88577934-7f96-404c-bce3-4e16b66d2c2b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MouseWheelPress",
+                    "type": "Button",
+                    "id": "2b273141-ac09-4a0b-95d4-7e2b690c560e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MouseScroll",
+                    "type": "Button",
+                    "id": "2596636e-5fc4-45ec-8853-a4b529b38b2d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a078ead5-69bf-46fa-a6f2-f96f94f552b9",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PlayStation",
+                    "action": "BButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c2105deb-f303-42ac-bd44-b0620370228a",
+                    "path": "<HID::Nintendo Wireless Gamepad>/trigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "NSW;NSWPlayer2;NSWPlayer3;NSWPlayer4;NSWPlayer1;NSWPlayer5;NSWPlayer6;NSWPlayer7;NSWPlayer8",
+                    "action": "BButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2d29fd0b-7ba7-4d51-8ec8-de938a035d45",
+                    "path": "<SwitchProControllerHID>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Switch",
+                    "action": "BButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d18b98bc-9d32-4a7a-b712-0e735975fd3e",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PlayStation",
+                    "action": "XButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a204bd18-e9d1-4f22-b072-84e01daa6564",
+                    "path": "<HID::Nintendo Wireless Gamepad>/button4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "NSW;NSWPlayer2;NSWPlayer3;NSWPlayer4;NSWPlayer1;NSWPlayer5;NSWPlayer6;NSWPlayer7;NSWPlayer8;NSWGamepad",
+                    "action": "XButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3b8ba829-a15b-4a16-bcd2-89a6a7bb7a7e",
+                    "path": "<SwitchProControllerHID>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Switch",
+                    "action": "XButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3d53506d-24f9-4bff-ba1f-1b8b42ebe518",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PlayStation",
+                    "action": "YButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e4c11775-c336-413b-86c6-eb23875d01bd",
+                    "path": "<HID::Nintendo Wireless Gamepad>/button3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "NSW;NSWPlayer2;NSWPlayer3;NSWPlayer4;NSWPlayer1;NSWPlayer5;NSWPlayer6;NSWPlayer7;NSWPlayer8",
+                    "action": "YButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "33fc92ba-cf65-460e-bccd-efc0db8ed092",
+                    "path": "<SwitchProControllerHID>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Switch",
+                    "action": "YButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f78b3eda-4f59-4928-a8b7-d54bbadfe462",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PlayStation",
+                    "action": "UPButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fc2319ad-62ed-46b3-8234-8f1a84921ba8",
+                    "path": "<HID::Nintendo Wireless Gamepad>/hat/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "NSW;NSWPlayer2;NSWPlayer3;NSWPlayer4;NSWPlayer1;NSWPlayer5;NSWPlayer6;NSWPlayer7;NSWPlayer8",
+                    "action": "UPButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "352e2132-a604-4d05-a876-8d6c8ce82d48",
+                    "path": "<SwitchProControllerHID>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Switch",
+                    "action": "UPButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "202e32c6-16a9-4100-82ab-f0307084b19d",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PlayStation",
+                    "action": "DOWNButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "97a8bf5d-9726-4092-a5e0-9443dbdec29f",
+                    "path": "<HID::Nintendo Wireless Gamepad>/hat/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "NSW",
+                    "action": "DOWNButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9d0a9e89-fd55-45f1-be07-b3b52a8c5090",
+                    "path": "<SwitchProControllerHID>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Switch",
+                    "action": "DOWNButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "065d44e1-4767-4d94-890e-c15c61e2ab0e",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PlayStation",
+                    "action": "RIGHTButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d54622d6-5c75-41be-beca-c3c1e5e96566",
+                    "path": "<HID::Nintendo Wireless Gamepad>/hat/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "NSW",
+                    "action": "RIGHTButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "47eb5b92-e223-49dc-b3f5-12d0d8ccd532",
+                    "path": "<SwitchProControllerHID>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Switch",
+                    "action": "RIGHTButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "395bf41f-3f94-4027-95a6-89c43f244c9d",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PlayStation",
+                    "action": "LEFTButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3509e25a-d3be-4636-95ae-9513d49759db",
+                    "path": "<HID::Nintendo Wireless Gamepad>/hat/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "NSW",
+                    "action": "LEFTButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4288217a-da84-430d-9819-3b4403551ff3",
+                    "path": "<SwitchProControllerHID>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Switch",
+                    "action": "LEFTButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "be9856fd-aa70-43f2-b0ed-f53ec3c902d6",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PlayStation",
+                    "action": "R1Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7a4effe6-ba6a-4772-8283-472a71d91012",
+                    "path": "<HID::Nintendo Wireless Gamepad>/button6",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "NSW",
+                    "action": "R1Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fbe5ff42-af71-4faa-9745-5e922229a7d2",
+                    "path": "<SwitchProControllerHID>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Switch",
+                    "action": "R1Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bce5fdca-deb4-4e8b-b158-4d4fd2def203",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PlayStation",
+                    "action": "R2Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bbf3bfc1-39bc-409f-9427-1b24ec966249",
+                    "path": "<HID::Nintendo Wireless Gamepad>/button8",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "NSW",
+                    "action": "R2Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f3baf47d-c39e-418e-ba7a-bb59d781ba85",
+                    "path": "<SwitchProControllerHID>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Switch",
+                    "action": "R2Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a0ddb40e-f976-400b-b8c7-e9200c4f2db7",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PlayStation",
+                    "action": "L1Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "10ef4496-98b5-4960-bc96-7e99676e67ba",
+                    "path": "<HID::Nintendo Wireless Gamepad>/button5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "NSW",
+                    "action": "L1Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "74e147f1-85e0-4989-953a-6b9f1c740c84",
+                    "path": "<SwitchProControllerHID>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Switch",
+                    "action": "L1Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "55512525-d0e0-4c9c-93bf-00151f9c3d5b",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PlayStation",
+                    "action": "L2Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4537cf45-13ac-4dee-91a5-284e7be39be9",
+                    "path": "<HID::Nintendo Wireless Gamepad>/button7",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "NSW",
+                    "action": "L2Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "437d49ab-504c-4371-a9e2-b8bd2a9628e5",
+                    "path": "<SwitchProControllerHID>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Switch",
+                    "action": "L2Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a1009290-c224-4a0d-8666-0da3ee988b33",
+                    "path": "<HID::Nintendo Wireless Gamepad>/button13",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "NSW",
+                    "action": "HOME",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d0361622-04ca-4969-8926-140342664a6c",
+                    "path": "<SwitchProControllerHID>/home",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Switch",
+                    "action": "HOME",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "540122ef-530b-43f0-9835-c3dba1197cfd",
+                    "path": "<HID::Nintendo Wireless Gamepad>/button9",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "NSW",
+                    "action": "MINUS",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "572e280b-6bb3-411f-8ba8-96577a0c4af8",
+                    "path": "<SwitchProControllerHID>/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Switch",
+                    "action": "MINUS",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "82e2c26e-ecf4-48d5-b7f8-888fd3e5c825",
+                    "path": "<Keyboard>/backspace",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PC",
+                    "action": "MINUS",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "73ce30f0-93a5-4f6c-9ed9-b108824a2fe1",
+                    "path": "<HID::Nintendo Wireless Gamepad>/button14",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "NSW",
+                    "action": "CAPTURE",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "16af2ba1-24c0-471d-b7fd-b147a967bc8e",
+                    "path": "<SwitchProControllerHID>/capture",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Switch",
+                    "action": "CAPTURE",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "036f1dfd-68cb-470c-83a7-bfa5c736e5a7",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PlayStation",
+                    "action": "RStickPress",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6c63b945-e527-4c2a-b056-900c5e917353",
+                    "path": "<HID::Nintendo Wireless Gamepad>/button12",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "NSW",
+                    "action": "RStickPress",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "440cecbb-6d38-4521-a914-f58979fb087b",
+                    "path": "<SwitchProControllerHID>/rightStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Switch",
+                    "action": "RStickPress",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4ad2bb75-df8f-4fcc-a4bf-7f96aec84a3b",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PlayStation",
+                    "action": "LStickPress",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "77c657aa-36a2-41b8-9595-97aa94087dd4",
+                    "path": "<HID::Nintendo Wireless Gamepad>/trigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "NSW",
+                    "action": "LStickPress",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cc800673-4070-4102-8f0e-2f8fb76bef76",
+                    "path": "<SwitchProControllerHID>/leftStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Switch",
+                    "action": "LStickPress",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b957313d-d294-4967-939a-f99567d88a27",
+                    "path": "<HID::Nintendo Wireless Gamepad>/button2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";NSW;NSWPlayer2;NSWPlayer3;NSWPlayer4;NSWPlayer1;NSWPlayer5;NSWPlayer6;NSWPlayer7;NSWPlayer8",
+                    "action": "AButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a1cc1ac5-4e9d-4cdc-9a71-82926d45edce",
+                    "path": "<SwitchProControllerHID>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Switch",
+                    "action": "AButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "21551c21-cca5-4713-86e5-cd34f3b6d02e",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PlayStation",
+                    "action": "AButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a120d566-e4dd-4e8c-9b8c-f46cb6c2fadc",
+                    "path": "<HID::Nintendo Wireless Gamepad>/button10",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";NSW",
+                    "action": "PLUS",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e6254390-d3c7-4e64-828f-b511e417a020",
+                    "path": "<SwitchProControllerHID>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Switch",
+                    "action": "PLUS",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ad0408a9-964e-4eeb-9fa8-84e8834b7c9b",
+                    "path": "<Keyboard>/equals",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PC",
+                    "action": "PLUS",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "0e23788e-6906-45ca-9fb5-9786c0c8924e",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RStick",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "a77068d8-6780-4cd5-bd7f-c6cec8ad2acf",
+                    "path": "<Gamepad>/rightStick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Switch",
+                    "action": "RStick",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Down",
+                    "id": "07a643f9-c955-46de-8985-25cb20af137a",
+                    "path": "<Gamepad>/rightStick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Switch",
+                    "action": "RStick",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "70d7e5bc-3f3f-4109-873b-f0bbd02df41a",
+                    "path": "<Gamepad>/rightStick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Switch",
+                    "action": "RStick",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Left",
+                    "id": "f03a4463-249b-4865-8011-b8d6eac91f5a",
+                    "path": "<Gamepad>/rightStick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Switch",
+                    "action": "RStick",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "d061701f-a7b9-4a64-9e2b-555227165dc0",
+                    "path": "2DVector(mode=2)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RStick",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "750ba52e-a75b-4c8e-9e12-5d5f8dc927ea",
+                    "path": "<HID::Nintendo Wireless Gamepad>/ry",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";NSW",
+                    "action": "RStick",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "04386972-62f9-4033-9f2f-2a9dd6214388",
+                    "path": "<HID::Nintendo Wireless Gamepad>/rx",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";NSW",
+                    "action": "RStick",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "c5a74df4-89a4-439b-b0b7-4566d7ee8765",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RStick",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "40bc6bd9-592c-4361-abbf-95d7ab327665",
+                    "path": "<Mouse>/delta/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PC",
+                    "action": "RStick",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "a2972f0a-1a30-4517-863b-a9320c45877f",
+                    "path": "<Mouse>/delta/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PC",
+                    "action": "RStick",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "721f425b-5e79-42a7-8a16-0a245526233f",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LStick",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "0f84ec97-3987-4471-ba62-cd2cef6ac41f",
+                    "path": "<Gamepad>/leftStick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Switch",
+                    "action": "LStick",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Down",
+                    "id": "9a9aca66-ced2-47e4-92a9-4082c667db52",
+                    "path": "<Gamepad>/leftStick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Switch",
+                    "action": "LStick",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "461e8fde-68d3-4f1a-9e4d-cbf5a74c4e16",
+                    "path": "<Gamepad>/leftStick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Switch",
+                    "action": "LStick",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Left",
+                    "id": "35b8190d-859e-4e72-81b6-a16be849d4ab",
+                    "path": "<Gamepad>/leftStick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Switch",
+                    "action": "LStick",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "64a6c56b-2aac-4689-9570-3a37eefdd8be",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LStick",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "d6bfd3d3-b261-409f-bd02-02cec170b633",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PC",
+                    "action": "LStick",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "d2fc19fb-f326-40b3-b3a5-84a93c757afa",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PC",
+                    "action": "LStick",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "c15e7a7b-440b-4ef7-9edf-785759fc4900",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PC",
+                    "action": "LStick",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "4fda8abe-5b10-461b-be43-c3c575320831",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PC",
+                    "action": "LStick",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "ea6341d6-f4a9-42d0-8b95-c63c3b2d53d7",
+                    "path": "2DVector(mode=2)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LStick",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "900ec0b5-06fe-486c-a0fe-9633e19fa377",
+                    "path": "<HID::Nintendo Wireless Gamepad>/stick/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";NSW",
+                    "action": "LStick",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "ce1df823-2ccc-44fa-ba7e-4de2ea3eb5f1",
+                    "path": "<HID::Nintendo Wireless Gamepad>/stick/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";NSW",
+                    "action": "LStick",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "03643316-293e-4af8-b902-12e229b7b54c",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PC",
+                    "action": "MouseLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cee2e144-1de4-4784-a758-4154abbc41c3",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PC",
+                    "action": "MouseRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "47ca061c-505e-49c0-a320-741443a9861b",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PC",
+                    "action": "MouseWheelPress",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "63c652e3-fab3-4123-9137-0c34719c65b2",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseScroll",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "44dae005-8da4-45fe-bfd3-161d0f13313e",
+                    "path": "<Mouse>/scroll/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PC",
+                    "action": "MouseScroll",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "5f79e6a2-a960-4e80-8cb8-a7673e8daebb",
+                    "path": "<Mouse>/scroll/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PC",
+                    "action": "MouseScroll",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "NSW",
+            "bindingGroup": "NSW",
+            "devices": [
+                {
+                    "devicePath": "<Joystick>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Switch",
+            "bindingGroup": "Switch",
+            "devices": [
+                {
+                    "devicePath": "<SwitchProControllerHID>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "NSWPlayer2",
+            "bindingGroup": "NSWPlayer2",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": true,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "NSWPlayer3",
+            "bindingGroup": "NSWPlayer3",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "NSWPlayer4",
+            "bindingGroup": "NSWPlayer4",
+            "devices": []
+        },
+        {
+            "name": "NSWPlayer1",
+            "bindingGroup": "NSWPlayer1",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": true,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "NSWPlayer5",
+            "bindingGroup": "NSWPlayer5",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": true,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "NSWPlayer6",
+            "bindingGroup": "NSWPlayer6",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": true,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "NSWPlayer7",
+            "bindingGroup": "NSWPlayer7",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": true,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "NSWPlayer8",
+            "bindingGroup": "NSWPlayer8",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": true,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "NSWGamepad",
+            "bindingGroup": "NSWGamepad",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "PlayStation",
+            "bindingGroup": "PlayStation",
+            "devices": [
+                {
+                    "devicePath": "<DualShockGamepad>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "PC",
+            "bindingGroup": "PC",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Xbox",
+            "bindingGroup": "Xbox",
+            "devices": [
+                {
+                    "devicePath": "<XInputController>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}
