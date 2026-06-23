@@ -23,7 +23,7 @@ public class WorldMap
 		{
 			for (int w = 0; w < map[q].Length; w++)
 			{
-				map[q][w] = new WorldMapTile(WorldMapTile.WorldMapTileType.PLAIN, 100, 0);
+//				map[q][w] = new WorldMapTile(WorldMapTile.WorldMapTileType.PLAIN, 100, 0);
 			}
 		}
 	}
@@ -41,6 +41,7 @@ public class WorldMap
 
 //		StreamWriter output = new StreamWriter("Assets/noise.txt");
 
+		/*
 		for (int q = 0; q < map.Length; q++)
         {
 			for (int w = 0; w < map[q].Length; w++)
@@ -125,6 +126,7 @@ public class WorldMap
 //			output.Write("\n");
 		}
 //		output.Close();
+		*/
 	}
 
 	private void setPerlinSettings(Perlin[] perlins, double freq, double persist, double lacun,

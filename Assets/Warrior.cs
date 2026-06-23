@@ -487,7 +487,7 @@ public class Warrior : PlayerEntity
         //TODO select the target
         //TODO Then decide what item to use AFTER, NOT DURING
         //If you have no relevant item, equip nothing (-1)
-        //Or maybe ask for one. Maybe not. You have to prompt people to share in MoW:AS2
+        //Or maybe ask for one. Or maybe not. In MoW:AS2, you have to prompt people to share items
     }
 
     /**

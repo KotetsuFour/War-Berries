@@ -25,13 +25,13 @@ public class Tile : MonoBehaviour
 
     private Vector3 cursorPosition;
 
-    public void draw(int x, int y, WorldMapTile tile)
+    public void draw(int x, int y, WorldMapTile tile, float seaLevel)
     {
         this.x = x;
         this.y = y;
         this.tile = tile;
 
-        float meshHeight = (tile.getType().getHeight() + 0.0f) * TILE_HEIGHT_MULTIPLIER;
+        float meshHeight = (/*tile.getType().getHeight()*/Mathf.Max(0, ((float)tile.getHeight() - seaLevel) * 10f)) * TILE_HEIGHT_MULTIPLIER;
         setUtilityPositions(meshHeight);
 
         Mesh mesh = new Mesh

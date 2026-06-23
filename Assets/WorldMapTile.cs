@@ -5,14 +5,36 @@ public class WorldMapTile
 	private WorldMapTileType type;
 	private int magicPotency;
 	private int magicType;
+	private double heat;
+	private double moisture;
+	private double height;
 
 	public Tile tileModel;
 
-	public WorldMapTile(WorldMapTileType type, int magicPotency, int magicType)
+	public WorldMapTile(double heat, double moisture,
+		double height, int magicPotency, int magicType)
 	{
-		this.type = type;
+		this.heat = heat;
+		this.moisture = moisture;
+		this.height = height;
 		this.magicPotency = magicPotency;
 		this.magicType = magicType;
+	}
+	public void setTileType(WorldMapTileType type)
+    {
+		this.type = type;
+    }
+	public double getHeat()
+    {
+		return heat;
+    }
+	public double getMoisture()
+	{
+		return moisture;
+	}
+	public double getHeight()
+	{
+		return height;
 	}
 
 	public int getMoveCost(CharacterTeam group)

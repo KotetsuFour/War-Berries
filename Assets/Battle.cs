@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Battle
 {
@@ -20,7 +19,15 @@ public class Battle
     }
     public void setPeripheral(int periMinX, int periMaxX, int periMinY, int periMaxY)
     {
+        for (int q = periMinX; q < periMaxX; q++)
+        {
+            for (int w = periMinY; w < periMaxY; w++)
+            {
+                //TODO create battlefield tile
 
+
+            }
+        }
     }
     public void addCoreTeam(CharacterTeam team, Vector3 position, Quaternion rotation)
     {

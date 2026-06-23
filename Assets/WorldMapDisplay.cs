@@ -55,7 +55,7 @@ public class WorldMapDisplay : MonoBehaviour
                 for (int w = 0; w < map[0].Length; w++)
                 {
                     Tile toPlace = Instantiate(tile, new Vector3(q, 0, w), Quaternion.identity, transform);
-                    toPlace.draw(q, w, map[q][w]);
+//                    toPlace.draw(q, w, map[q][w]);
                     toPlace.setMaterial(materials[map[q][w].getType()]);
                     //                    toPlace.updateDeco();
                     map[q][w].tileModel = toPlace;
