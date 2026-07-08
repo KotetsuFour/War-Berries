@@ -33,12 +33,19 @@ public class TestSetup : MonoBehaviour
     }
     private void makeTeam(Affiliation aff, int num, Vector3 pos)
     {
-        CharacterTeam team = new CharacterTeam();
+        CharacterTeam team = null;
         for (int q = 0; q < num; q++)
         {
             BerryData data = new BerryData($"TestBerry{num}", aff, 0, Color.blue,
                 Color.blue, Color.blue, 0);
-            team.add(data);
+            if (team == null)
+            {
+                team = new CharacterTeam(data);
+            }
+            else
+            {
+                team.add(data);
+            }
         }
         WMTeam wm = Instantiate(teamPrefab, pos, Quaternion.identity);
         wm.setTeam(team);

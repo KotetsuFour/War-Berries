@@ -28,6 +28,11 @@ public class WorldMap
 		}
 	}
 
+	public WorldMap(WorldMapTile[][] map)
+    {
+		this.map = map;
+    }
+
 	public void generateTerrain()
     {
 		Perlin heatMap = new Perlin();

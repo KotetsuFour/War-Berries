@@ -3,27 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using LibNoise;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 public class VisualMapGenerator : MonoBehaviour
 {
 	[SerializeField] private Tile tilePrefab;
 	[SerializeField] private int SQRT_OF_MAP_SIZE;
 	[SerializeField] private int randomSeed;
+	[SerializeField] private int randomCivilizationSeed;
 	[SerializeField] private float frequency;
 	[SerializeField, Range(0f, 1f)] private float persistence;
 	[SerializeField] private int oddNumberedLacunarity;
 	[SerializeField] private float octaveCount;
 	[SerializeField] private string mapName;
 	private WorldMapTile[][] map;
+	private int[][][] civMap;
 	private int xVal;
 	private int yVal;
 	private bool working;
+	private bool civMaking;
 	private bool valuesSet;
 	private Perlin heatMap;
 	private Perlin moistureMap;
 	private Perlin heightMap;
 	private Perlin magicTypeMap;
 	private Perlin magicStrengthMap;
+	private Perlin nationalismMap;
+	private Perlin altruismMap;
+	private Perlin familismMap;
+	private Perlin militarismMap;
 	[SerializeField] private Material deepWater;
 	[SerializeField] private Material denseForest;
 	[SerializeField] private Material desert;
@@ -47,6 +55,12 @@ public class VisualMapGenerator : MonoBehaviour
 	private Dictionary<WorldMapTile.WorldMapTileType, Material> materialDictionary;
 	private string savePath = "./Assets/Tests/TestMaps/";
 
+	[SerializeField] private int testExpandPosX1;
+	[SerializeField] private int testExpandPosY1;
+	[SerializeField] private int testExpandPosX2;
+	[SerializeField] private int testExpandPosY2;
+	[SerializeField] private BattlefieldGenerator bfGeneratorPrefab;
+
 	void Awake()
     {
 		map = new WorldMapTile[SQRT_OF_MAP_SIZE][];
@@ -54,6 +68,12 @@ public class VisualMapGenerator : MonoBehaviour
 		{
 			map[q] = new WorldMapTile[SQRT_OF_MAP_SIZE];
 		}
+		civMap = new int[SQRT_OF_MAP_SIZE][][];
+		for (int q = 0; q < civMap.Length; q++)
+		{
+			civMap[q] = new int[SQRT_OF_MAP_SIZE][];
+		}
+
 		materialDictionary = new Dictionary<WorldMapTile.WorldMapTileType, Material>();
 		materialDictionary.Add(WorldMapTile.WorldMapTileType.DEEP_WATER, deepWater);
 		materialDictionary.Add(WorldMapTile.WorldMapTileType.DENSE_FOREST, denseForest);
@@ -77,12 +97,19 @@ public class VisualMapGenerator : MonoBehaviour
 			return;
         }
 		valuesSet = false;
-		int count = transform.childCount;
+		Transform ter = StaticData.findDeepChild(transform, "Terrain");
+		int count = ter.childCount;
 		for (int q = 0; q < count; q++)
         {
-			Destroy(transform.GetChild(count - (q + 1)).gameObject);
+			Destroy(ter.GetChild(count - (q + 1)).gameObject);
         }
-    }
+		Transform civ = StaticData.findDeepChild(transform, "Civ");
+		count = civ.childCount;
+		for (int q = 0; q < count; q++)
+		{
+			Destroy(civ.GetChild(count - (q + 1)).gameObject);
+		}
+	}
 	public void startGeneration()
     {
 		if (working)
@@ -105,10 +132,35 @@ public class VisualMapGenerator : MonoBehaviour
 		magicTypeMap.Seed = randomSeed * 4;
 		magicStrengthMap = new Perlin();
 		magicStrengthMap.Seed = randomSeed * 5;
+		StaticData.battlefieldPerlinSeed = randomSeed * 6;
 		//set frequency, persistence (between 0 and 1), lacunarity (odd number), and octave count
 		setPerlinSettings(new Perlin[] { heatMap, moistureMap, heightMap, magicTypeMap, magicStrengthMap },
 			0.05, 0.5, 3, 2);
 		Debug.Log("Generation Start!");
+	}
+	public void startCivilizationGeneration()
+	{
+		if (working)
+		{
+			Debug.Log("The program is still working. Please wait.");
+			return;
+		}
+		civMaking = true;
+		working = true;
+		xVal = 0;
+		yVal = 0;
+		Debug.Log("Perlin Civilization Mapping Start!");
+		nationalismMap = new Perlin();
+		nationalismMap.Seed = randomCivilizationSeed;
+		altruismMap = new Perlin();
+		altruismMap.Seed = randomCivilizationSeed * 2;
+		familismMap = new Perlin();
+		familismMap.Seed = randomCivilizationSeed * 3;
+		militarismMap = new Perlin();
+		militarismMap.Seed = randomCivilizationSeed * 4;
+		setPerlinSettings(new Perlin[] { nationalismMap, altruismMap, militarismMap, familismMap },
+			0.05, 0.5, 3, 2);
+		Debug.Log("Perlin Civilization Mapping Complete!");
 	}
 	public void startUpdating()
     {
@@ -133,10 +185,7 @@ public class VisualMapGenerator : MonoBehaviour
 		Tile tile = Instantiate(tilePrefab, transform);
 		tile.transform.position = new Vector3(xVal, 0, yVal);
 
-		double heat = 
-		heatMap.GetValue(xVal, yVal, 0);
-		//Or heat should be based on longitude (yVal)
-		//1 - (Mathf.Abs(yVal - (SQRT_OF_MAP_SIZE / 2)) * 4 / (float)SQRT_OF_MAP_SIZE);
+		double heat = heatMap.GetValue(xVal, yVal, 0);
 		double moisture = moistureMap.GetValue(xVal, yVal, 0);
 		double height = heightMap.GetValue(xVal, yVal, 0);
 		double magic = magicTypeMap.GetValue(xVal, yVal, 0);
@@ -148,6 +197,65 @@ public class VisualMapGenerator : MonoBehaviour
 			Mathf.RoundToInt((float)magicStrength * 100), magicType);
 		updateTile();
 	}
+	private void generateCivTile()
+    {
+		WorldMapTile tile = map[xVal][yVal];
+		if (tile.getHeight() < seaLevelThreshold || tile.getMagicPotency() < 50)
+        {
+			return;
+        }
+		double nat = (nationalismMap.GetValue(xVal, yVal, 0) + 1) / 2;
+		double alt = (altruismMap.GetValue(xVal, yVal, 0) + 1) / 2;
+		double fam = (familismMap.GetValue(xVal, yVal, 0) + 1) / 2;
+		double mil = (militarismMap.GetValue(xVal, yVal, 0) + 1) / 2;
+		civMap[xVal][yVal] = new int[] { Mathf.RoundToInt((float)nat), Mathf.RoundToInt((float)alt),
+			Mathf.RoundToInt((float)fam), Mathf.RoundToInt((float)mil)};
+		Tile city = Instantiate(tilePrefab, StaticData.findDeepChild(transform, "Civ"));
+		city.transform.position = new Vector3(xVal, 10, yVal);
+		double maxVal = alt;
+		Material mat = shallowWater;
+		if (nat > maxVal)
+        {
+			maxVal = nat;
+			mat = forest;
+        }
+		if (fam > maxVal)
+		{
+			maxVal = fam;
+			mat = desert;
+		}
+		if (mil > maxVal)
+		{
+			mat = snowyPlain;
+		}
+		city.setMaterial(mat);
+		city.drawGeneral(xVal, yVal, 10);
+	}
+	private void connectCityStates()
+    {
+		for (int q = 0; q < civMap.Length; q++)
+        {
+			for (int w = 0; w < civMap[q].Length; w++)
+            {
+				if (q > 0 && civMap[q][w] != null)
+				{
+					if (q > 0 && civMap[q - 1][w] != null)
+					{
+						map[q - 1][w].getAffiliation().addTile(map[q][w], civMap[q][w]);
+					}
+					else if (w > 0 && civMap[q][w - 1] != null)
+                    {
+						map[q][w - 1].getAffiliation().addTile(map[q][w], civMap[q][w]);
+					}
+					else
+                    {
+						Affiliation aff = new Affiliation();
+						aff.addTile(map[q][w], civMap[q][w]);
+					}
+				}
+			}
+        }
+    }
 	private void updateTile()
     {
 		WorldMapTile wmTile = map[xVal][yVal];
@@ -234,12 +342,13 @@ public class VisualMapGenerator : MonoBehaviour
 	private void makeTileDisplay()
     {
 		Material mat = materialDictionary[map[xVal][yVal].getType()];
-		Tile tile = Instantiate(tilePrefab, transform);
+		Tile tile = Instantiate(tilePrefab, StaticData.findDeepChild(transform, "Terrain"));
 		tile.transform.position = new Vector3(xVal, 0, yVal);
 		tile.setMaterial(mat);
 		tile.draw(xVal, yVal, map[xVal][yVal], seaLevelThreshold);
+		tile.name = $"{xVal},{yVal}";
     }
-	private void setPerlinSettings(Perlin[] perlins, double freq, double persist, double lacun,
+	public static void setPerlinSettings(Perlin[] perlins, double freq, double persist, double lacun,
 		int octave)
 	{
 		foreach (Perlin p in perlins)
@@ -288,8 +397,85 @@ public class VisualMapGenerator : MonoBehaviour
 			Debug.Log("The program is still working. Please wait.");
 			return;
 		}
-		//TODO Save function
+		MapSaveData data = new MapSaveData(this);
+		BinaryFormatter formatter = new BinaryFormatter();
+		FileStream stream = new FileStream(savePath + mapName + ".map", FileMode.Create);
+		formatter.Serialize(stream, data);
+		stream.Close();
 	}
+
+	public int[] getDimensions()
+    {
+		return new int[] { SQRT_OF_MAP_SIZE, SQRT_OF_MAP_SIZE };
+    }
+
+	public int getSeed()
+    {
+		return randomSeed;
+    }
+
+	public void tileExpansionTest()
+    {
+		StaticData.affiliations = new List<Affiliation>();
+		BattlefieldGenerator bfGen = Instantiate(bfGeneratorPrefab);
+		Affiliation aff1 = new Affiliation();
+		Affiliation aff2 = new Affiliation();
+		BerryData data1 = new BerryData($"TestBerry1", aff1, 0, Color.blue,
+			Color.blue, Color.blue, 0);
+		BerryData data2 = new BerryData($"TestBerry2", aff2, 0, Color.blue,
+			Color.blue, Color.blue, 0);
+		CharacterTeam team1 = new CharacterTeam(data1);
+		CharacterTeam team2 = new CharacterTeam(data2);
+		team1.xCoord = testExpandPosX1;
+		team1.yCoord = testExpandPosY1;
+		team2.xCoord = testExpandPosX2;
+		team2.yCoord = testExpandPosY2;
+		at(team1.xCoord, team1.yCoord).placeTeam(team1);
+		at(team2.xCoord, team2.yCoord).placeTeam(team2);
+		StaticData.findDeepChild(transform, "Terrain").gameObject.SetActive(false);
+		bfGen.setup(new CharacterTeam[] { team1, team2 });
+    }
+
+	public void loadMap()
+    {
+		string file = savePath + mapName + ".map";
+		if (File.Exists(file))
+        {
+			BinaryFormatter formatter = new BinaryFormatter();
+			FileStream stream = new FileStream(file, FileMode.Open);
+			MapSaveData data = formatter.Deserialize(stream) as MapSaveData;
+			stream.Close();
+
+			clear();
+			map = new WorldMapTile[data.xDimension][];
+			for (int q = 0; q < map.Length; q++)
+			{
+				map[q] = new WorldMapTile[data.yDimension];
+			}
+
+			randomSeed = data.seed;
+
+			xVal = 0;
+			yVal = 0;
+			for (int q = 0; q < data.heat.Length; q++)
+            {
+				map[xVal][yVal] = new WorldMapTile(data.heat[q], data.moisture[q],
+					data.height[q], data.magicPotency[q], data.magicType[q]);
+				updateTile();
+				yVal++;
+				if (yVal == data.xDimension)
+                {
+					yVal = 0;
+					xVal++;
+                }
+            }
+			StaticData.worldMap = new WorldMap(map);
+		}
+		else
+        {
+			Debug.LogError($"Could not find file at " + file);
+        }
+    }
 
 	// Update is called once per frame
 	void Update()
@@ -299,6 +485,10 @@ public class VisualMapGenerator : MonoBehaviour
 			if (valuesSet)
             {
 				updateTile();
+            }
+			else if (civMaking)
+            {
+				generateCivTile();
             }
 			else
             {
@@ -315,8 +505,14 @@ public class VisualMapGenerator : MonoBehaviour
             }
 			else
             {
+				if (civMaking)
+                {
+					connectCityStates();
+					civMaking = false;
+				}
 				working = false;
 				valuesSet = true;
+				StaticData.worldMap = new WorldMap(map);
             }
         }
     }

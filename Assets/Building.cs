@@ -4,8 +4,7 @@ using UnityEngine;
 public abstract class Building
 {
 	protected string name;
-	protected int structuralIntegrity;
-	protected int maxStructuralIntegrity;
+	protected ulong structuralIntegrity;
 	protected int durability;
 	protected int resistance;
 	protected CharacterData owner;
@@ -32,12 +31,11 @@ public abstract class Building
 	public static string STOREHOUSE = "Storehouse";
 	public static string TRADE_CENTER = "Trade Center";
 
-	public Building(string name, int maxStructuralIntegrity, int durability, int resistance,
+	public Building(string name, int durability, int resistance,
 			CharacterData owner, WorldMapTile location)
 	{
 		this.name = name;
-		this.maxStructuralIntegrity = maxStructuralIntegrity;
-		this.structuralIntegrity = this.maxStructuralIntegrity;
+		structuralIntegrity = ulong.MaxValue;
 		this.durability = durability;
 		this.resistance = resistance;
 		this.owner = owner;
@@ -64,19 +62,7 @@ public abstract class Building
 
 	public bool takeDamage(bool isMagicAttack, int damage)
 	{
-		if (isMagicAttack)
-		{
-			damage -= getResistance();
-		}
-		else
-		{
-			damage -= getDurability();
-		}
-		if (damage > 0)
-		{
-			structuralIntegrity -= damage;
-			return structuralIntegrity > 0;
-		}
+		//TODO bitwise function
 		return true;
 	}
 
@@ -89,14 +75,9 @@ public abstract class Building
 
 	public abstract void completeMonthlyAction();
 
-	public int getCurrentHP()
+	public ulong getStructuralIntegrityRaw()
 	{
-		return this.structuralIntegrity;
-	}
-
-	public int getMaximumHP()
-	{
-		return this.maxStructuralIntegrity;
+		return structuralIntegrity;
 	}
 
 	public abstract void destroy();
@@ -124,7 +105,8 @@ public abstract class Building
 
 	public float percentageHealth()
 	{
-		return (float)(0.0 + getCurrentHP()) / getMaximumHP();
+		//TODO what percentage of the bits in structuralIngerity are true?
+		return 0;
 	}
 
 	public string tostring()

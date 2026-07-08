@@ -55,16 +55,6 @@ public class Warrior : PlayerEntity
         agent.setCharacterController(cc);
         //TODO set mass
         generalCollider = GetComponent<Collider>();
-        if (data.leftHanded)
-        {
-            dominantHandTransform = StaticData.findDeepChild(transform, "LeftHandHoldPoint");
-            otherHandTransform = StaticData.findDeepChild(transform, "RightHandHoldPoint");
-        }
-        else
-        {
-            dominantHandTransform = StaticData.findDeepChild(transform, "RightHandHoldPoint");
-            otherHandTransform = StaticData.findDeepChild(transform, "LeftHandHoldPoint");
-        }
     }
     public void setData(CharacterData data)
     {
@@ -88,6 +78,18 @@ public class Warrior : PlayerEntity
                 rb.isKinematic = false;
             }
         }
+
+        if (data.leftHanded)
+        {
+            dominantHandTransform = StaticData.findDeepChild(transform, "LeftHandHoldPoint");
+            otherHandTransform = StaticData.findDeepChild(transform, "RightHandHoldPoint");
+        }
+        else
+        {
+            dominantHandTransform = StaticData.findDeepChild(transform, "RightHandHoldPoint");
+            otherHandTransform = StaticData.findDeepChild(transform, "LeftHandHoldPoint");
+        }
+
     }
     public CharacterData getData()
     {
@@ -271,6 +273,7 @@ public class Warrior : PlayerEntity
     // Update is called once per frame
     void Update()
     {
+        return;
         if (hesitation > 0)
         {
             hesitation -= StaticData.deltaTime();

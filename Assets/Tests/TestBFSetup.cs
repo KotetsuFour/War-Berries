@@ -38,12 +38,19 @@ public class TestBFSetup : MonoBehaviour
     }
     private void makeTeam(Affiliation aff, int num, Transform[] pos)
     {
-        CharacterTeam team = new CharacterTeam();
+        CharacterTeam team = null;
         for (int q = 0; q < num; q++)
         {
             BerryData data = new BerryData($"TestBerry{num}", aff, 0, Color.blue,
                 Color.blue, Color.blue, 0);
-            team.add(data);
+            if (team == null)
+            {
+                team = new CharacterTeam(data);
+            }
+            else
+            {
+                team.add(data);
+            }
             Warrior war = Instantiate(warriorPrefab, pos[q].position, Quaternion.identity);
             war.GetComponent<CustomNavAgent>().setActive(true);
             warriors.Add(war);

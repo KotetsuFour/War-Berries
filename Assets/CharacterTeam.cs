@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharacterTeam
 {
-    public static int MAX_MEMBERS_ALLOWED;
+    public static int MAX_MEMBERS_ALLOWED = 10;
 
     private List<CharacterData> members;
     private WMOrders orders;
@@ -17,9 +17,15 @@ public class CharacterTeam
 
     private bool taskToggle; //Used to keep tasks up to date
 
-    public CharacterTeam()
+    public int xCoord;
+    public int yCoord;
+
+    private int formation;
+
+    public CharacterTeam(CharacterData data)
     {
         members = new List<CharacterData>(MAX_MEMBERS_ALLOWED);
+        members.Add(data);
     }
     public void battleInitializer()
     {
@@ -47,6 +53,14 @@ public class CharacterTeam
         }
         return false;
     }
+    public CharacterData getMember(int idx)
+    {
+        return members[idx];
+    }
+    public int size()
+    {
+        return members.Count;
+    }
     public CharacterData getLeader()
     {
         if (members.Count == 0)
@@ -60,7 +74,10 @@ public class CharacterTeam
     {
         return getLeader().getAffiliation();
     }
-
+    public int getFormation()
+    {
+        return formation;
+    }
     public void assignWarriorRoles()
     {
         //Go through each member, and give them a task based on the team's BFOrders

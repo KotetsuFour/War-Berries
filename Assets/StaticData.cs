@@ -13,7 +13,7 @@ public static class StaticData
     public static bool WMPaused;
     public static WMCursor WMPausedBy;
 
-    public static BattlefieldCreator currentBattlefield;
+    public static BattlefieldGenerator currentBattlefield;
     public static bool BFPaused;
     //    public static BFCursor BFPausedBy;
 
@@ -23,6 +23,9 @@ public static class StaticData
     public static float deltaTimeStore;
     public static List<Affiliation> affiliations;
     public const float GRAVITY = 1;
+
+    public static int battlefieldPerlinSeed;
+    public static double seaLevel;
 
     /**
      * The categories for items include:

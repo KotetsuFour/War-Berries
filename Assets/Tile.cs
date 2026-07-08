@@ -17,7 +17,7 @@ public class Tile : MonoBehaviour
     [SerializeField] private GameObject trainingFacility;
 
     public int x, y;
-    public WorldMapTile tile;
+    public TileData tile;
 
     public static float HALF_LENGTH = 0.5f;
     public static float TILE_HEIGHT_MULTIPLIER = 0.25f;
@@ -25,15 +25,8 @@ public class Tile : MonoBehaviour
 
     private Vector3 cursorPosition;
 
-    public void draw(int x, int y, WorldMapTile tile, float seaLevel)
+    public void drawGeneral(int x, int y, float meshHeight)
     {
-        this.x = x;
-        this.y = y;
-        this.tile = tile;
-
-        float meshHeight = (/*tile.getType().getHeight()*/Mathf.Max(0, ((float)tile.getHeight() - seaLevel) * 10f)) * TILE_HEIGHT_MULTIPLIER;
-        setUtilityPositions(meshHeight);
-
         Mesh mesh = new Mesh
         {
             name = "TileMesh"
@@ -143,11 +136,22 @@ public class Tile : MonoBehaviour
         GetComponent<BoxCollider>().center = new Vector3(0, meshHeight / 2, 0);
         GetComponent<BoxCollider>().size = new Vector3(HALF_LENGTH * 2, meshHeight + 0.1f, HALF_LENGTH * 2);
     }
+    public void draw(int x, int y, TileData tile, float seaLevel)
+    {
+        this.x = x;
+        this.y = y;
+        this.tile = tile;
+
+        float meshHeight = (/*tile.getType().getHeight()*/Mathf.Max(0, ((float)tile.getHeight() - seaLevel) * 10f)) * TILE_HEIGHT_MULTIPLIER;
+        setUtilityPositions(meshHeight);
+
+        drawGeneral(x, y, meshHeight);
+    }
     public void setMaterial(Material mat)
     {
         GetComponent<MeshRenderer>().material = mat;
     }
-    public WorldMapTile getTile()
+    public TileData getTile()
     {
         return tile;
     }
@@ -171,7 +175,7 @@ public class Tile : MonoBehaviour
     */
     public string getName()
     {
-        return tile.getType().getName();
+        return tile.getTypeName();
     }
     public void decorate(GameObject deco)
     {
