@@ -166,8 +166,8 @@ public class BattlefieldGenerator : MonoBehaviour
         battlefieldMaterials.Add(BattlefieldTile.BattlefieldTileType.LAVA, lava);
         battlefieldMaterials.Add(BattlefieldTile.BattlefieldTileType.POISON, poison);
 
-        xWorkingVal = coreMinX * BATTLEFIELD_TO_WORLDTILE_RATIO;
-        yWorkingVal = coreMinY * BATTLEFIELD_TO_WORLDTILE_RATIO;
+        xWorkingVal = 0;
+        yWorkingVal = 0;
 
         workingStage = 1;
     }
@@ -175,14 +175,15 @@ public class BattlefieldGenerator : MonoBehaviour
     private void generateTile()
     {
         WorldMap wm = StaticData.worldMap;
-        int wmTileX = xWorkingVal / BATTLEFIELD_TO_WORLDTILE_RATIO;
-        int wmTileY = yWorkingVal / BATTLEFIELD_TO_WORLDTILE_RATIO;
-        int relativePosX = xWorkingVal - (coreMinX * BATTLEFIELD_TO_WORLDTILE_RATIO);
-        int relativePosY = yWorkingVal - (coreMinY * BATTLEFIELD_TO_WORLDTILE_RATIO);
+        Vector2 wmCoords = getWMTileAccordingToBFTile(xWorkingVal, yWorkingVal);
+        int wmTileX = Mathf.RoundToInt(wmCoords.x);
+        int wmTileY = Mathf.RoundToInt(wmCoords.y);
+        int bfPosXWithRespectToWM = xWorkingVal + (coreMinX * BATTLEFIELD_TO_WORLDTILE_RATIO);
+        int bfPosYWithRespectToWM = yWorkingVal + (coreMinY * BATTLEFIELD_TO_WORLDTILE_RATIO);
 
-        double height = (heightMap.GetValue(xWorkingVal, yWorkingVal, 0) + 1) / 2;
+        double height = (heightMap.GetValue(bfPosXWithRespectToWM, bfPosYWithRespectToWM, 0) + 1) / 2;
 
-        height *= wm.at(wmTileX, wmTileY).getHeight() + 1;
+        height *= (wm.at(wmTileX, wmTileY).getHeight() + 1) * 0.8;
 
         //TODO Bilerp, so the BFTile is also affected by the surrounding WMTiles
 
@@ -206,32 +207,42 @@ public class BattlefieldGenerator : MonoBehaviour
         height *= fullLerp;
 
         BattlefieldTile tile = new BattlefieldTile(height);
-        bfMap[relativePosX][relativePosY] = tile;
-        BattlefieldTile.BattlefieldTileType bfTileType = getMaterial(StaticData.worldMap.at(xWorkingVal / BATTLEFIELD_TO_WORLDTILE_RATIO, yWorkingVal / BATTLEFIELD_TO_WORLDTILE_RATIO).getType());
-        if (bfTileType == BattlefieldTile.BattlefieldTileType.SHALLOW_WATER
-            || bfTileType == BattlefieldTile.BattlefieldTileType.DEEP_WATER)
-        {
-            tile.setHeight(0);
-        }
-        makeTile(relativePosX, relativePosY, battlefieldMaterials[bfTileType]);
+        bfMap[xWorkingVal][yWorkingVal] = tile;
 
         xWorkingVal++;
-        if (xWorkingVal == (coreMaxX * BATTLEFIELD_TO_WORLDTILE_RATIO) - 1)
+        if (xWorkingVal == bfMap.Length)
         {
-            xWorkingVal = coreMinX * BATTLEFIELD_TO_WORLDTILE_RATIO;
+            xWorkingVal = 0;
             yWorkingVal++;
         }
-        if (yWorkingVal == (coreMaxY * BATTLEFIELD_TO_WORLDTILE_RATIO) - 1)
+        if (yWorkingVal == bfMap[xWorkingVal].Length)
         {
             workingStage = 2;
         }
+    }
+    private void renderTiles()
+    {
+        for (int q = 0; q < bfMap.Length; q++)
+        {
+            for (int w = 0; w < bfMap[q].Length; w++)
+            {
+                Vector2 wmCoords = getWMTileAccordingToBFTile(q, w);
+                int wmTileX = Mathf.RoundToInt(wmCoords.x);
+                int wmTileY = Mathf.RoundToInt(wmCoords.y);
+                BattlefieldTile.BattlefieldTileType bfTileType = getMaterial(StaticData.worldMap.at(wmTileX, wmTileY).getType());
+                makeTile(q, w, battlefieldMaterials[bfTileType]);
+            }
+        }
+
+        workingStage = 3;
     }
     private void makeTile(int x, int y, Material mat)
     {
         Tile tile = Instantiate(tilePrefab, StaticData.findDeepChild(transform, "Terrain"));
         tile.transform.position = new Vector3(x, 0, y);
-        tile.setMaterial(mat);
-        tile.draw(x, y, bfMap[x][y], 0);
+//        tile.setMaterial(mat);
+        //        tile.draw(x, y, bfMap[x][y], 0);
+        tile.drawBFTile(bfMap, x, y, mat);
     }
 
     private BattlefieldTile.BattlefieldTileType getMaterial(WorldMapTile.WorldMapTileType tileType)
@@ -258,7 +269,7 @@ public class BattlefieldGenerator : MonoBehaviour
             }
         }
 
-        workingStage = 3;
+        workingStage = 4;
     }
     private void setupFormations()
     {
@@ -268,21 +279,26 @@ public class BattlefieldGenerator : MonoBehaviour
             positions[q] = Instantiate(formations[teams[q].getFormation()]);
         }
 
-        workingStage = 4;
+        workingStage = 5;
     }
     private void placeUnits()
     {
         for (int q = 0; q < teams.Count; q++)
         {
             CharacterTeam team = teams[q];
-            int xPos = team.xCoord - coreMinX;
-            int yPos = team.yCoord - coreMinY;
-            float xMid = (coreMinX + coreMaxX) / 2;
-            float yMid = (coreMinY + coreMaxY) / 2;
+            Vector2 teamBFCoords = getWMTileCenterAsBFCoords(team.xCoord, team.yCoord);
+            Debug.Log(bfMap);
+            Debug.Log(bfMap[Mathf.RoundToInt(teamBFCoords.x)]);
+            Debug.Log(bfMap[Mathf.RoundToInt(teamBFCoords.x)][Mathf.RoundToInt(teamBFCoords.y)]);
+            Vector3 teamPos = new Vector3(teamBFCoords.x,
+                ((float)bfMap[Mathf.RoundToInt(teamBFCoords.x)][Mathf.RoundToInt(teamBFCoords.y)].getHeight() + 1) * Tile.BATTLEFIELD_TILE_HEIGHT_MULTIPLIER,
+                teamBFCoords.y);
+            float xMid = bfMap.Length / 2;
+            float yMid = bfMap[0].Length / 2;
             Transform pos = positions[q];
-            pos.SetPositionAndRotation(new Vector3(xPos * BATTLEFIELD_TO_WORLDTILE_RATIO, (float)bfMap[xPos][yPos].getHeight(), yPos * BATTLEFIELD_TO_WORLDTILE_RATIO),
+            pos.SetPositionAndRotation(teamPos,
                 Quaternion.LookRotation(new Vector3(xMid, 0, yMid)
-                - new Vector3(xPos, 0, yPos)));
+                - new Vector3(teamPos.x, 0, teamPos.y)));
             for (int w = 0; w < team.size(); w++)
             {
                 Warrior war = Instantiate(warriorPrefab, pos.position, pos.rotation);
@@ -292,6 +308,22 @@ public class BattlefieldGenerator : MonoBehaviour
         }
 
         workingStage = 0;
+    }
+
+    public Vector2 getWMTileCenterAsBFCoords(int wmXPos, int wmYPos)
+    {
+        Vector2 ret = new Vector2();
+        ret.x = ((wmXPos - coreMinX) * BATTLEFIELD_TO_WORLDTILE_RATIO) + (BATTLEFIELD_TO_WORLDTILE_RATIO / 2);
+        ret.y = ((wmYPos - coreMinY) * BATTLEFIELD_TO_WORLDTILE_RATIO) + (BATTLEFIELD_TO_WORLDTILE_RATIO / 2);
+        return ret;
+    }
+
+    public Vector2 getWMTileAccordingToBFTile(int bfX, int bfY)
+    {
+        Vector2 ret = new Vector2();
+        ret.x = (bfX / BATTLEFIELD_TO_WORLDTILE_RATIO) + coreMinX;
+        ret.y = (bfY / BATTLEFIELD_TO_WORLDTILE_RATIO) + coreMinY;
+        return ret;
     }
 
     public void startBattle()
@@ -309,13 +341,17 @@ public class BattlefieldGenerator : MonoBehaviour
             }
             else if (workingStage == 2)
             {
-                generateBuildingsAndNature();
+                renderTiles();
             }
             else if (workingStage == 3)
             {
-                setupFormations();
+                generateBuildingsAndNature();
             }
             else if (workingStage == 4)
+            {
+                setupFormations();
+            }
+            else if (workingStage == 5)
             {
                 placeUnits();
             }

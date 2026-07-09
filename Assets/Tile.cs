@@ -22,6 +22,7 @@ public class Tile : MonoBehaviour
     public static float HALF_LENGTH = 0.5f;
     public static float TILE_HEIGHT_MULTIPLIER = 0.25f;
     public static float MAX_DECORATION_HEIGHT = 100;
+    public static float BATTLEFIELD_TILE_HEIGHT_MULTIPLIER = 2.5f;
 
     private Vector3 cursorPosition;
 
@@ -146,6 +147,65 @@ public class Tile : MonoBehaviour
         setUtilityPositions(meshHeight);
 
         drawGeneral(x, y, meshHeight);
+    }
+    public void drawBFTile(BattlefieldTile[][] bfMap, int x, int y, Material material)
+    {
+        float meshHeight = (float)bfMap[x][y].getHeight() + 1;
+
+        int lef = Mathf.Max(0, x - 1);
+        int rit = Mathf.Min(bfMap.Length - 1, x + 1);
+        int top = Mathf.Max(0, y - 1);
+        int bot = Mathf.Min(bfMap[x].Length - 1, y + 1);
+
+        float above = (float)(bfMap[x][top].getHeight() + 1);
+        float below = (float)(bfMap[x][bot].getHeight() + 1);
+        float right = (float)(bfMap[rit][y].getHeight() + 1);
+        float left = (float)(bfMap[lef][y].getHeight() + 1);
+        float topRight = (float)(bfMap[rit][top].getHeight() + 1);
+        float bottomRight = (float)(bfMap[rit][bot].getHeight() + 1);
+        float topLeft = (float)(bfMap[lef][top].getHeight() + 1);
+        float bottomLeft = (float)(bfMap[lef][bot].getHeight() + 1);
+
+        float topRightCornerHeight = (above + right + topRight + meshHeight) * BATTLEFIELD_TILE_HEIGHT_MULTIPLIER / 4;
+        float bottomRightCornerHeight = (below + right + bottomRight + meshHeight) * BATTLEFIELD_TILE_HEIGHT_MULTIPLIER / 4;
+        float topLeftCornerHeight = (above + left + topLeft + meshHeight) * BATTLEFIELD_TILE_HEIGHT_MULTIPLIER / 4;
+        float bottomLeftCornerHeight = (below + left + bottomLeft + meshHeight) * BATTLEFIELD_TILE_HEIGHT_MULTIPLIER / 4;
+
+
+        Mesh mesh = new Mesh
+        {
+            name = "TileMesh"
+        };
+
+        List<Vector3> vertices = new List<Vector3>();
+        vertices.Add(new Vector3(-HALF_LENGTH, topLeftCornerHeight, -HALF_LENGTH));
+        vertices.Add(new Vector3(-HALF_LENGTH, bottomLeftCornerHeight, HALF_LENGTH));
+        vertices.Add(new Vector3(HALF_LENGTH, bottomRightCornerHeight, HALF_LENGTH));
+        vertices.Add(new Vector3(HALF_LENGTH, topRightCornerHeight, -HALF_LENGTH));
+
+        List<int> triangles = new List<int>(new int[] { 0, 1, 2, 0, 2, 3 });
+
+        List<Vector3> normals = new List<Vector3>();
+        normals.Add(Vector3.up);
+        normals.Add(Vector3.up);
+        normals.Add(Vector3.up);
+        normals.Add(Vector3.up);
+
+        List<Vector2> uvs = new List<Vector2>();
+        uvs.Add(new Vector2(0, 0));
+        uvs.Add(new Vector2(0, 1));
+        uvs.Add(new Vector2(1, 1));
+        uvs.Add(new Vector2(1, 0));
+
+        mesh.vertices = vertices.ToArray();
+        mesh.triangles = triangles.ToArray();
+        mesh.normals = normals.ToArray();
+        mesh.SetUVs(0, uvs);
+
+        GetComponent<MeshFilter>().mesh = mesh;
+        GetComponent<BoxCollider>().center = new Vector3(0, meshHeight / 2, 0);
+        GetComponent<BoxCollider>().size = new Vector3(HALF_LENGTH * 2, meshHeight + 0.1f, HALF_LENGTH * 2);
+        setMaterial(material);
     }
     public void setMaterial(Material mat)
     {
