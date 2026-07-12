@@ -61,6 +61,8 @@ public class VisualMapGenerator : MonoBehaviour
 	[SerializeField] private int testExpandPosY2;
 	[SerializeField] private BattlefieldGenerator bfGeneratorPrefab;
 
+	private static float staticSeaLevel = 0;
+
 	void Awake()
     {
 		map = new WorldMapTile[SQRT_OF_MAP_SIZE][];
@@ -87,6 +89,7 @@ public class VisualMapGenerator : MonoBehaviour
 		materialDictionary.Add(WorldMapTile.WorldMapTileType.SNOWY_PLAIN, snowyPlain);
 		materialDictionary.Add(WorldMapTile.WorldMapTileType.SWAMP, swamp);
 		materialDictionary.Add(WorldMapTile.WorldMapTileType.WASTELAND, wasteland);
+		staticSeaLevel = seaLevelThreshold;
 	}
 
 	public void clear()
@@ -475,6 +478,11 @@ public class VisualMapGenerator : MonoBehaviour
         {
 			Debug.LogError($"Could not find file at " + file);
         }
+    }
+
+	public static float getSeaLevel()
+    {
+		return staticSeaLevel;
     }
 
 	// Update is called once per frame

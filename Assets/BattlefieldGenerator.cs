@@ -9,6 +9,7 @@ public class BattlefieldGenerator : MonoBehaviour
     public const int BATTLEFIELD_MAX_PERIPHERAL_RADIUS = 4;
     public const int BATTLEFIELD_MIN_CORE_RADIUS = 2;
     public const int BATTLEFIELD_TO_WORLDTILE_RATIO = 6;
+    public const int ARBITRARY_HIGH_RAYCAST_START_HEIGHT = 100;
     private List<CharacterTeam> teams;
     private List<CharacterTeam> reinforcements;
     private List<float> reinforcementAvailabilityTimers; //How long until each reinforcement can be deployed
@@ -52,7 +53,13 @@ public class BattlefieldGenerator : MonoBehaviour
 
     [SerializeField] private Warrior warriorPrefab;
     [SerializeField] private List<Transform> formations;
+    [SerializeField] private LayerMask terrainLayer;
     private Transform[] positions;
+    List<Vector3> colliderMeshVertices;
+    List<int> colliderMeshTriangles;
+    List<Vector3> colliderMeshNormals;
+    List<Vector2> colliderMeshUVs;
+    private Mesh colliderMesh;
 
     private Dictionary<BattlefieldTile.BattlefieldTileType, Material> battlefieldMaterials;
 
@@ -166,6 +173,11 @@ public class BattlefieldGenerator : MonoBehaviour
         battlefieldMaterials.Add(BattlefieldTile.BattlefieldTileType.LAVA, lava);
         battlefieldMaterials.Add(BattlefieldTile.BattlefieldTileType.POISON, poison);
 
+        colliderMeshVertices = new List<Vector3>();
+        colliderMeshTriangles = new List<int>();
+        colliderMeshNormals = new List<Vector3>();
+        colliderMeshUVs = new List<Vector2>();
+
         xWorkingVal = 0;
         yWorkingVal = 0;
 
@@ -206,6 +218,11 @@ public class BattlefieldGenerator : MonoBehaviour
 
         height *= fullLerp;
 
+        if (wm.at(wmTileX, wmTileY).getHeight() < VisualMapGenerator.getSeaLevel())
+        {
+            height = Mathf.Min(VisualMapGenerator.getSeaLevel(), (float)height);
+        }
+
         BattlefieldTile tile = new BattlefieldTile(height);
         bfMap[xWorkingVal][yWorkingVal] = tile;
 
@@ -243,6 +260,21 @@ public class BattlefieldGenerator : MonoBehaviour
 //        tile.setMaterial(mat);
         //        tile.draw(x, y, bfMap[x][y], 0);
         tile.drawBFTile(bfMap, x, y, mat);
+
+        Mesh mesh = tile.getMesh();
+        int currentVertexCount = colliderMeshVertices.Count;
+        Vector3[] vert = mesh.vertices;
+        for (int q = 0; q < vert.Length; q++)
+        {
+            colliderMeshVertices.Add(new Vector3(vert[q].x + x, vert[q].y, vert[q].z + y));
+        }
+        int[] tri = mesh.triangles;
+        for (int q = 0; q < tri.Length; q++)
+        {
+            colliderMeshTriangles.Add(tri[q] + currentVertexCount);
+        }
+        colliderMeshNormals.AddRange(mesh.normals);
+        colliderMeshUVs.AddRange(mesh.uv);
     }
 
     private BattlefieldTile.BattlefieldTileType getMaterial(WorldMapTile.WorldMapTileType tileType)
@@ -251,6 +283,21 @@ public class BattlefieldGenerator : MonoBehaviour
         return tileType.getTileTypeWithRandomNumber0to99(0);
     }
 
+    private void setCollider()
+    {
+        colliderMesh = new Mesh
+        {
+            name = "ColliderMesh"
+        };
+        colliderMesh.vertices = colliderMeshVertices.ToArray();
+        colliderMesh.triangles = colliderMeshTriangles.ToArray();
+        colliderMesh.normals = colliderMeshNormals.ToArray();
+        colliderMesh.SetUVs(0, colliderMeshUVs);
+
+        MeshCollider coll = GetComponent<MeshCollider>();
+        coll.sharedMesh = null;
+        coll.sharedMesh = colliderMesh;
+    }
     private void generateBuildingsAndNature()
     {
         //TODO Buildings and nature
@@ -287,9 +334,6 @@ public class BattlefieldGenerator : MonoBehaviour
         {
             CharacterTeam team = teams[q];
             Vector2 teamBFCoords = getWMTileCenterAsBFCoords(team.xCoord, team.yCoord);
-            Debug.Log(bfMap);
-            Debug.Log(bfMap[Mathf.RoundToInt(teamBFCoords.x)]);
-            Debug.Log(bfMap[Mathf.RoundToInt(teamBFCoords.x)][Mathf.RoundToInt(teamBFCoords.y)]);
             Vector3 teamPos = new Vector3(teamBFCoords.x,
                 ((float)bfMap[Mathf.RoundToInt(teamBFCoords.x)][Mathf.RoundToInt(teamBFCoords.y)].getHeight() + 1) * Tile.BATTLEFIELD_TILE_HEIGHT_MULTIPLIER,
                 teamBFCoords.y);
@@ -301,7 +345,14 @@ public class BattlefieldGenerator : MonoBehaviour
                 - new Vector3(teamPos.x, 0, teamPos.y)));
             for (int w = 0; w < team.size(); w++)
             {
-                Warrior war = Instantiate(warriorPrefab, pos.position, pos.rotation);
+                Vector3 spawn = pos.GetChild(w).position;
+                Debug.Log(spawn);
+                RaycastHit hit;
+                bool hitDetect = Physics.Raycast(new Vector3(spawn.x, ARBITRARY_HIGH_RAYCAST_START_HEIGHT, spawn.z), Vector3.down,
+                    out hit, float.MaxValue, terrainLayer);
+                Debug.Log(hitDetect);
+                Vector3 exactSpawnPoint = hit.point;
+                Warrior war = Instantiate(warriorPrefab, exactSpawnPoint, pos.GetChild(w).rotation);
                 war.setData(team.getMember(w));
             }
             Destroy(pos.gameObject);
@@ -345,6 +396,7 @@ public class BattlefieldGenerator : MonoBehaviour
             }
             else if (workingStage == 3)
             {
+                setCollider();
                 generateBuildingsAndNature();
             }
             else if (workingStage == 4)

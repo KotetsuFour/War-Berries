@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(MeshFilter), typeof(MeshRenderer), typeof(BoxCollider))]
+[RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class Tile : MonoBehaviour
 {
     [SerializeField] private Material moveHighlight;
@@ -26,9 +26,11 @@ public class Tile : MonoBehaviour
 
     private Vector3 cursorPosition;
 
+    private Mesh mesh;
+
     public void drawGeneral(int x, int y, float meshHeight)
     {
-        Mesh mesh = new Mesh
+        mesh = new Mesh
         {
             name = "TileMesh"
         };
@@ -134,8 +136,8 @@ public class Tile : MonoBehaviour
         mesh.SetUVs(0, uvs);
 
         GetComponent<MeshFilter>().mesh = mesh;
-        GetComponent<BoxCollider>().center = new Vector3(0, meshHeight / 2, 0);
-        GetComponent<BoxCollider>().size = new Vector3(HALF_LENGTH * 2, meshHeight + 0.1f, HALF_LENGTH * 2);
+//        GetComponent<BoxCollider>().center = new Vector3(0, meshHeight / 2, 0);
+//        GetComponent<BoxCollider>().size = new Vector3(HALF_LENGTH * 2, meshHeight + 0.1f, HALF_LENGTH * 2);
     }
     public void draw(int x, int y, TileData tile, float seaLevel)
     {
@@ -172,7 +174,7 @@ public class Tile : MonoBehaviour
         float bottomLeftCornerHeight = (below + left + bottomLeft + meshHeight) * BATTLEFIELD_TILE_HEIGHT_MULTIPLIER / 4;
 
 
-        Mesh mesh = new Mesh
+        mesh = new Mesh
         {
             name = "TileMesh"
         };
@@ -203,8 +205,8 @@ public class Tile : MonoBehaviour
         mesh.SetUVs(0, uvs);
 
         GetComponent<MeshFilter>().mesh = mesh;
-        GetComponent<BoxCollider>().center = new Vector3(0, meshHeight / 2, 0);
-        GetComponent<BoxCollider>().size = new Vector3(HALF_LENGTH * 2, meshHeight + 0.1f, HALF_LENGTH * 2);
+//        GetComponent<BoxCollider>().center = new Vector3(0, meshHeight / 2, 0);
+//        GetComponent<BoxCollider>().size = new Vector3(HALF_LENGTH * 2, meshHeight + 0.1f, HALF_LENGTH * 2);
         setMaterial(material);
     }
     public void setMaterial(Material mat)
@@ -283,6 +285,11 @@ public class Tile : MonoBehaviour
     public void unhighlight()
     {
         getHighlight().gameObject.SetActive(false);
+    }
+
+    public Mesh getMesh()
+    {
+        return mesh;
     }
 
     /*

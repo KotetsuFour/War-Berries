@@ -72,7 +72,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5242154125806660402}
   - component: {fileID: 8866558579951356063}
-  m_Layer: 0
+  - component: {fileID: -3320272383617376482}
+  m_Layer: 9
   m_Name: BFMapMaker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,6 +132,31 @@ MonoBehaviour:
   warriorPrefab: {fileID: 7314310626020926002, guid: 26d3c2552d16757488b2d42a86071e94, type: 3}
   formations:
   - {fileID: 8903633258395934885, guid: 9c61280d0602420488deb9c727d8221a, type: 3}
+  terrainLayer:
+    serializedVersion: 2
+    m_Bits: 512
+--- !u!64 &-3320272383617376482
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4737928227625923456}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &6255937851359269786
 GameObject:
   m_ObjectHideFlags: 0
