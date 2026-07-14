@@ -74,8 +74,8 @@ public class Warrior : PlayerEntity
             if (section != null)
             {
                 section.setParentBody(this, data);
-                Rigidbody rb = section.GetComponent<Rigidbody>();
-                rb.isKinematic = false;
+//                Rigidbody rb = section.GetComponent<Rigidbody>();
+//                rb.isKinematic = false;
             }
         }
 

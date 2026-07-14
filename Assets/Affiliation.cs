@@ -11,6 +11,7 @@ public class Affiliation
     private float[] values; //Nationalism, Altruism, Familism, Militarism
     private List<WorldMapTile> tiles;
     private int population;
+    private LinkedList<Task> taskQueue;
     public Affiliation()
     {
         if (StaticData.affiliations.Count == 0)
@@ -25,6 +26,7 @@ public class Affiliation
         members = new List<CharacterData>();
         values = new float[4];
         tiles = new List<WorldMapTile>();
+        taskQueue = new LinkedList<Task>();
     }
     public Affiliation(int id)
     {
@@ -96,5 +98,38 @@ public class Affiliation
     public void join(BerryData data)
     {
         members.Add(data);
+    }
+
+    public void assessOptions()
+    {
+        LinkedListNode<Task> current = taskQueue.First;
+        
+        while (current != null)
+        {
+            //TODO Calculate heuristic
+            LinkedListNode<Task> placeholder = current.Next;
+            while (current.Previous != null && current.Value.heuristic > current.Previous.Value.heuristic)
+            {
+                LinkedListNode<Task> prev = current.Previous;
+                taskQueue.Remove(current);
+                taskQueue.AddBefore(prev, current);
+            }
+            current = placeholder;
+        }
+
+        //TODO Then, with all options weighed, go through the list, completing tasks until you've
+        //run out of energy. Some tasks can be deleted after completion, but others should stay and
+        //merely change heuristic value
+    }
+
+    private class Task
+    {
+        public TaskType taskType;
+        public object[] target;
+        public int heuristic;
+        public enum TaskType
+        {
+
+        }
     }
 }

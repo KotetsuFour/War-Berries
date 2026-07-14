@@ -129,7 +129,7 @@ MonoBehaviour:
   path: {fileID: 2100000, guid: 8114c973365270348a1d2f8e39f46322, type: 2}
   lava: {fileID: 2100000, guid: bc5ece9336b862a4ca4f1f50455528d4, type: 2}
   poison: {fileID: 2100000, guid: e4100255f7a2d854a85c673d3fac3343, type: 2}
-  warriorPrefab: {fileID: 7314310626020926002, guid: 26d3c2552d16757488b2d42a86071e94, type: 3}
+  warriorPrefab: {fileID: 5486505868719381506, guid: e803085a0f5eb0a42acaf185f4a63291, type: 3}
   formations:
   - {fileID: 8903633258395934885, guid: 9c61280d0602420488deb9c727d8221a, type: 3}
   terrainLayer:

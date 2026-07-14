@@ -10,6 +10,7 @@ public class BattlefieldGenerator : MonoBehaviour
     public const int BATTLEFIELD_MIN_CORE_RADIUS = 2;
     public const int BATTLEFIELD_TO_WORLDTILE_RATIO = 6;
     public const int ARBITRARY_HIGH_RAYCAST_START_HEIGHT = 100;
+    public const float TINY_HEIGHT_ABOVE_MESH = 0.001f;
     private List<CharacterTeam> teams;
     private List<CharacterTeam> reinforcements;
     private List<float> reinforcementAvailabilityTimers; //How long until each reinforcement can be deployed
@@ -195,7 +196,7 @@ public class BattlefieldGenerator : MonoBehaviour
 
         double height = (heightMap.GetValue(bfPosXWithRespectToWM, bfPosYWithRespectToWM, 0) + 1) / 2;
 
-        height *= (wm.at(wmTileX, wmTileY).getHeight() + 1) * 0.8;
+        height *= wm.at(wmTileX, wmTileY).getHeight() + 1;
 
         //TODO Bilerp, so the BFTile is also affected by the surrounding WMTiles
 
@@ -266,7 +267,8 @@ public class BattlefieldGenerator : MonoBehaviour
         Vector3[] vert = mesh.vertices;
         for (int q = 0; q < vert.Length; q++)
         {
-            colliderMeshVertices.Add(new Vector3(vert[q].x + x, vert[q].y, vert[q].z + y));
+            colliderMeshVertices.Add(new Vector3(vert[q].x + x, vert[q].y + TINY_HEIGHT_ABOVE_MESH,
+                vert[q].z + y));
         }
         int[] tri = mesh.triangles;
         for (int q = 0; q < tri.Length; q++)
@@ -334,23 +336,19 @@ public class BattlefieldGenerator : MonoBehaviour
         {
             CharacterTeam team = teams[q];
             Vector2 teamBFCoords = getWMTileCenterAsBFCoords(team.xCoord, team.yCoord);
-            Vector3 teamPos = new Vector3(teamBFCoords.x,
-                ((float)bfMap[Mathf.RoundToInt(teamBFCoords.x)][Mathf.RoundToInt(teamBFCoords.y)].getHeight() + 1) * Tile.BATTLEFIELD_TILE_HEIGHT_MULTIPLIER,
-                teamBFCoords.y);
+            Vector3 teamPos = new Vector3(teamBFCoords.x, 0, teamBFCoords.y);
             float xMid = bfMap.Length / 2;
             float yMid = bfMap[0].Length / 2;
             Transform pos = positions[q];
             pos.SetPositionAndRotation(teamPos,
                 Quaternion.LookRotation(new Vector3(xMid, 0, yMid)
-                - new Vector3(teamPos.x, 0, teamPos.y)));
+                - new Vector3(teamPos.x, 0, teamPos.z)));
             for (int w = 0; w < team.size(); w++)
             {
                 Vector3 spawn = pos.GetChild(w).position;
-                Debug.Log(spawn);
                 RaycastHit hit;
-                bool hitDetect = Physics.Raycast(new Vector3(spawn.x, ARBITRARY_HIGH_RAYCAST_START_HEIGHT, spawn.z), Vector3.down,
+                Physics.Raycast(new Vector3(spawn.x, ARBITRARY_HIGH_RAYCAST_START_HEIGHT, spawn.z), Vector3.down,
                     out hit, float.MaxValue, terrainLayer);
-                Debug.Log(hitDetect);
                 Vector3 exactSpawnPoint = hit.point;
                 Warrior war = Instantiate(warriorPrefab, exactSpawnPoint, pos.GetChild(w).rotation);
                 war.setData(team.getMember(w));
