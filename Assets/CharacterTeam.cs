@@ -21,6 +21,7 @@ public class CharacterTeam
     public int yCoord;
 
     private int formation;
+    private Transform battlefieldPositionObject;
 
     public CharacterTeam(CharacterData data)
     {
@@ -77,6 +78,10 @@ public class CharacterTeam
     public int getFormation()
     {
         return formation;
+    }
+    public void setTempPositionObject(Transform battlefieldPositionObject)
+    {
+        this.battlefieldPositionObject = battlefieldPositionObject;
     }
     public void assignWarriorRoles()
     {

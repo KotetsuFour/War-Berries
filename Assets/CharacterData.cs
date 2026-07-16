@@ -4,6 +4,39 @@ using UnityEngine;
 
 public abstract class CharacterData
 {
+    public const uint rifleAccSkill = 0b_0000_0000_0000_0000_0000_0000_0000_0001;
+    public const uint pistlAccSkill = 0b_0000_0000_0000_0000_0000_0000_0000_0010;
+    public const uint heavyAccSkill = 0b_0000_0000_0000_0000_0000_0000_0000_0100;
+    public const uint throwAccSkill = 0b_0000_0000_0000_0000_0000_0000_0000_1000;
+    public const uint fisticufSkill = 0b_0000_0000_0000_0000_0000_0000_0001_0000;
+    public const uint meleeWepSkill = 0b_0000_0000_0000_0000_0000_0000_0010_0000;
+    public const uint archrAccSkill = 0b_0000_0000_0000_0000_0000_0000_0100_0000;
+    public const uint acePilotSkill = 0b_0000_0000_0000_0000_0000_0000_1000_0000;
+    public const uint seaLeggsSkill = 0b_0000_0000_0000_0000_0000_0001_0000_0000;
+    public const uint turetAccSkill = 0b_0000_0000_0000_0000_0000_0010_0000_0000;
+    public const uint movePlusSkill = 0b_0000_0000_0000_0000_0000_0100_0000_0000;
+    public const uint driveAtoSkill = 0b_0000_0000_0000_0000_0000_1000_0000_0000;
+    public const uint medicineSkill = 0b_0000_0000_0000_0000_0001_0000_0000_0000;
+    public const uint leadrshpSkill = 0b_0000_0000_0000_0000_0010_0000_0000_0000;
+    public const uint negotiatSkill = 0b_0000_0000_0000_0000_0100_0000_0000_0000;
+    public const uint intimidtSkill = 0b_0000_0000_0000_0000_1000_0000_0000_0000;
+    public const uint stealthySkill = 0b_0000_0000_0000_0001_0000_0000_0000_0000;
+    public const uint survivalSkill = 0b_0000_0000_0000_0010_0000_0000_0000_0000;
+    public const uint awarenesSkill = 0b_0000_0000_0000_0100_0000_0000_0000_0000;
+    public const uint precisonSkill = 0b_0000_0000_0000_1000_0000_0000_0000_0000;
+    public const uint lightMagSkill = 0b_0000_0000_0001_0000_0000_0000_0000_0000;
+    public const uint darknMagSkill = 0b_0000_0000_0010_0000_0000_0000_0000_0000;
+    public const uint earthMagSkill = 0b_0000_0000_0100_0000_0000_0000_0000_0000;
+    public const uint culturesSkill = 0b_0000_0000_1000_0000_0000_0000_0000_0000;
+    public const uint technlgySkill = 0b_0000_0001_0000_0000_0000_0000_0000_0000;
+    public const uint animalTmSkill = 0b_0000_0010_0000_0000_0000_0000_0000_0000;
+    public const uint monstersSkill = 0b_0000_0100_0000_0000_0000_0000_0000_0000;
+    public const uint playrFvrSkill = 0b_0000_1000_0000_0000_0000_0000_0000_0000;
+    public const uint rideAnmlSkill = 0b_0001_0000_0000_0000_0000_0000_0000_0000;
+    public const uint swimmingSkill = 0b_0010_0000_0000_0000_0000_0000_0000_0000;
+    public const uint deepDivrSkill = 0b_0100_0000_0000_0000_0000_0000_0000_0000;
+    public const uint adrenalnSkill = 0b_1000_0000_0000_0000_0000_0000_0000_0000;
+
     public enum BodyPart
     {
         HEAD, TORSO, RIGHT_ARM, LEFT_ARM, RIGHT_LEG, LEFT_LEG, RIGHT_EYE, LEFT_EYE, MOUTH,
@@ -18,16 +51,20 @@ public abstract class CharacterData
     public CharacterTeam team;
     public double timeBorn;
 
-    public float[] bodyPartsMaxHP;
-    public float[] bodyPartsCurrentHP;
-    public float[] bodyPartsHPGrowthRates;
+    public short[] bodyPartsMaxHP;
+    public short[] bodyPartsCurrentHP;
+    public short[] bodyPartsHPGrowthRates;
     public bool injured;
 
-    public float strength; //Determines the amount of damage for traditional weapons
-    public float dexterity; //Determines the range of error when aiming
-    public float luck; //Determines how likely you are to be injured instead of dying from a fatal hit
-    public float leadership; //Determines the amount of support given to underlings
-    public float morale; //Determines behaviours associated with courage and loyalty
+    public short physicalStrength; //Determines the amount of damage for traditional weapons
+    public short mentalStrength;
+    public short dexterity; //Determines the range of error when aiming
+    public short agility;
+    public short cosmicFavor; //Determines how likely you are to be injured instead of dying from a fatal hit
+    public short physicalEndurance;
+    public short mentalWillpower;
+    public short renown;
+    public short morale; //Determines behaviours associated with courage and loyalty
 
     public static float MAX_STRENGTH = 100;
     public static float MAX_ACCURACY = 100;
@@ -35,10 +72,10 @@ public abstract class CharacterData
     public static float MAX_LEADERSHIP = 100;
     public static float MAX_MORALE = 100;
 
-    public float strengthGrowth;
-    public float accuracyGrowth;
-    public float luckGrowth;
-    public float leadershipGrowth;
+    public short strengthGrowth;
+    public short accuracyGrowth;
+    public short luckGrowth;
+    public short leadershipGrowth;
 
     public Dictionary<string, int[]> battleLog; //Takes a string name of the battle and gives an array
                                                 //[numKills, numInjuries, numBaseCaptures, numVehiclesDestroyed, numStructuresDestroyed]
@@ -51,7 +88,7 @@ public abstract class CharacterData
     public bool leftHanded;
     public Interest[] interests;
     public Interest[] disinterests;
-    public CombatTrait valuedTrait;
+    public uint combatSkills;
     public int[] appearance;
     public string supportPartnerId;
     public float attackPriorityPercentage;
@@ -64,8 +101,6 @@ public abstract class CharacterData
     public float weightCarried;
     public float[] armor;
 
-    public float[] skillLevels; //One index for each CombatTrait
-
     public CharacterData(string id, double timeBorn, Affiliation affiliation)
     {
         this.id = id;
@@ -74,8 +109,10 @@ public abstract class CharacterData
 
         generateStats();
     }
+
     private void generateStats()
     {
+        /*
         unitName = FantasyNames.getName();
         //TODO remember to create the team somewhere
 
@@ -103,9 +140,9 @@ public abstract class CharacterData
         bodyPartsHPGrowthRates[(int)BodyPart.RIGHT_LEG] = legGrowth;
         bodyPartsHPGrowthRates[(int)BodyPart.LEFT_LEG] = legGrowth;
 
-        strength = Random.Range(1, 26);
+        physicalStrength = Random.Range(1, 26);
         dexterity = Random.Range(1, 26);
-        luck = Random.Range(0, 10);
+        cosmicFavor = Random.Range(0, 10);
         leadership = Random.Range(0, 11);
 
         strengthGrowth = Random.Range(1, 11);
@@ -123,6 +160,7 @@ public abstract class CharacterData
         attackPriorityPercentage = Random.Range(0, 1.0f);
         supportPriorityPercentage = Random.Range(0, attackPriorityPercentage);
         demolitionPriorityPercentage = CharacterTeam.MAX_MEMBERS_ALLOWED - (attackPriorityPercentage + supportPriorityPercentage);
+        */
     }
     public bool isLeader()
     {
@@ -132,10 +170,9 @@ public abstract class CharacterData
     {
         demeanor = allDemeanors[Random.Range(0, allDemeanors.Length)];
     }
-    public void setSkills(CombatTrait[] allTraits)
+    public void setSkills(uint combatSkills)
     {
-        valuedTrait = allTraits[Random.Range(0, allTraits.Length)];
-        skillLevels = new float[allTraits.Length];
+        this.combatSkills = combatSkills;
     }
     public virtual float getMoveSpeed()
     {
@@ -144,6 +181,11 @@ public abstract class CharacterData
     public virtual float getRotationSpeed()
     {
         return 90;
+    }
+
+    public bool hasSkill(uint skillCheck)
+    {
+        return (combatSkills & skillCheck) == skillCheck;
     }
 
     public virtual Item getItem(int idx)
@@ -284,22 +326,26 @@ public abstract class CharacterData
         this.affiliation = affiliation;
         this.team = team;
         this.timeBorn = timeBorn;
-        this.strength = strength;
+        /*
+        this.physicalStrength = strength;
         this.dexterity = accuracy;
-        this.luck = luck;
+        this.cosmicFavor = luck;
         this.leadership = leadership;
         this.strengthGrowth = strengthGrowth;
         this.accuracyGrowth = accuracyGrowth;
-        this.luck = luckGrowth;
+        this.cosmicFavor = luckGrowth;
         this.leadershipGrowth = leadershipGrowth;
+        */
         battleLog = new Dictionary<string, int[]>();
         for (int q = 0; q < battles.Length; q++)
         {
             battleLog.Add(battles[q], battleStats[q]);
         }
+        /*
         this.bodyPartsMaxHP = bodyPartsMaxHP;
         this.bodyPartsCurrentHP = bodyPartsCurrentHP;
         this.bodyPartsHPGrowthRates = bodyPartsHPGrowthRates;
+        */
     }
     public int[] getCareer()
     {

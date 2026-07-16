@@ -308,7 +308,8 @@ public class Warrior : PlayerEntity
                     data.team.assignWarriorRoles();
                     //And cooldown
                     ordersCooldown = ORDERS_COOLDOWN_MIN
-                        + ((CharacterData.MAX_LEADERSHIP - data.leadership) * ORDERS_COOLDOWN_INTERVAL);
+//                        + ((CharacterData.MAX_LEADERSHIP - data.leadership) * ORDERS_COOLDOWN_INTERVAL)
+                        ;
                 }
                 else
                 {
@@ -473,7 +474,7 @@ public class Warrior : PlayerEntity
     private void startHesitationAndTargetCooldown()
     {
         targetingCooldown = TARGETING_COOLDOWN_MIN
-            + ((CharacterData.MAX_LUCK - data.luck) * TARGETING_COOLDOWN_INTERVAL);
+            + ((CharacterData.MAX_LUCK - data.cosmicFavor) * TARGETING_COOLDOWN_INTERVAL);
         hesitation = HESITATION_MIN
             + ((CharacterData.MAX_MORALE - data.morale) * HESITATION_INTERVAL);
     }

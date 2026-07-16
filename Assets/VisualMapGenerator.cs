@@ -197,7 +197,8 @@ public class VisualMapGenerator : MonoBehaviour
 		int magicType = magic > 0.67 ? 0 : magic > 0.33 ? 1 : 2;
 
 		map[xVal][yVal] = new WorldMapTile(heat, moisture, height,
-			Mathf.RoundToInt((float)magicStrength * 100), magicType);
+			Mathf.RoundToInt((float)magicStrength * 100), magicType,
+			(byte)xVal, (byte)yVal);
 		updateTile();
 	}
 	private void generateCivTile()
@@ -463,7 +464,8 @@ public class VisualMapGenerator : MonoBehaviour
 			for (int q = 0; q < data.heat.Length; q++)
             {
 				map[xVal][yVal] = new WorldMapTile(data.heat[q], data.moisture[q],
-					data.height[q], data.magicPotency[q], data.magicType[q]);
+					data.height[q], data.magicPotency[q], data.magicType[q],
+					(byte)xVal, (byte)yVal);
 				updateTile();
 				yVal++;
 				if (yVal == data.xDimension)

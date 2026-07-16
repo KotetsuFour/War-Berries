@@ -353,7 +353,7 @@ public class BattlefieldGenerator : MonoBehaviour
                 Warrior war = Instantiate(warriorPrefab, exactSpawnPoint, pos.GetChild(w).rotation);
                 war.setData(team.getMember(w));
             }
-            Destroy(pos.gameObject);
+            team.setTempPositionObject(pos);
         }
 
         workingStage = 0;

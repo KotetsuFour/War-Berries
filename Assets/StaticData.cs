@@ -27,6 +27,13 @@ public static class StaticData
     public static int battlefieldPerlinSeed;
     public static double seaLevel;
 
+    public static Dictionary<string, BuildingData> buildingDataDictionary;
+
+    public static float HOUR_TIME = 1;
+    public static float DAY_TIME = HOUR_TIME * 24;
+    public static float MONTH_TIME = DAY_TIME * 30;
+    public static float YEAR_TIME = DAY_TIME * 12;
+
     /**
      * The categories for items include:
      * [00] - support (healing, buffs, debuffs)
@@ -169,6 +176,29 @@ public static class StaticData
         getMaterialByName(materials, "LeftEye").color = eye;
     }
 
+    public static void initializeBuildingIndex()
+    {
+        buildingDataDictionary = new Dictionary<string, BuildingData>();
+
+        int[] villRecipe = new int[(int)Item.ResouceType.BOUND];
+        villRecipe[(int)Item.ResouceType.CLAY] = 400;
+        villRecipe[(int)Item.ResouceType.FABRIC] = 400;
+        villRecipe[(int)Item.ResouceType.FOOD] = 400;
+        villRecipe[(int)Item.ResouceType.ORE] = 0;
+        villRecipe[(int)Item.ResouceType.WOOD] = 400;
+        bool[] villResources = new bool[(int)Item.ResouceType.BOUND];
+        villResources[(int)Item.ResouceType.CLAY] = false;
+        villResources[(int)Item.ResouceType.FABRIC] = false;
+        villResources[(int)Item.ResouceType.FOOD] = false;
+        villResources[(int)Item.ResouceType.ORE] = false;
+        villResources[(int)Item.ResouceType.WOOD] = false;
+        buildingDataDictionary.Add(BuildSite.VILLAGE, new BuildingData()
+        {
+            recipe = villRecipe,
+            resourcesProduced = villResources
+        });
+    }
+
     public static void initializeItemIndex()
     {
         itemIdx = new List<Item>[21];
@@ -260,5 +290,16 @@ public static class StaticData
     public static Item getItemFromIndex(int[] idx)
     {
         return itemIdx[idx[0]][idx[1]];
+    }
+
+    public static BuildingData getBuildingData(string buildingType)
+    {
+        return buildingDataDictionary[buildingType];
+    }
+
+    public class BuildingData
+    {
+        public int[] recipe;
+        public bool[] resourcesProduced;
     }
 }

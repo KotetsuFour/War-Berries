@@ -6,4 +6,10 @@ public class Item
     public float weight;
     public float size;
     public int initialUses;
+
+    public enum ResouceType
+    {
+        //DO NOT REORDER THESE!
+        FOOD, ORE, WOOD, CLAY, FABRIC, BOUND
+    }
 }

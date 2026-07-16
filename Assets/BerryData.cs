@@ -24,7 +24,6 @@ public class BerryData : CharacterData
         CombatTrait[] allComs = (CombatTrait[])Enum.GetValues(typeof(CombatTrait));
         Interest[] allInts = (Interest[])Enum.GetValues(typeof(Interest));
         setDemeanor(allDems);
-        setSkills(allComs);
         setInterestsAndDisinterests(allInts);
 
         setColorsWithVariance(baseHair, baseSkin, baseEye, variance);
