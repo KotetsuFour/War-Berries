@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 360688062359f474694e87b80e898a29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattlefieldGenerator
-  tilePrefab: {fileID: 9121803754255488000, guid: 9505822b79c672e4a9996a33b6ca6676, type: 3}
+  tilePrefab: {fileID: 9121803754255488000, guid: 54d9ebec1cafa7f4e9aa325fb1c59e03, type: 3}
   sand: {fileID: 2100000, guid: 48d8aa8c82bcb784ea657a230866f405, type: 2}
   stone: {fileID: 2100000, guid: 1867064c8bd89ea47821394c2114b968, type: 2}
   grass: {fileID: 2100000, guid: 634d7263623000f45b0a125d13b967a1, type: 2}

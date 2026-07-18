@@ -11,6 +11,8 @@ public class BattlefieldGenerator : MonoBehaviour
     public const int BATTLEFIELD_TO_WORLDTILE_RATIO = 6;
     public const int ARBITRARY_HIGH_RAYCAST_START_HEIGHT = 100;
     public const float TINY_HEIGHT_ABOVE_MESH = 0.001f;
+    public const float SAFETY_HEIGHT = 0.2f;
+    public const float SLAB_THICKNESS = 1;
     private List<CharacterTeam> teams;
     private List<CharacterTeam> reinforcements;
     private List<float> reinforcementAvailabilityTimers; //How long until each reinforcement can be deployed
@@ -258,27 +260,41 @@ public class BattlefieldGenerator : MonoBehaviour
     {
         Tile tile = Instantiate(tilePrefab, StaticData.findDeepChild(transform, "Terrain"));
         tile.transform.position = new Vector3(x, 0, y);
-//        tile.setMaterial(mat);
-        //        tile.draw(x, y, bfMap[x][y], 0);
         tile.drawBFTile(bfMap, x, y, mat);
 
         Mesh mesh = tile.getMesh();
-        int currentVertexCount = colliderMeshVertices.Count;
         Vector3[] vert = mesh.vertices;
+        Vector3[] normals = mesh.normals;
+        Vector3[] verticesToAdd = new Vector3[vert.Length * 2];
+        Vector3[] normalsToAdd = new Vector3[vert.Length * 2];
         for (int q = 0; q < vert.Length; q++)
         {
-            colliderMeshVertices.Add(new Vector3(vert[q].x + x, vert[q].y + TINY_HEIGHT_ABOVE_MESH,
-                vert[q].z + y));
-        }
-        int[] tri = mesh.triangles;
-        for (int q = 0; q < tri.Length; q++)
-        {
-            colliderMeshTriangles.Add(tri[q] + currentVertexCount);
-        }
-        colliderMeshNormals.AddRange(mesh.normals);
-        colliderMeshUVs.AddRange(mesh.uv);
-    }
+            verticesToAdd[q] = new Vector3(vert[q].x + x, vert[q].y + TINY_HEIGHT_ABOVE_MESH,
+                vert[q].z + y);
+            verticesToAdd[q + vert.Length] = verticesToAdd[q] + new Vector3(0, -SLAB_THICKNESS, 0);
 
+            normalsToAdd[q] = Vector3.up;
+            normalsToAdd[q + normals.Length] = Vector3.down;
+        }
+
+        int offset = colliderMeshVertices.Count;
+
+        int[] tri = mesh.triangles;
+        int[] trianglesToAdd = new int[tri.Length * 2];
+        for (int q = 0; q < tri.Length; q += 3)
+        {
+            trianglesToAdd[q] = tri[q] + offset;
+            trianglesToAdd[q + 1] = tri[q + 1] + offset;
+            trianglesToAdd[q + 2] = tri[q + 2] + offset;
+            trianglesToAdd[tri.Length + q] = tri[q] + vert.Length + offset;
+            trianglesToAdd[tri.Length + q + 1] = tri[q + 2] + vert.Length + offset;
+            trianglesToAdd[tri.Length + q + 2] = tri[q + 1] + vert.Length + offset;
+        }
+
+        colliderMeshVertices.AddRange(verticesToAdd);
+        colliderMeshTriangles.AddRange(trianglesToAdd);
+        colliderMeshNormals.AddRange(normalsToAdd);
+    }
     private BattlefieldTile.BattlefieldTileType getMaterial(WorldMapTile.WorldMapTileType tileType)
     {
         //TODO figure out the randomization process
@@ -289,16 +305,18 @@ public class BattlefieldGenerator : MonoBehaviour
     {
         colliderMesh = new Mesh
         {
-            name = "ColliderMesh"
+            name = "ColliderMesh",
+            indexFormat = UnityEngine.Rendering.IndexFormat.UInt32
         };
-        colliderMesh.vertices = colliderMeshVertices.ToArray();
-        colliderMesh.triangles = colliderMeshTriangles.ToArray();
-        colliderMesh.normals = colliderMeshNormals.ToArray();
-        colliderMesh.SetUVs(0, colliderMeshUVs);
+        colliderMesh.SetVertices(colliderMeshVertices.ToArray());
+        colliderMesh.SetNormals(colliderMeshNormals.ToArray());
+        colliderMesh.SetTriangles(colliderMeshTriangles.ToArray(), 0);
+        //        colliderMesh.SetUVs(0, colliderMeshUVs);
 
         MeshCollider coll = GetComponent<MeshCollider>();
         coll.sharedMesh = null;
         coll.sharedMesh = colliderMesh;
+        colliderMesh.RecalculateBounds();
     }
     private void generateBuildingsAndNature()
     {
@@ -349,7 +367,7 @@ public class BattlefieldGenerator : MonoBehaviour
                 RaycastHit hit;
                 Physics.Raycast(new Vector3(spawn.x, ARBITRARY_HIGH_RAYCAST_START_HEIGHT, spawn.z), Vector3.down,
                     out hit, float.MaxValue, terrainLayer);
-                Vector3 exactSpawnPoint = hit.point;
+                Vector3 exactSpawnPoint = hit.point + new Vector3(0, SAFETY_HEIGHT, 0);
                 Warrior war = Instantiate(warriorPrefab, exactSpawnPoint, pos.GetChild(w).rotation);
                 war.setData(team.getMember(w));
             }

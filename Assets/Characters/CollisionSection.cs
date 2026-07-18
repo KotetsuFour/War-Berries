@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(CustomPhysics))]
 public class CollisionSection : BFDamageable
 {
     private MonoBehaviour parent;

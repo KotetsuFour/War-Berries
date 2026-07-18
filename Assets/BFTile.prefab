@@ -74,8 +74,8 @@ GameObject:
   - component: {fileID: 954260379110960163}
   - component: {fileID: 1687447783741614205}
   - component: {fileID: 9121803754255488000}
-  m_Layer: 8
-  m_Name: Tile
+  m_Layer: 9
+  m_Name: BFTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

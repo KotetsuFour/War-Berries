@@ -22,7 +22,7 @@ public static class StaticData
     public static double battleTime;
     public static float deltaTimeStore;
     public static List<Affiliation> affiliations;
-    public const float GRAVITY = 1;
+    public const float GRAVITY = -1;
 
     public static int battlefieldPerlinSeed;
     public static double seaLevel;
