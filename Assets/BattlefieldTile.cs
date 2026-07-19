@@ -28,6 +28,14 @@ public class BattlefieldTile : TileData
         terrestrialObstacleTraversability = groundTraverse;
         aquaticObstacleTraversability = waterTraverse;
     }
+    public bool canExitFrom(bool isTerrestrial, ushort outboundDirection)
+    {
+        if (isTerrestrial)
+        {
+            return (outboundDirection & terrestrialObstacleTraversability) != ushort.MinValue;
+        }
+        return (outboundDirection & aquaticObstacleTraversability) != ushort.MinValue;
+    }
     public bool canEnterFrom(bool isTerrestrial, ushort inboundDirection)
     {
         if (isTerrestrial)
@@ -38,34 +46,35 @@ public class BattlefieldTile : TileData
     }
     public class BattlefieldTileType
     {
-        public static BattlefieldTileType GRASS = new BattlefieldTileType("Grass", 1, false, true);
-        public static BattlefieldTileType SAND = new BattlefieldTileType("Sand", 1, false, true);
-        public static BattlefieldTileType STONE = new BattlefieldTileType("Stone", 1, false, true);
-        public static BattlefieldTileType DEEP_WATER = new BattlefieldTileType("Deep Water", 100, true, false);
-        public static BattlefieldTileType SHALLOW_WATER = new BattlefieldTileType("ShallowWater", 1, false, false);
-        public static BattlefieldTileType SNOW = new BattlefieldTileType("Snow", 1, false, true);
-        public static BattlefieldTileType DIRT = new BattlefieldTileType("Dirt", 1, false, true);
-        public static BattlefieldTileType ICE = new BattlefieldTileType("Ice", 1, false, false);
-        public static BattlefieldTileType MUD = new BattlefieldTileType("Mud", 1, false, true);
-        public static BattlefieldTileType RUBBLE = new BattlefieldTileType("Rubble", 1, false, true);
-        public static BattlefieldTileType FLOOR = new BattlefieldTileType("Floor", 1, false, true);
-        public static BattlefieldTileType WALL = new BattlefieldTileType("Wall", 1, false, true);
-        public static BattlefieldTileType PILLAR = new BattlefieldTileType("Pillar", 1, false, true);
-        public static BattlefieldTileType TREE = new BattlefieldTileType("Tree", 1, false, true);
-        public static BattlefieldTileType PATH = new BattlefieldTileType("Path", 1, false, true);
-        public static BattlefieldTileType LAVA = new BattlefieldTileType("Lava", 1, true, true);
-        public static BattlefieldTileType POISON = new BattlefieldTileType("Poison", 1, true, false);
+        public static BattlefieldTileType GRASS = new BattlefieldTileType("Grass", 1, int.MaxValue, false, true);
+        public static BattlefieldTileType SAND = new BattlefieldTileType("Sand", 2, int.MaxValue, false, true);
+        public static BattlefieldTileType STONE = new BattlefieldTileType("Stone", 1, int.MaxValue, false, true);
+        public static BattlefieldTileType DEEP_WATER = new BattlefieldTileType("Deep Water", 100, 1, true, false);
+        public static BattlefieldTileType SHALLOW_WATER = new BattlefieldTileType("ShallowWater", 2, 1, false, false);
+        public static BattlefieldTileType SNOW = new BattlefieldTileType("Snow", 1, int.MaxValue, false, true);
+        public static BattlefieldTileType DIRT = new BattlefieldTileType("Dirt", 1, int.MaxValue, false, true);
+        public static BattlefieldTileType ICE = new BattlefieldTileType("Ice", 3, 3, false, false);
+        public static BattlefieldTileType MUD = new BattlefieldTileType("Mud", 2, int.MaxValue, false, true);
+        public static BattlefieldTileType RUBBLE = new BattlefieldTileType("Rubble", 1, int.MaxValue, false, true);
+        public static BattlefieldTileType FLOOR = new BattlefieldTileType("Floor", 1, int.MaxValue, false, true);
+        public static BattlefieldTileType WALL = new BattlefieldTileType("Wall", 1, int.MaxValue, false, true);
+        public static BattlefieldTileType PILLAR = new BattlefieldTileType("Pillar", 1, int.MaxValue, false, true);
+        public static BattlefieldTileType TREE = new BattlefieldTileType("Tree", 1, int.MaxValue, false, true);
+        public static BattlefieldTileType PATH = new BattlefieldTileType("Path", 1, int.MaxValue, false, true);
+        public static BattlefieldTileType LAVA = new BattlefieldTileType("Lava", 100, 100, true, true);
+        public static BattlefieldTileType POISON = new BattlefieldTileType("Poison", 1, 2, true, false);
 
         private string name;
-        private int moveCost;
+        private int landMoveCost;
+        private int waterMoveCost;
         private bool groundImpass;
         private bool waterImpass;
 
-        public BattlefieldTileType(string name, int moveCost, bool preventTraversalFromGround,
+        public BattlefieldTileType(string name, int landMoveCost, int waterMoveCost, bool preventTraversalFromGround,
             bool preventTraversaFromWater)
         {
             this.name = name;
-            this.moveCost = moveCost;
+            this.landMoveCost = landMoveCost;
             groundImpass = preventTraversalFromGround;
             waterImpass = preventTraversaFromWater;
         }
@@ -74,9 +83,13 @@ public class BattlefieldTile : TileData
         {
             return name;
         }
-        public int getMoveCost()
+        public int getMoveCost(bool terrestrial /*As opposed to aquatic*/)
         {
-            return moveCost;
+            if (terrestrial)
+            {
+                return landMoveCost;
+            }
+            return waterMoveCost;
         }
 
         public bool isGroundImpass()
