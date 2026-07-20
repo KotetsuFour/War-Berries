@@ -6,6 +6,7 @@ public class BattlefieldTile : TileData
     private ushort terrestrialObstacleTraversability;
     private ushort aquaticObstacleTraversability;
     public int x, y;
+    private bool[][] subMap;
     public BattlefieldTile(double height) : base(height)
     {
     }
@@ -43,6 +44,10 @@ public class BattlefieldTile : TileData
             return (inboundDirection & terrestrialObstacleTraversability) != ushort.MinValue;
         }
         return (inboundDirection & aquaticObstacleTraversability) != ushort.MinValue;
+    }
+    public bool[][] getSubMap()
+    {
+        return subMap;
     }
     public class BattlefieldTileType
     {

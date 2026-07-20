@@ -1,30 +1,31 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CustomPhysics))]
 public class BFNavigator : MonoBehaviour
 {
-    public static float TILE_SIZE = 1;
-
     [SerializeField] private LayerMask tileLayer;
     [SerializeField] private float movementSpeed;
     [SerializeField] private float rotationSpeed;
-    [SerializeField] private float acceptableDistance;
+    [SerializeField] private float stoppingDistance;
     [SerializeField] private bool terrestrial;
     [SerializeField] private LayerMask traversableLayer;
     private int shortTimeMainMapDest;
+    private int shortTimeSubMapDest;
     private BattlefieldTile destination;
     private BattlefieldTile[] tilePath;
     private BattlefieldTile[][] tileMap;
     private Vector3[] subMapPath; //Represents actual world space
-    private short currentSubMapPositionX = -1;
-    private short currentSubMapPositionY = -1;
+    private bool[][] navigationSubMap;
     private float formationPositionX;
     private float formationPositionY;
+    private Vector3 myPosition;
+    private Vector3 globalSubMapOffset;
     private bool moving;
 
-    public const float SUBMAP_RADIUS = 7;
+    private CustomPhysics physics;
+
+    public const int SUBMAP_RADIUS = 7;
     //The last 8 bits are for door accessibility. BattlefieldTile will eliminate these if there's no door,
     //or if it's an aquatic unit that can't go through a door
     public const ushort toPosXDirection = 0b_1000_0000_1111_1111;
@@ -42,57 +43,68 @@ public class BFNavigator : MonoBehaviour
         this.tileMap = tileMap;
         this.formationPositionX = formationPositionX;
         this.formationPositionY = formationPositionY;
+        navigationSubMap = new bool[Mathf.RoundToInt(SUBMAP_RADIUS * 2)][];
+        globalSubMapOffset = new Vector3(tileMap[0][0].x, tileMap[0][0].y);
+        for (int q = 0; q < navigationSubMap.Length; q++)
+        {
+            navigationSubMap[q] = new bool[Mathf.RoundToInt(SUBMAP_RADIUS * 2)];
+        }
+        physics = GetComponent<CustomPhysics>();
     }
-
     public void setSpeed(float movementSpeed)
     {
         this.movementSpeed = movementSpeed;
     }
-
-    public void setDestination(Collider agentCollider)
+    public void setDestination(BattlefieldTile destination)
     {
-        RaycastHit hit;
-        Physics.Raycast(agentCollider.bounds.center, Vector3.down, out hit,
-            agentCollider.bounds.extents.y, tileLayer);
-        if (hit.collider == null)
+        if (destination == null)
         {
-            Debug.Log($"This agent is not on the map. Coords: {transform.position}");
+            moving = false;
             return;
         }
 
-        Tile here = hit.collider.GetComponent<Tile>();
-        Vector3 coords = hit.point;
+        this.destination = destination;
 
-        currentSubMapPositionX = (short)Mathf.FloorToInt((coords.x - here.x) * SUBMAP_RADIUS);
-        currentSubMapPositionY = (short)Mathf.FloorToInt((coords.z - here.y) * SUBMAP_RADIUS);
+        myPosition = transform.position;
 
-        shortTimeMainMapDest = 0;
-        tilePath = getPath((BattlefieldTile)here.tile);
+        tilePath = getPath(worldCoordinatesToBattlefieldTile(myPosition));
+
+        setSubMapAndSubPath();
     }
     public BattlefieldTile getDestination()
     {
         return destination;
     }
-
     public bool reachedDestination()
     {
-        return tilePath == null || shortTimeMainMapDest == tilePath.Length;
+        return tilePath == null || shortTimeMainMapDest == tilePath.Length - 1;
     }
-
-    public void setActive(bool active)
+    public bool reachedSubMapOfNextBFTile()
     {
-        moving = active;
+        return reachedDestination()
+            || worldCoordinatesToBattlefieldTile(subMapPath[shortTimeSubMapDest]) == tilePath[shortTimeMainMapDest];
     }
-    public bool isActive()
+    public bool reachedFormationPosition()
+    {
+        return (subMapPath[subMapPath.Length - 1] - transform.position).magnitude <= stoppingDistance;
+    }
+    public void setMoving(bool moving)
+    {
+        if (tilePath == null)
+        {
+            this.moving = false;
+            return;
+        }
+        this.moving = moving;
+    }
+    public bool isMoving()
     {
         return moving;
     }
-
-    public void setStoppingDistance(float distance)
+    public void setStoppingDistance(float stoppingDistance)
     {
-        acceptableDistance = distance;
+        this.stoppingDistance = stoppingDistance;
     }
-
     private BattlefieldTile[] getPath(BattlefieldTile startTile)
     {
         List<BattlefieldTile> open = new List<BattlefieldTile>();
@@ -158,7 +170,7 @@ public class BFNavigator : MonoBehaviour
                 negY = checkConnection(check, negYTile, parent, open, closed, pos, g, f,
                     toNegYDirection, fromPosYDirection);
             }
-            if (check.y < tileMap.Length - 1)
+            if (check.y < tileMap[0].Length - 1)
             {
                 posYTile = tileMap[check.x][check.y + 1];
                 if (posYTile == destination)
@@ -288,6 +300,7 @@ public class BFNavigator : MonoBehaviour
         {
             ret[(backwards.Count - 1) - q] = backwards[q];
         }
+        shortTimeMainMapDest = 0;
         return ret;
     }
 
@@ -335,9 +348,7 @@ public class BFNavigator : MonoBehaviour
             dictionary.Add(key, value);
         }
     }
-
-    private Vector3[] setSubMapPath(bool[][] currentNavigationSubMap, Vector3 subMapGlobalOffset,
-        Vector3 subMapStartIdx, Vector3 subMapDestinationIdx)
+    private Vector3[] setSubMapPath(Vector3 subMapStartIdx, Vector3 subMapDestinationIdx)
     {
         List<Vector3> open = new List<Vector3>();
         List<Vector3> closed = new List<Vector3>();
@@ -369,55 +380,54 @@ public class BFNavigator : MonoBehaviour
             if (check.x > 0)
             {
                 Vector3 child = new Vector3(check.x - 1, 0, check.z);
-                negX = checkBooleanConnection(check, child, parent, open, closed, pos, g, f, currentNavigationSubMap);
+                negX = checkBooleanConnection(check, child, parent, open, closed, pos, g, f);
             }
-            if (check.x < currentNavigationSubMap.Length - 1)
+            if (check.x < navigationSubMap.Length - 1)
             {
                 Vector3 child = new Vector3(check.x + 1, 0, check.z);
-                posX = checkBooleanConnection(check, child, parent, open, closed, pos, g, f, currentNavigationSubMap);
+                posX = checkBooleanConnection(check, child, parent, open, closed, pos, g, f);
             }
             if (check.z > 0)
             {
                 Vector3 child = new Vector3(check.x, 0, check.z - 1);
-                negY = checkBooleanConnection(check, child, parent, open, closed, pos, g, f, currentNavigationSubMap);
+                negY = checkBooleanConnection(check, child, parent, open, closed, pos, g, f);
             }
-            if (check.z < currentNavigationSubMap.Length - 1)
+            if (check.z < navigationSubMap[0].Length - 1)
             {
                 Vector3 child = new Vector3(check.x, 0, check.z + 1);
-                posY = checkBooleanConnection(check, child, parent, open, closed, pos, g, f, currentNavigationSubMap);
+                posY = checkBooleanConnection(check, child, parent, open, closed, pos, g, f);
             }
             if (posX && posY)
             {
                 Vector3 child = new Vector3(check.x + 1, 0, check.z + 1);
-                checkBooleanConnection(check, child, parent, open, closed, pos, g, f, currentNavigationSubMap);
+                checkBooleanConnection(check, child, parent, open, closed, pos, g, f);
             }
             if (posX && negY)
             {
                 Vector3 child = new Vector3(check.x + 1, 0, check.z - 1);
-                checkBooleanConnection(check, child, parent, open, closed, pos, g, f, currentNavigationSubMap);
+                checkBooleanConnection(check, child, parent, open, closed, pos, g, f);
             }
             if (negX && posY)
             {
                 Vector3 child = new Vector3(check.x - 1, 0, check.z + 1);
-                checkBooleanConnection(check, child, parent, open, closed, pos, g, f, currentNavigationSubMap);
+                checkBooleanConnection(check, child, parent, open, closed, pos, g, f);
             }
             if (negX && negY)
             {
                 Vector3 child = new Vector3(check.x - 1, 0, check.z - 1);
-                checkBooleanConnection(check, child, parent, open, closed, pos, g, f, currentNavigationSubMap);
+                checkBooleanConnection(check, child, parent, open, closed, pos, g, f);
             }
             closed.Add(check);
         }
-        return interpretSubMapPath(subMapDestinationIdx, subMapStartIdx, subMapGlobalOffset, parent);
+        return interpretSubMapPath(subMapDestinationIdx, subMapStartIdx, parent);
     }
-
     private bool checkBooleanConnection(Vector3 check, Vector3 child, Dictionary<Vector3, Vector3> parent,
         List<Vector3> open, List<Vector3> closed,
         Dictionary<Vector3, float> pos, Dictionary<Vector3, float> g,
-        Dictionary<Vector3, float> f, bool[][] map)
+        Dictionary<Vector3, float> f)
     {
         if (closed.Contains(child)
-            || !map[Mathf.RoundToInt(child.x)][Mathf.RoundToInt(child.z)])
+            || !navigationSubMap[Mathf.RoundToInt(child.x)][Mathf.RoundToInt(child.z)])
         {
             return false;
         }
@@ -433,8 +443,7 @@ public class BFNavigator : MonoBehaviour
         }
         return true;
     }
-
-    private Vector3[] interpretSubMapPath(Vector3 destination, Vector3 startPos, Vector3 subMapGlobalOffset,
+    private Vector3[] interpretSubMapPath(Vector3 destination, Vector3 startPos,
         Dictionary<Vector3, Vector3> pathData)
     {
         Vector3 current = destination;
@@ -448,17 +457,17 @@ public class BFNavigator : MonoBehaviour
         Vector3[] ret = new Vector3[backwards.Count];
         for (int q = backwards.Count - 1; q >= 0; q--)
         {
-            ret[(backwards.Count - 1) - q] = translateSubMapCoordsToBattlefieldCoords(backwards[q], subMapGlobalOffset);
+            ret[(backwards.Count - 1) - q] = translateSubMapCoordsToBattlefieldCoords(backwards[q]);
         }
+        shortTimeSubMapDest = 0;
         return ret;
     }
-
-    private Vector3 translateSubMapCoordsToBattlefieldCoords(Vector3 coords, Vector3 offset)
+    private Vector3 translateSubMapCoordsToBattlefieldCoords(Vector3 coords)
     {
         Vector3 ret = new Vector3(
-            ((coords.x + 0.5f) * SUBMAP_RADIUS) + offset.x,
+            ((coords.x + 0.5f) * SUBMAP_RADIUS) + globalSubMapOffset.x,
             BattlefieldGenerator.ARBITRARY_HIGH_RAYCAST_START_HEIGHT,
-            ((coords.z + 0.5f) * SUBMAP_RADIUS) + offset.z
+            ((coords.z + 0.5f) * SUBMAP_RADIUS) + globalSubMapOffset.z
             );
         RaycastHit hit;
         if (Physics.Raycast(ret, Vector3.down,
@@ -469,41 +478,152 @@ public class BFNavigator : MonoBehaviour
         Debug.LogError("Hit a point that was not on the map");
         return ret;
     }
-    private Vector3 translateBattlefieldCoordsToSubMapCoords(Vector3 coords, Vector3 offset)
+    private Vector3 translateBattlefieldCoordsToSubMapCoords(Vector3 coords)
     {
         Vector3 ret = transform.position;
-        ret.x = Mathf.FloorToInt((coords.x - offset.x) * SUBMAP_RADIUS);
+        ret.x = Mathf.FloorToInt((coords.x - globalSubMapOffset.x) / SUBMAP_RADIUS);
         ret.y = 0;
-        ret.x = Mathf.FloorToInt((coords.z - offset.z) * SUBMAP_RADIUS);
+        ret.x = Mathf.FloorToInt((coords.z - globalSubMapOffset.z) / SUBMAP_RADIUS);
         return ret;
     }
+    private BattlefieldTile worldCoordinatesToBattlefieldTile(Vector3 coords)
+    {
+        return tileMap[Mathf.FloorToInt(coords.x)][Mathf.FloorToInt(coords.z)];
+    }
+    private void setSubMapAndSubPath()
+    {
+        if (shortTimeMainMapDest == tilePath.Length - 1)
+        {
+            setSubMapQuadrant(destination.getSubMap(), 0, 0);
+            setSubMapQuadrant(null, 0, SUBMAP_RADIUS);
+            setSubMapQuadrant(null, SUBMAP_RADIUS, 0);
+            setSubMapQuadrant(null, SUBMAP_RADIUS, SUBMAP_RADIUS);
 
+            Vector3 subMapDestinationIdx = translateBattlefieldCoordsToSubMapCoords(
+            new Vector3(destination.x, 0, destination.y)
+            + new Vector3(formationPositionX, 0, formationPositionY));
+
+            setSubMapPath(translateBattlefieldCoordsToSubMapCoords(transform.position), subMapDestinationIdx);
+        }
+        else
+        {
+            BattlefieldTile here = tilePath[shortTimeMainMapDest];
+            BattlefieldTile next = tilePath[shortTimeMainMapDest + 1];
+            BattlefieldTile posXposY = null;
+            BattlefieldTile posXnegY = null;
+            BattlefieldTile negXposY = null;
+            BattlefieldTile negXnegY = null;
+            if (next.x == here.x)
+            {
+                if (next.y > here.y)
+                {
+                    negXposY = next;
+                    negXnegY = here;
+                }
+                else
+                {
+                    negXposY = here;
+                    negXnegY = next;
+                }
+            }
+            else if (next.y == here.y)
+            {
+                if (next.x > here.x)
+                {
+                    posXnegY = here;
+                    negXnegY = next;
+                }
+                else
+                {
+                    posXnegY = next;
+                    negXnegY = here;
+                }
+            }
+            else
+            {
+                negXnegY = tileMap[Mathf.Min(here.x, next.x)][Mathf.Min(here.y, next.y)];
+                posXnegY = tileMap[Mathf.Max(here.x, next.x)][Mathf.Min(here.y, next.y)];
+                negXposY = tileMap[Mathf.Min(here.x, next.x)][Mathf.Max(here.y, next.y)];
+                posXposY = tileMap[Mathf.Max(here.x, next.x)][Mathf.Max(here.y, next.y)];
+            }
+            setSubMapQuadrant(negXnegY.getSubMap(), 0, 0);
+            setSubMapQuadrant(negXposY.getSubMap(), 0, SUBMAP_RADIUS);
+            setSubMapQuadrant(posXnegY.getSubMap(), SUBMAP_RADIUS, 0);
+            setSubMapQuadrant(posXposY.getSubMap(), SUBMAP_RADIUS, SUBMAP_RADIUS);
+
+            Vector3 subMapDestinationIdx = translateBattlefieldCoordsToSubMapCoords(
+                new Vector3(next.x, 0, next.y)
+                + new Vector3(formationPositionX, 0, formationPositionY));
+            setSubMapPath(
+                translateBattlefieldCoordsToSubMapCoords(transform.position),
+                subMapDestinationIdx);
+        }
+    }
+    private void setSubMapQuadrant(bool[][] tileSubMap, int xOffset, int yOffset)
+    {
+        if (tileSubMap == null)
+        {
+            for (int q = xOffset; q < SUBMAP_RADIUS + xOffset; q++)
+            {
+                for (int w = yOffset; w < SUBMAP_RADIUS + yOffset; w++)
+                {
+                    navigationSubMap[q + xOffset][w + yOffset] = false;
+                }
+            }
+            return;
+        }
+        for (int q = 0; q < tileSubMap.Length; q++)
+        {
+            for (int w = 0; w < tileSubMap[q].Length; w++)
+            {
+                navigationSubMap[q + xOffset][w + yOffset] = tileSubMap[q][w];
+            }
+        }
+    }
     // Update is called once per frame
     void Update()
     {
-        //TODO If you're on your destination battlefieldTile, move to your formation position
+        //If you're on your destination battlefieldTile, move to your formation position
         //When you enter a battlefieldTile that is NOT your destination (including when you start a new tilePath)
         //Set your subMap path to move towards your formation position on your NEXT battlefieldTile (regardless of
         //whether you've arrived at the one on THIS tile. That no-longer matters), taking into consideration
         //the submaps of only this tile and the next if moving adjacently, or including this tile, the next,
         //and both relevant adjacent tiles if moving diagonally
-        /*
-        if (moving && !reachedDestination())
+        if (moving)
         {
-            if ((transform.position - path[shortTimeDest].transform.position).magnitude <= acceptableDistance)
+            if (reachedDestination())
             {
-                shortTimeDest++;
+                if (reachedFormationPosition())
+                {
+                    tilePath = null;
+                    moving = false;
+                }
+                else
+                {
+                    move();
+                }
+            }
+            else if (reachedSubMapOfNextBFTile())
+            {
+                shortTimeMainMapDest++;
+
+                setSubMapAndSubPath();
             }
             else
             {
-                Vector3 direction = (path[shortTimeDest].transform.position - transform.position).normalized;
-                Vector3 movement = direction * movementSpeed * StaticData.deltaTime();
-                transform.Translate(movement);
-                Quaternion look = Quaternion.LookRotation(-direction);
-                look = Quaternion.Euler(0, look.eulerAngles.y, 0);
-                Quaternion.Lerp(transform.rotation, look, rotationSpeed * StaticData.deltaTime());
+                move();
             }
         }
-        */
+    }
+    private void move()
+    {
+        Vector3 target = subMapPath[shortTimeSubMapDest];
+        Vector3 forward = target - transform.position;
+        physics.Move(forward.normalized * movementSpeed);
+        transform.rotation = Quaternion.LookRotation(forward);
+        if ((transform.position - subMapPath[shortTimeSubMapDest]).magnitude <= stoppingDistance)
+        {
+            shortTimeSubMapDest++;
+        }
     }
 }
