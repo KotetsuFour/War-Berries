@@ -424,18 +424,32 @@ public class VisualMapGenerator : MonoBehaviour
 		BattlefieldGenerator bfGen = Instantiate(bfGeneratorPrefab);
 		Affiliation aff1 = new Affiliation();
 		Affiliation aff2 = new Affiliation();
-		BerryData data1 = new BerryData($"TestBerry1", aff1, 0, Color.blue,
-			Color.blue, Color.blue, 0);
-		BerryData data2 = new BerryData($"TestBerry2", aff2, 0, Color.blue,
-			Color.blue, Color.blue, 0);
-		CharacterTeam team1 = new CharacterTeam(data1);
-		CharacterTeam team2 = new CharacterTeam(data2);
-		team1.xCoord = testExpandPosX1;
-		team1.yCoord = testExpandPosY1;
-		team2.xCoord = testExpandPosX2;
-		team2.yCoord = testExpandPosY2;
-		at(team1.xCoord, team1.yCoord).placeTeam(team1);
-		at(team2.xCoord, team2.yCoord).placeTeam(team2);
+		CharacterTeam team1 = null;
+		CharacterTeam team2 = null;
+		for (int q = 0; q < CharacterTeam.MAX_MEMBERS_ALLOWED; q++)
+        {
+			BerryData data1 = new BerryData($"TestBerry1", aff1, 0, Color.blue,
+				Color.blue, Color.blue, 0);
+			if (q == 0)
+            {
+				team1 = new CharacterTeam(data1);
+			}
+			team1.xCoord = testExpandPosX1;
+			team1.yCoord = testExpandPosY1;
+			at(team1.xCoord, team1.yCoord).placeTeam(team1);
+		}
+		for (int q = 0; q < CharacterTeam.MAX_MEMBERS_ALLOWED; q++)
+        {
+			BerryData data2 = new BerryData($"TestBerry2", aff2, 0, Color.blue,
+				Color.blue, Color.blue, 0);
+			if (q == 0)
+			{
+				team2 = new CharacterTeam(data2);
+			}
+			team2.xCoord = testExpandPosX2;
+			team2.yCoord = testExpandPosY2;
+			at(team2.xCoord, team2.yCoord).placeTeam(team2);
+		}
 		StaticData.findDeepChild(transform, "Terrain").gameObject.SetActive(false);
 		bfGen.setup(new CharacterTeam[] { team1, team2 });
     }

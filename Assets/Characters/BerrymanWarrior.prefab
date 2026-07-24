@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7148177738076346506}
-  - component: {fileID: 7348437638418199062}
   - component: {fileID: 5486505868719381506}
   - component: {fileID: 509673900451535066}
   - component: {fileID: 3881408639715634816}
+  - component: {fileID: 4552586524961685202}
   m_Layer: 0
   m_Name: BerrymanWarrior
   m_TagString: Untagged
@@ -36,24 +36,6 @@ Transform:
   - {fileID: 5979080868690019596}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7348437638418199062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1849076036489020934}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4510001b61df1f4c89e8e7185a92485, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CustomNavAgent
-  tileLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  movementSpeed: 7
-  rotationSpeed: 90
-  acceptableDistance: 0.75
 --- !u!114 &5486505868719381506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,6 +94,28 @@ MonoBehaviour:
   skinWidth: 0.05
   triggerInteraction: 1
   collisionBounciness: 0.5
+--- !u!114 &4552586524961685202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849076036489020934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d55c0c0ca4e809a4090f675af7231daf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BFNavigator
+  tileLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  movementSpeed: 1
+  rotationSpeed: 90
+  stoppingDistance: 0.1
+  terrestrial: 1
+  traversableLayer:
+    serializedVersion: 2
+    m_Bits: 1536
 --- !u!1001 &8972774328214054752
 PrefabInstance:
   m_ObjectHideFlags: 0

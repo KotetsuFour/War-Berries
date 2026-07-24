@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(CustomNavAgent))]
+[RequireComponent(typeof(BFNavigator))]
 public class Warrior : PlayerEntity
 {
     public static float STANDARD_WARRIOR_BODY_RADIUS = 0.5f;
 
     private CharacterData data;
     private GameObject model;
-    private CustomNavAgent agent;
+    private BFNavigator agent;
     private bool isBeingControlled;
-    private CharacterController cc;
     private Collider generalCollider;
+    private CustomPhysics phys;
 
     private Warrior commandingOfficer;
     private CollisionSection target;
@@ -44,15 +44,14 @@ public class Warrior : PlayerEntity
     // Start is called before the first frame update
     void Awake()
     {
-        agent = GetComponent<CustomNavAgent>();
+        agent = GetComponent<BFNavigator>();
         model = StaticData.findDeepChild(transform, "model").gameObject;
         if (data != null)
         {
             Material[] materials = StaticData.findDeepChild(model.transform, "Mesh").GetComponent<SkinnedMeshRenderer>().materials;
             StaticData.paintHairSkinEye(materials, data.hair, data.skin, data.eye);
         }
-        cc = GetComponent<CharacterController>();
-        agent.setCharacterController(cc);
+        phys = GetComponent<CustomPhysics>();
         //TODO set mass
         generalCollider = GetComponent<Collider>();
     }
@@ -99,12 +98,12 @@ public class Warrior : PlayerEntity
     {
         base.attachPlayer(playerInput, inputDevice);
         isBeingControlled = true;
-        agent.setActive(false);
+        agent.enabled = false;
     }
     public override void detatchPlayer()
     {
         isBeingControlled = false;
-        agent.setActive(true);
+        agent.enabled = true;
     }
     public bool isControlledByPlayer()
     {
@@ -254,25 +253,24 @@ public class Warrior : PlayerEntity
         this.task = task;
     }
 
-    public void updateAI(int mapExtent)
+    public void updateAI()
     {
-        if (!agent.isActive())
+        if (!agent.enabled)
         {
             return;
         }
         //TODO this is a test. Do the actual algorithm
         if (agent.reachedDestination())
         {
-            agent.setDestination(new Vector3(Random.Range(0, mapExtent) - (mapExtent / 2),
-                0, Random.Range(0, mapExtent) - (mapExtent / 2)),
-                generalCollider);
-            agent.setActive(true);
+            agent.setRandomTestDestination();
+            agent.setMoving(true);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
+        updateAI();
         return;
         if (hesitation > 0)
         {

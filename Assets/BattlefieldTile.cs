@@ -9,6 +9,15 @@ public class BattlefieldTile : TileData
     private bool[][] subMap;
     public BattlefieldTile(double height) : base(height)
     {
+        subMap = new bool[BFNavigator.SUBMAP_RADIUS][];
+        for (int q = 0; q < subMap.Length; q++)
+        {
+            subMap[q] = new bool[BFNavigator.SUBMAP_RADIUS];
+            for (int w = 0; w < subMap[q].Length; w++)
+            {
+                subMap[q][w] = true;
+            }
+        }
     }
     public void setType(BattlefieldTileType type)
     {
@@ -48,6 +57,10 @@ public class BattlefieldTile : TileData
     public bool[][] getSubMap()
     {
         return subMap;
+    }
+    public int getMovementCost(bool isTerrestrial)
+    {
+        return type.getMoveCost(isTerrestrial);
     }
     public class BattlefieldTileType
     {

@@ -227,6 +227,8 @@ public class BattlefieldGenerator : MonoBehaviour
         }
 
         BattlefieldTile tile = new BattlefieldTile(height);
+        tile.x = xWorkingVal;
+        tile.y = yWorkingVal;
         bfMap[xWorkingVal][yWorkingVal] = tile;
 
         xWorkingVal++;
@@ -370,6 +372,7 @@ public class BattlefieldGenerator : MonoBehaviour
                 Vector3 exactSpawnPoint = hit.point + new Vector3(0, SAFETY_HEIGHT, 0);
                 Warrior war = Instantiate(warriorPrefab, exactSpawnPoint, pos.GetChild(w).rotation);
                 war.setData(team.getMember(w));
+                war.GetComponent<BFNavigator>().setBattlefieldData(bfMap, spawn.x, spawn.z);
             }
             team.setTempPositionObject(pos);
         }

@@ -65,7 +65,7 @@ public class TestBFSetup : MonoBehaviour
             aiUpdateTimer = 0;
             foreach (Warrior war in warriors)
             {
-                war.updateAI(80);
+//                war.updateAI(80);
             }
         }
     }
